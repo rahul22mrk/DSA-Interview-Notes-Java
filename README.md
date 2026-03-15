@@ -32,6 +32,9 @@ DSA-Interview-Notes-Java/
 │   ├── 02-stack-count.md
 │   └── 03-stack-simulation.md
 │
+├── 08_HashMap_Pattern/
+│   └── 01-hashmap-pattern.md
+│
 └── README.md
 ```
 
@@ -45,6 +48,17 @@ DSA-Interview-Notes-Java/
 | [01-monotonic-stack.md](./07_Stack_Pattern/01-monotonic-stack.md) | Monotonic Stack | Next/Prev Greater, Daily Temps, Largest Rectangle, Trapping Rain Water, Stock Span, Subarray Minimums | Easy → Hard |
 | [02-stack-count.md](./07_Stack_Pattern/02-stack-count.md) | Stack + Count | Remove Duplicates I & II, Decode String, Removing Stars, Backspace, Score of Parentheses, Valid Parentheses | Easy → Medium |
 | [03-stack-simulation.md](./07_Stack_Pattern/03-stack-simulation.md) | Stack Simulation | Asteroid Collision, Evaluate RPN, Simplify Path, Remove K Digits, Remove Duplicate Letters | Easy → Hard |
+
+---
+
+### ✅ HashMap
+| File | Sub-Pattern | Problems | Difficulty |
+|------|------------|----------|------------|
+| [01-hashmap-pattern.md](./08_HashMap_Pattern/01-hashmap-pattern.md) | Frequency Count | Valid Anagram, First Non-Repeating Char, Max Balloons, Longest Palindrome, Ransom Note, Top K Frequent | Easy → Medium |
+| [01-hashmap-pattern.md](./08_HashMap_Pattern/01-hashmap-pattern.md) | Complement Lookup | Two Sum | Easy |
+| [01-hashmap-pattern.md](./08_HashMap_Pattern/01-hashmap-pattern.md) | Prefix Sum | Subarray Sum = K | Medium |
+| [01-hashmap-pattern.md](./08_HashMap_Pattern/01-hashmap-pattern.md) | Grouping / Bucketing | Group Anagrams | Medium |
+| [01-hashmap-pattern.md](./08_HashMap_Pattern/01-hashmap-pattern.md) | Index Tracking + Sliding Window | Longest Substring Without Repeating | Medium |
 
 ---
 
@@ -74,18 +88,19 @@ DSA-Interview-Notes-Java/
 ## 📝 Note Format — Every File Follows This Structure
 
 ```
-1. What is this pattern?
-2. Core rules  (3 things to always remember)
-3. 2-question framework  (how to identify the variant)
-4. Variants table
-5. Universal Java template  (with commented labels)
-6. 8–10 solved problems
+1. How to identify this pattern  (keywords + brute force test + 5 signals)
+2. What is this pattern?
+3. Core rules  (3 things to always remember)
+4. 2-question framework  (how to identify the variant)
+5. Variants table  (Key → Value → Query for each sub-pattern)
+6. Universal Java template  (with commented labels)
+7. 8–10 solved problems
    ├── Approach table  (loop / condition / result)
    ├── Clean Java code
    └── Input → Output example
-7. Quick reference cheatsheet
-8. Common mistakes
-9. Complexity summary
+8. Quick reference cheatsheet
+9. Common mistakes
+10. Complexity summary
 ```
 
 ---
@@ -103,6 +118,27 @@ DSA-Interview-Notes-Java/
 | `"collision / asteroid"` | Stack Simulation |
 | `"evaluate expression / RPN"` | Stack Simulation |
 | `"backspace / remove stars"` | Stack Simulation |
+
+---
+
+## ⚡ HashMap — Quick Clue Detector
+
+| If you see this in the question | Pattern |
+|---------------------------------|---------|
+| `"two numbers that sum to target"` | Complement Lookup |
+| `"find pair with difference k"` | Complement Lookup |
+| `"count occurrences / frequency"` | Frequency Count |
+| `"most frequent / top k"` | Frequency Count |
+| `"first non-repeating / unique character"` | Frequency Count |
+| `"anagram / permutation of"` | Frequency Count |
+| `"can X be constructed from Y"` | Frequency Count (two-map) |
+| `"palindrome from given characters"` | Frequency Count |
+| `"group by / classify / anagram groups"` | Grouping / Bucketing |
+| `"subarray sum equals k"` | Prefix Sum |
+| `"longest subarray with sum k"` | Prefix Sum |
+| `"longest substring without repeating"` | Index Tracking + Sliding Window |
+| `"duplicate / already seen"` | HashSet |
+| `"isomorphic / pattern match"` | Two-map (bidirectional) |
 
 ---
 
@@ -131,6 +167,16 @@ DSA-Interview-Notes-Java/
 | 19 | Remove K Digits | 402 | Stack Simulation | Medium | ✅ |
 | 20 | Longest Valid Parentheses | 32 | Stack + Count | Hard | ✅ |
 | 21 | Remove Duplicate Letters | 316 | Stack Simulation | Hard | ✅ |
+| 22 | Two Sum | 1 | HashMap — Complement Lookup | Easy | ✅ |
+| 23 | Valid Anagram | 242 | HashMap — Frequency Count | Easy | ✅ |
+| 24 | First Non-Repeating Character | 387 | HashMap — Frequency Count | Easy | ✅ |
+| 25 | Maximum Number of Balloons | 1189 | HashMap — Frequency Count | Easy | ✅ |
+| 26 | Longest Palindrome | 409 | HashMap — Frequency Count | Easy | ✅ |
+| 27 | Ransom Note | 383 | HashMap — Frequency Count | Easy | ✅ |
+| 28 | Subarray Sum Equals K | 560 | HashMap — Prefix Sum | Medium | ✅ |
+| 29 | Longest Substring Without Repeating | 3 | HashMap — Index Tracking | Medium | ✅ |
+| 30 | Group Anagrams | 49 | HashMap — Grouping | Medium | ✅ |
+| 31 | Top K Frequent Elements | 347 | HashMap — Frequency Count | Medium | ✅ |
 
 ---
 
@@ -142,6 +188,7 @@ git clone https://github.com/rahul22mrk/DSA-Interview-Notes-Java.git
 
 # Navigate to any pattern
 cd DSA-Interview-Notes-Java/07_Stack_Pattern
+cd DSA-Interview-Notes-Java/08_HashMap_Pattern
 ```
 
 > **Java Version:** 11+
