@@ -41,9 +41,9 @@ DSA-Interview-Notes-Java/
 ### ✅ Stack
 | File | Sub-Pattern | Problems Covered | Difficulty |
 |------|------------|-----------------|------------|
-| [01-monotonic-stack.md](./Stack/01-monotonic-stack.md) | Monotonic Stack | Next/Prev Greater/Smaller, Daily Temperatures, Largest Rectangle, Trapping Rain Water, Stock Span, Sum of Subarray Minimums | Easy → Hard |
-| [02-stack-count.md](./Stack/02-stack-count.md) | Stack + Count | Remove Adjacent Duplicates I & II, Decode String, Removing Stars, Backspace Compare, Score of Parentheses, Valid Parentheses, Min Remove to Valid | Easy → Medium |
-| [03-stack-simulation.md](./Stack/03-stack-simulation.md) | Stack Simulation | Backspace Compare, Asteroid Collision, Evaluate RPN, Simplify Path, Remove K Digits, Remove Duplicate Letters | Easy → Hard |
+| [01-monotonic-stack.md](./07_Stack_Pattern/01-monotonic-stack.md) | Monotonic Stack | Next/Prev Greater/Smaller, Daily Temperatures, Largest Rectangle, Trapping Rain Water, Stock Span, Sum of Subarray Minimums | Easy → Hard |
+| [02-stack-count.md](./07_Stack_Pattern/02-stack-count.md) | Stack + Count | Remove Adjacent Duplicates I & II, Decode String, Removing Stars, Backspace Compare, Score of Parentheses, Valid Parentheses, Min Remove to Valid | Easy → Medium |
+| [03-stack-simulation.md](./07_Stack_Pattern/03-stack-simulation.md) | Stack Simulation | Backspace Compare, Asteroid Collision, Evaluate RPN, Simplify Path, Remove K Digits, Remove Duplicate Letters | Easy → Hard |
 
 ### 🔜 Coming Soon
 | Pattern | Topics |
