@@ -35,6 +35,9 @@ DSA-Interview-Notes-Java/
 ├── 08_HashMap_Pattern/
 │   └── 01-hashmap-pattern.md
 │
+├── 09_In-Place_Reversal_LinkedList/
+│   └── 01-inplace-reversal-linkedlist.md
+│
 └── README.md
 ```
 
@@ -59,6 +62,18 @@ DSA-Interview-Notes-Java/
 | [01-hashmap-pattern.md](./08_HashMap_Pattern/01-hashmap-pattern.md) | Prefix Sum | Subarray Sum = K | Medium |
 | [01-hashmap-pattern.md](./08_HashMap_Pattern/01-hashmap-pattern.md) | Grouping / Bucketing | Group Anagrams | Medium |
 | [01-hashmap-pattern.md](./08_HashMap_Pattern/01-hashmap-pattern.md) | Index Tracking + Sliding Window | Longest Substring Without Repeating | Medium |
+
+---
+
+### ✅ In-Place Reversal of a LinkedList
+| File | Sub-Pattern | Problems | Difficulty |
+|------|------------|----------|------------|
+| [01-inplace-reversal-linkedlist.md](./09_In-Place_Reversal_LinkedList/01-inplace-reversal-linkedlist.md) | Full Reversal | Reverse a LinkedList | Easy |
+| [01-inplace-reversal-linkedlist.md](./09_In-Place_Reversal_LinkedList/01-inplace-reversal-linkedlist.md) | Partial Reversal | Reverse a Sub-list [p,q] | Medium |
+| [01-inplace-reversal-linkedlist.md](./09_In-Place_Reversal_LinkedList/01-inplace-reversal-linkedlist.md) | Pair Reversal (k=2) | Reverse List in Pairs | Medium |
+| [01-inplace-reversal-linkedlist.md](./09_In-Place_Reversal_LinkedList/01-inplace-reversal-linkedlist.md) | K-Group Reversal | Reverse Every K-element Sub-list | Hard |
+| [01-inplace-reversal-linkedlist.md](./09_In-Place_Reversal_LinkedList/01-inplace-reversal-linkedlist.md) | Conditional Reversal | Reverse Nodes in Even Length Groups | Hard |
+| [01-inplace-reversal-linkedlist.md](./09_In-Place_Reversal_LinkedList/01-inplace-reversal-linkedlist.md) | Rotation | Rotate a LinkedList | Medium |
 
 ---
 
@@ -142,6 +157,21 @@ DSA-Interview-Notes-Java/
 
 ---
 
+## ⚡ In-Place Reversal of a LinkedList — Quick Clue Detector
+
+| If you see this in the question | Pattern |
+|---------------------------------|---------|
+| `"reverse a linked list"` | Full Reversal |
+| `"reverse between positions p and q"` | Partial Reversal (Sub-list) |
+| `"reverse in pairs / swap adjacent nodes"` | Pair Reversal (k=2) |
+| `"reverse every k nodes / k-group"` | K-Group Reversal |
+| `"reverse even-length groups"` | Conditional Group Reversal |
+| `"rotate a linked list by k"` | Rotation (no flip, reconnect) |
+| `"in-place" + linked list` | 3-pointer technique |
+| `"do not use extra space"` | Cannot use array/stack → pointer flip |
+
+---
+
 ## 📊 Problems Index
 
 | # | Problem | LC # | Pattern | Difficulty | Status |
@@ -177,6 +207,14 @@ DSA-Interview-Notes-Java/
 | 29 | Longest Substring Without Repeating | 3 | HashMap — Index Tracking | Medium | ✅ |
 | 30 | Group Anagrams | 49 | HashMap — Grouping | Medium | ✅ |
 | 31 | Top K Frequent Elements | 347 | HashMap — Frequency Count | Medium | ✅ |
+| 32 | Reverse a LinkedList | 206 | In-Place Reversal — Full | Easy | ✅ |
+| 33 | Reverse a Sub-list | 92 | In-Place Reversal — Partial | Medium | ✅ |
+| 34 | Reverse List in Pairs | 24 | In-Place Reversal — k=2 | Medium | ✅ |
+| 35 | Reverse Every K-element Sub-list | 25 | In-Place Reversal — K-Group | Hard | ✅ |
+| 36 | Reverse Nodes in Even Length Groups | 2074 | In-Place Reversal — Conditional | Hard | ✅ |
+| 37 | Rotate a LinkedList | 61 | In-Place Reversal — Rotation | Medium | ✅ |
+| 38 | Reverse Alternate K Elements | — | In-Place Reversal — Alternate K | Medium | ✅ |
+| 39 | Palindrome LinkedList | 234 | In-Place Reversal — Tool usage | Easy | ✅ |
 
 ---
 
@@ -189,6 +227,7 @@ git clone https://github.com/rahul22mrk/DSA-Interview-Notes-Java.git
 # Navigate to any pattern
 cd DSA-Interview-Notes-Java/07_Stack_Pattern
 cd DSA-Interview-Notes-Java/08_HashMap_Pattern
+cd DSA-Interview-Notes-Java/09_In-Place_Reversal_LinkedList
 ```
 
 > **Java Version:** 11+
