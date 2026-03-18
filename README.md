@@ -15,8 +15,8 @@ DSA-Interview-Notes-Java/
 ├── 02_Sliding_Window_Patterns/
 │   └── 🔜 coming soon
 │
-├── 03_Fast_And_Slow_Pointers/
-│   └── 🔜 coming soon
+├── 03_Slow_And_Fast_Pointers_Pattern/
+│   └── 01_slow_fast_pointers_notes.md
 │
 ├── 04_Kadane_Pattern/
 │   └── 🔜 coming soon
@@ -44,6 +44,21 @@ DSA-Interview-Notes-Java/
 ---
 
 ## 🧩 Patterns Covered
+
+### ✅ Slow & Fast Pointers (Floyd's Algorithm)
+| File | Sub-Pattern | Problems | Difficulty |
+|------|------------|----------|------------|
+| [01_slow_fast_pointers_notes.md](./03_Slow_And_Fast_Pointers_Pattern/01_slow_fast_pointers_notes.md) | Cycle Detection | LinkedList Cycle | Easy |
+| [01_slow_fast_pointers_notes.md](./03_Slow_And_Fast_Pointers_Pattern/01_slow_fast_pointers_notes.md) | Cycle Start (Floyd Phase 2) | Start of LinkedList Cycle | Medium |
+| [01_slow_fast_pointers_notes.md](./03_Slow_And_Fast_Pointers_Pattern/01_slow_fast_pointers_notes.md) | Implicit Cycle | Happy Number, Find Duplicate Number | Medium |
+| [01_slow_fast_pointers_notes.md](./03_Slow_And_Fast_Pointers_Pattern/01_slow_fast_pointers_notes.md) | Find Middle | Middle of the LinkedList | Easy |
+| [01_slow_fast_pointers_notes.md](./03_Slow_And_Fast_Pointers_Pattern/01_slow_fast_pointers_notes.md) | Middle + Reverse | Palindrome LinkedList | Medium |
+| [01_slow_fast_pointers_notes.md](./03_Slow_And_Fast_Pointers_Pattern/01_slow_fast_pointers_notes.md) | Middle + Reverse + Merge | Reorder List | Medium |
+| [01_slow_fast_pointers_notes.md](./03_Slow_And_Fast_Pointers_Pattern/01_slow_fast_pointers_notes.md) | Implicit Cycle (Array) | Cycle in a Circular Array | Hard |
+| [01_slow_fast_pointers_notes.md](./03_Slow_And_Fast_Pointers_Pattern/01_slow_fast_pointers_notes.md) | Gap Technique | Remove Nth Node From End | Medium |
+| [01_slow_fast_pointers_notes.md](./03_Slow_And_Fast_Pointers_Pattern/01_slow_fast_pointers_notes.md) | Redirect Technique | Intersection of Two Lists | Easy |
+
+---
 
 ### ✅ Stack
 | File | Sub-Pattern | Problems | Difficulty |
@@ -83,7 +98,6 @@ DSA-Interview-Notes-Java/
 |--------|---------|------------|
 | `01_Two_Pointers` | Two Pointers | Sorted arrays, Palindrome, Container with most water, 3Sum |
 | `02_Sliding_Window_Patterns` | Sliding Window | Fixed window, Variable window, At most K distinct |
-| `03_Fast_And_Slow_Pointers` | Fast & Slow Pointers | Cycle detection, Middle of linked list, Happy number |
 | `04_Kadane_Pattern` | Kadane's Algorithm | Max subarray, Max circular subarray |
 | `05_Prefix_Sum_Pattern` | Prefix Sum | Subarray sum equals K, Range sum query |
 | `06_Merge_Interval_Pattern` | Merge Intervals | Merge overlapping, Insert interval, Meeting rooms |
@@ -111,12 +125,30 @@ DSA-Interview-Notes-Java/
 6. Universal Java template  (with commented labels)
 7. 8–10 solved problems
    ├── Approach table  (loop / condition / result)
-   ├── Clean Java code
+   ├── Clean Java code  (Your solution + Reference solution)
    └── Input → Output example
 8. Quick reference cheatsheet
 9. Common mistakes
 10. Complexity summary
 ```
+
+---
+
+## ⚡ Slow & Fast Pointers — Quick Clue Detector
+
+| If you see this in the question | Pattern |
+|---------------------------------|---------|
+| `"detect a cycle in linked list"` | Cycle Detection |
+| `"find start / entry point of cycle"` | Cycle Start (Floyd Phase 2) |
+| `"middle of linked list"` | Find Middle |
+| `"palindrome linked list"` | Find Middle + Reverse |
+| `"reorder / rearrange linked list"` | Find Middle + Reverse + Merge |
+| `"happy number"` | Implicit Cycle (number sequence) |
+| `"find duplicate number"` | Implicit Cycle (array as linked list) |
+| `"cycle in circular array"` | Implicit Cycle (index jumps) |
+| `"kth node from end"` | Gap technique (fast starts k ahead) |
+| `"does linked list intersect"` | Redirect technique |
+| `"O(1) space" + linked list` | Cannot use HashSet → Fast & Slow |
 
 ---
 
@@ -215,6 +247,16 @@ DSA-Interview-Notes-Java/
 | 37 | Rotate a LinkedList | 61 | In-Place Reversal — Rotation | Medium | ✅ |
 | 38 | Reverse Alternate K Elements | — | In-Place Reversal — Alternate K | Medium | ✅ |
 | 39 | Palindrome LinkedList | 234 | In-Place Reversal — Tool usage | Easy | ✅ |
+| 40 | LinkedList Cycle | 141 | Slow & Fast — Cycle Detection | Easy | ✅ |
+| 41 | Start of LinkedList Cycle | 142 | Slow & Fast — Cycle Start | Medium | ✅ |
+| 42 | Happy Number | 202 | Slow & Fast — Implicit Cycle | Medium | ✅ |
+| 43 | Find the Duplicate Number | 287 | Slow & Fast — Implicit Cycle | Medium | ✅ |
+| 44 | Middle of the LinkedList | 876 | Slow & Fast — Find Middle | Easy | ✅ |
+| 45 | Palindrome LinkedList | 234 | Slow & Fast — Middle + Reverse | Medium | ✅ |
+| 46 | Reorder List | 143 | Slow & Fast — Middle + Reverse + Merge | Medium | ✅ |
+| 47 | Cycle in a Circular Array | 457 | Slow & Fast — Implicit Cycle (Array) | Hard | ✅ |
+| 48 | Remove Nth Node From End | 19 | Slow & Fast — Gap Technique | Medium | ✅ |
+| 49 | Intersection of Two Lists | 160 | Slow & Fast — Redirect Technique | Easy | ✅ |
 
 ---
 
@@ -225,6 +267,7 @@ DSA-Interview-Notes-Java/
 git clone https://github.com/rahul22mrk/DSA-Interview-Notes-Java.git
 
 # Navigate to any pattern
+cd DSA-Interview-Notes-Java/03_Slow_And_Fast_Pointers_Pattern
 cd DSA-Interview-Notes-Java/07_Stack_Pattern
 cd DSA-Interview-Notes-Java/08_HashMap_Pattern
 cd DSA-Interview-Notes-Java/09_In-Place_Reversal_LinkedList
