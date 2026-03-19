@@ -61,12 +61,29 @@ DSA-Interview-Notes-Java/
 ├── 09_In-Place_Reversal_LinkedList/
 │   └── 01-inplace-reversal-linkedlist.md
 │
+├── 10_Binary_Search_Pattern/
+│   ├── 01_binary_search_pattern_notes.md
+│   └── 02_binary_search_pattern_problems.md
+│
 └── README.md
 ```
 
 ---
 
 ## 🧩 Patterns Covered
+
+### ✅ Binary Search
+| File | Sub-Pattern | Problems | Difficulty |
+|------|------------|----------|------------|
+| [01_binary_search_pattern_notes.md](./10_Binary_Search_Pattern/01_binary_search_pattern_notes.md) | Identification + Templates + Cheatsheet | — | Reference |
+| [02_binary_search_pattern_problems.md](./10_Binary_Search_Pattern/02_binary_search_pattern_problems.md) | Basic Binary Search | Binary Search, Upper Bound, First/Last Position, Count Occurrences, Infinite Array | Easy → Medium |
+| [02_binary_search_pattern_problems.md](./10_Binary_Search_Pattern/02_binary_search_pattern_problems.md) | Bitonic Array Search | Peak Index, Search in Bitonic Array, Find Peak Element | Easy → Medium |
+| [02_binary_search_pattern_problems.md](./10_Binary_Search_Pattern/02_binary_search_pattern_problems.md) | Range Search | Min in Rotated, Count Rotations, Search Rotated, Rotated with Duplicates, Single Element | Medium → Hard |
+| [02_binary_search_pattern_problems.md](./10_Binary_Search_Pattern/02_binary_search_pattern_problems.md) | Allocate Problems (BS on Answer) | Koko, Ship Packages, Book Allocation, Split Array, Aggressive Cows, Bouquets, Candies, H-Index | Medium → Hard |
+| [02_binary_search_pattern_problems.md](./10_Binary_Search_Pattern/02_binary_search_pattern_problems.md) | Counting / Kth Element | 2D Matrix I & II, Kth Smallest Matrix, Multiplication Table, Median Two Arrays, Kth Missing | Medium → Hard |
+| [02_binary_search_pattern_problems.md](./10_Binary_Search_Pattern/02_binary_search_pattern_problems.md) | FAANG Extras | Time Based KV Store, K Closest Elements, Min Speed, Max Gas Station Distance | Medium → Hard |
+
+---
 
 ### ✅ Slow & Fast Pointers (Floyd's Algorithm)
 | File | Sub-Pattern | Problems | Difficulty |
@@ -140,20 +157,46 @@ DSA-Interview-Notes-Java/
 ## 📝 Note Format — Every File Follows This Structure
 
 ```
-1. How to identify this pattern  (keywords + brute force test + 5 signals)
-2. What is this pattern?
-3. Core rules  (3 things to always remember)
-4. 2-question framework  (how to identify the variant)
-5. Variants table  (Key → Value → Query for each sub-pattern)
-6. Universal Java template  (with commented labels)
-7. 8–10 solved problems
-   ├── Approach table  (loop / condition / result)
-   ├── Clean Java code  (Your solution + Reference solution)
-   └── Input → Output example
-8. Quick reference cheatsheet
-9. Common mistakes
-10. Complexity summary
+Notes file  (01_*_notes.md):
+├── How to identify this pattern  (keywords + brute force test + 5 signals)
+├── What is this pattern?
+├── Core rules  (3 things to always remember)
+├── 2-question framework  (how to identify the variant)
+├── Variants table
+├── Universal Java template  (with commented labels)
+├── Quick reference cheatsheet
+├── Common mistakes
+└── Complexity summary
+
+Problems file  (02_*_problems.md):
+├── TOC by category
+└── Each problem:
+    ├── Approach table  (loop / condition / result)
+    ├── Clean Java code
+    └── Input → Output example
 ```
+
+---
+
+## ⚡ Binary Search — Quick Clue Detector
+
+| If you see this in the question | Pattern |
+|---------------------------------|---------|
+| `"find target in sorted array"` | Classic Binary Search |
+| `"first / last occurrence"` | Left / Right Boundary Search |
+| `"search in rotated sorted array"` | Rotated Array Search |
+| `"rotated array with duplicates"` | Rotated + Shrink on Equal |
+| `"peak element / mountain array"` | Peak Finding (Bitonic) |
+| `"search in bitonic / mountain array"` | Bitonic Array Search |
+| `"single non-duplicate in sorted array"` | Parity-based Binary Search |
+| `"minimize the maximum / maximize the minimum"` | Binary Search on Answer |
+| `"minimum speed / days / capacity"` | Binary Search on Answer |
+| `"allocate / split / distribute among k groups"` | Binary Search on Answer |
+| `"kth smallest in sorted matrix"` | Count ≤ mid |
+| `"median of two sorted arrays"` | Partition Binary Search |
+| `"kth missing positive"` | Missing count formula |
+| `"k closest elements"` | Window binary search |
+| `"timestamp get latest ≤ t"` | Right boundary search |
 
 ---
 
@@ -280,6 +323,38 @@ DSA-Interview-Notes-Java/
 | 47 | Cycle in a Circular Array | 457 | Slow & Fast — Implicit Cycle (Array) | Hard | ✅ |
 | 48 | Remove Nth Node From End | 19 | Slow & Fast — Gap Technique | Medium | ✅ |
 | 49 | Intersection of Two Lists | 160 | Slow & Fast — Redirect Technique | Easy | ✅ |
+| 50 | Binary Search | 704 | Binary Search — Basic | Easy | ✅ |
+| 51 | Search Insert Position | 35 | Binary Search — Upper Bound | Easy | ✅ |
+| 52 | First and Last Position | 34 | Binary Search — Boundary Search | Medium | ✅ |
+| 53 | Count Occurrences in Sorted Array | — | Binary Search — Counting | Easy | ✅ |
+| 54 | Search in Infinite Sorted Array | — | Binary Search — Exponential + BS | Medium | ✅ |
+| 55 | Peak Index in Mountain Array | 852 | Binary Search — Bitonic | Easy | ✅ |
+| 56 | Search in Bitonic Array | — | Binary Search — Bitonic | Medium | ✅ |
+| 57 | Find Peak Element | 162 | Binary Search — Bitonic | Medium | ✅ |
+| 58 | Find Minimum in Rotated Sorted Array | 153 | Binary Search — Range Search | Medium | ✅ |
+| 59 | Find Number of Rotations | — | Binary Search — Range Search | Easy | ✅ |
+| 60 | Search in Rotated Sorted Array | 33 | Binary Search — Range Search | Medium | ✅ |
+| 61 | Find Min in Rotated II (Duplicates) | 154 | Binary Search — Range Search | Hard | ✅ |
+| 62 | Search in Rotated II (Duplicates) | 81 | Binary Search — Range Search | Medium | ✅ |
+| 63 | Single Element in Sorted Array | 540 | Binary Search — Parity | Medium | ✅ |
+| 64 | Koko Eating Bananas | 875 | Binary Search — Allocate | Medium | ✅ |
+| 65 | Min Days to Make M Bouquets | 1482 | Binary Search — Allocate | Medium | ✅ |
+| 66 | Aggressive Cows | — | Binary Search — Allocate | Medium | ✅ |
+| 67 | H-Index II | 275 | Binary Search — Allocate | Medium | ✅ |
+| 68 | Maximum Candies to K Children | 2226 | Binary Search — Allocate | Medium | ✅ |
+| 69 | Capacity to Ship in D Days | 1011 | Binary Search — Allocate | Medium | ✅ |
+| 70 | Book Allocation Problem | — | Binary Search — Allocate | Hard | ✅ |
+| 71 | Split Array Largest Sum | 410 | Binary Search — Allocate | Hard | ✅ |
+| 72 | Minimum Speed to Arrive on Time | 1870 | Binary Search — Allocate | Medium | ✅ |
+| 73 | Minimize Max Gas Station Distance | 774 | Binary Search — Allocate | Hard | ✅ |
+| 74 | Search a 2D Matrix | 74 | Binary Search — 2D | Medium | ✅ |
+| 75 | Search a 2D Matrix II | 240 | Binary Search — 2D (Staircase) | Medium | ✅ |
+| 76 | Kth Smallest in Sorted Matrix | 378 | Binary Search — Kth Element | Medium | ✅ |
+| 77 | Kth Smallest in Multiplication Table | 668 | Binary Search — Kth Element | Hard | ✅ |
+| 78 | Median of Two Sorted Arrays | 4 | Binary Search — Partition | Hard | ✅ |
+| 79 | Kth Missing Positive Number | 1539 | Binary Search — Missing Count | Easy | ✅ |
+| 80 | Time Based Key-Value Store | 981 | Binary Search — FAANG | Medium | ✅ |
+| 81 | Find K Closest Elements | 658 | Binary Search — FAANG | Medium | ✅ |
 
 ---
 
@@ -294,6 +369,7 @@ cd DSA-Interview-Notes-Java/03_Slow_And_Fast_Pointers_Pattern
 cd DSA-Interview-Notes-Java/07_Stack_Pattern
 cd DSA-Interview-Notes-Java/08_HashMap_Pattern
 cd DSA-Interview-Notes-Java/09_In-Place_Reversal_LinkedList
+cd DSA-Interview-Notes-Java/10_Binary_Search_Pattern
 ```
 
 > **Java Version:** 11+
