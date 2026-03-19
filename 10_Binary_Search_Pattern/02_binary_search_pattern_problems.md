@@ -124,7 +124,7 @@ public int searchInsert(int[] nums, int target) {
         if (nums[mid] >= target) hi = mid;
         else lo = mid + 1;
     }
-    return lo;   // lo == hi == insertion point
+    return lo==nums.length?-1:lo;   // lo == hi == insertion point
 }
 ```
 
