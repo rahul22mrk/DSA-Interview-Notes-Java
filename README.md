@@ -54,7 +54,8 @@ DSA-Interview-Notes-Java/
 │   └── 02_prefix_sum_problems.md
 │
 ├── 06_Merge_Interval_Pattern/
-│   └── 🔜 coming soon
+│   ├── 01_merge_interval_notes.md
+│   └── 02_merge_interval_problems.md
 │
 ├── 07_Stack_Pattern/
 │   ├── 01-monotonic-stack.md
@@ -141,6 +142,18 @@ DSA-Interview-Notes-Java/
 
 ---
 
+### ✅ Merge Intervals
+| File | Sub-Pattern | Problems | Difficulty |
+|------|------------|----------|------------|
+| [01_merge_interval_notes.md](./06_Merge_Interval_Pattern/01_merge_interval_notes.md) | Identification + Templates + Cheatsheet | — | Reference |
+| [02_merge_interval_problems.md](./06_Merge_Interval_Pattern/02_merge_interval_problems.md) | Core Merge / Insert | Merge Intervals, Insert Interval | Medium |
+| [02_merge_interval_problems.md](./06_Merge_Interval_Pattern/02_merge_interval_problems.md) | Intersection / Overlap Detection | Interval List Intersections, Overlapping Intervals Check | Medium |
+| [02_merge_interval_problems.md](./06_Merge_Interval_Pattern/02_merge_interval_problems.md) | Resource Scheduling (Heap) | Min Meeting Rooms, Max CPU Load, Task Scheduler | Medium → Hard |
+| [02_merge_interval_problems.md](./06_Merge_Interval_Pattern/02_merge_interval_problems.md) | Greedy (Sort by End) | Non-overlapping Intervals, Min Arrows, Meeting Scheduler | Medium |
+| [02_merge_interval_problems.md](./06_Merge_Interval_Pattern/02_merge_interval_problems.md) | Hard / FAANG | Employee Free Time, Remove Covered Intervals, Data Stream Intervals | Hard |
+
+---
+
 ### ✅ Kadane's Algorithm
 | File | Sub-Pattern | Problems | Difficulty |
 |------|------------|----------|------------|
@@ -217,7 +230,6 @@ DSA-Interview-Notes-Java/
 
 | Folder | Pattern | Key Topics |
 |--------|---------|------------|
-| `06_Merge_Interval_Pattern` | Merge Intervals | Merge overlapping, Insert interval, Meeting rooms, Employee free time |
 | `11_Cyclic_Sort_Pattern` | Cyclic Sort | Missing number, Duplicate number, Find all missing, Corrupt pair |
 | `12_Heap_Pattern` | Heap / Priority Queue | Top K elements, Kth largest, Merge K sorted lists, Median from stream |
 | `13_Recursion_And_Backtracking` | Recursion & Backtracking | Subsets, Permutations, Combination sum, N-Queens, Sudoku solver, Word search |
@@ -373,6 +385,23 @@ Problems file  (02_*_problems.md):
 | `"count range sums in [lo, hi]"` | Prefix + merge sort |
 | `"max rectangle sum ≤ k"` | 2D prefix + TreeSet |
 | `"running total"` + "O(1) space per query" | Prefix array |
+
+---
+
+## ⚡ Merge Intervals — Quick Clue Detector
+
+| If you see this in the question | Pattern |
+|---------------------------------|---------|
+| `"merge overlapping intervals"` | Sort by start + linear scan |
+| `"insert interval into sorted list"` | 3-phase: before / overlap / after |
+| `"intersection of two interval lists"` | Two-pointer, advance smaller end |
+| `"any two intervals overlap?"` | Sort + adjacent end >= next start |
+| `"minimum meeting rooms / conference rooms"` | Min-heap of end times |
+| `"maximum CPU load / max overlap at any point"` | Min-heap of end times |
+| `"employee free time / common free slots"` | Merge all + find gaps |
+| `"remove minimum intervals → non-overlapping"` | Sort by end, greedy keep earliest |
+| `"minimum arrows / points to cover all"` | Sort by end, greedy shoot at end |
+| `"O(1) space" + interval problems` | Two-pointer on sorted start/end arrays |
 
 ---
 
@@ -591,6 +620,19 @@ Problems file  (02_*_problems.md):
 | 157 | Shortest Subarray with Sum at Least K | 862 | Prefix Sum — Prefix + Deque | Hard | ✅ |
 | 158 | Count of Range Sum | 327 | Prefix Sum — Prefix + Merge Sort | Hard | ✅ |
 | 159 | Maximum Product Subarray | 152 | Prefix Sum — Prefix Product | Medium | ✅ |
+| 160 | Merge Intervals | 56 | Merge Interval — Sort + Scan | Medium | ✅ |
+| 161 | Insert Interval | 57 | Merge Interval — 3-Phase Insert | Medium | ✅ |
+| 162 | Interval List Intersections | 986 | Merge Interval — Two-pointer | Medium | ✅ |
+| 163 | Overlapping Intervals Check | — | Merge Interval — Sort + Adjacent | Easy | ✅ |
+| 164 | Minimum Meeting Rooms | 253 | Merge Interval — Min-Heap | Hard | ✅ |
+| 165 | Maximum CPU Load | — | Merge Interval — Min-Heap | Hard | ✅ |
+| 166 | Task Scheduler | 621 | Merge Interval — Max-Heap + Greedy | Medium | ✅ |
+| 167 | Non-overlapping Intervals | 435 | Merge Interval — Greedy Sort End | Medium | ✅ |
+| 168 | Min Arrows to Burst Balloons | 452 | Merge Interval — Greedy Sort End | Medium | ✅ |
+| 169 | Meeting Scheduler | 1229 | Merge Interval — Two-pointer | Medium | ✅ |
+| 170 | Employee Free Time | 759 | Merge Interval — Merge + Gap Scan | Hard | ✅ |
+| 171 | Remove Covered Intervals | 1288 | Merge Interval — Sort + maxEnd | Medium | ✅ |
+| 172 | Data Stream as Disjoint Intervals | 352 | Merge Interval — TreeMap Merge | Hard | ✅ |
 ---
 
 ## ⚙️ Setup
