@@ -82,7 +82,8 @@ DSA-Interview-Notes-Java/
 │   └── 02_heap_problems.md
 │
 ├── 13_Recursion_And_Backtracking/
-│   └── 🔜 coming soon
+│   ├── 01_recursion_backtracking_notes.md
+│   └── 02_recursion_backtracking_problems.md
 │
 ├── 14_Trees_Pattern/
 │   ├── 01_tree_notes.md
@@ -266,6 +267,18 @@ DSA-Interview-Notes-Java/
 
 ---
 
+### ✅ Recursion & Backtracking
+| File | Sub-Pattern | Problems | Difficulty |
+|------|------------|----------|------------|
+| [01_recursion_backtracking_notes.md](./13_Recursion_And_Backtracking/01_recursion_backtracking_notes.md) | Identification + Templates + Cheatsheet | — | Reference |
+| [02_recursion_backtracking_problems.md](./13_Recursion_And_Backtracking/02_recursion_backtracking_problems.md) | Basic Recursive Functions | Fibonacci, Palindrome Check, Array Sorted, Sum Digits, Remove Char, Count Good Numbers | Easy → Medium |
+| [02_recursion_backtracking_problems.md](./13_Recursion_And_Backtracking/02_recursion_backtracking_problems.md) | Divide & Conquer | Pow(x,n), Binary Search, Merge Sort, Max Subarray, Count Smaller, Reverse Pairs, Count Range Sum | Easy → Hard |
+| [02_recursion_backtracking_problems.md](./13_Recursion_And_Backtracking/02_recursion_backtracking_problems.md) | Backtracking (Classic) | Subsets I/II, Permutations I/II, Combinations, Combination Sum I/II, Generate Parens, Phone Letters, Palindrome Partition | Medium |
+| [02_recursion_backtracking_problems.md](./13_Recursion_And_Backtracking/02_recursion_backtracking_problems.md) | Backtracking (Hard / Grid) | N-Queens, Word Search, Sudoku Solver, Unique Paths III, Path with Max Gold | Medium → Hard |
+| [02_recursion_backtracking_problems.md](./13_Recursion_And_Backtracking/02_recursion_backtracking_problems.md) | Recursive Search | Jump Game | Medium |
+
+---
+
 ### ✅ Trees
 | File | Sub-Pattern | Problems | Difficulty |
 |------|------------|----------|------------|
@@ -288,7 +301,6 @@ DSA-Interview-Notes-Java/
 
 | Folder | Pattern | Key Topics |
 |--------|---------|------------|
-| `13_Recursion_And_Backtracking` | Recursion & Backtracking | Subsets, Permutations, Combination sum, N-Queens, Sudoku solver, Word search |
 | `15_Graph_Pattern` | Graphs | BFS, DFS, Topological sort, Union Find, Dijkstra, Bellman-Ford, Bipartite |
 | `16_Dynamic_Programming_Pattern` | Dynamic Programming | 0/1 Knapsack, LCS, LIS, Coin change, DP on trees, DP on graphs |
 | `17_Trie_Pattern` | Trie | Insert/Search/Delete, Word search II, Auto-complete, Replace words |
@@ -327,6 +339,25 @@ Problems file  (02_*_problems.md):
     ├── Clean Java code
     └── Input → Output example
 ```
+
+---
+
+## ⚡ Recursion & Backtracking — Quick Clue Detector
+
+| If you see this in the question | Pattern |
+|---------------------------------|---------|
+| `"all subsets / power set"` | Backtracking — add at every level, pass `i+1` |
+| `"all permutations"` | Backtracking — `used[]` array, add at leaf |
+| `"all combinations summing to target"` | Backtracking — subtract target, pass `i` for reuse |
+| `"generate all valid parentheses"` | Backtracking — open/close count constraints |
+| `"all palindrome partitions"` | Backtracking — try every split + isPalindrome |
+| `"N-Queens / Sudoku / Word Search"` | Constraint Backtracking — place + isValid + undo |
+| `"duplicates in input, unique results"` | Sort first + `if (i>start && nums[i]==nums[i-1]) skip` |
+| `"can reuse same element"` | Pass `i` instead of `i+1` in backtrack call |
+| `"Pow(x,n) / fast exponentiation"` | Divide & Conquer — split exponent in half |
+| `"count inversions / reverse pairs"` | Modified Merge Sort — count during merge |
+| `"sort or find range"` | Divide & Conquer — split + solve + merge |
+| `"f(n) = f(n-1) + something simple"` | Basic Recursion — direct recurrence |
 
 ---
 
@@ -881,6 +912,36 @@ Problems file  (02_*_problems.md):
 | 284 | Range Sum of BST | 938 | Tree — BST | Easy | ✅ |
 | 285 | Minimum Absolute Difference in BST | 530 | Tree — BST Inorder | Easy | ✅ |
 | 286 | Insert into a BST | 701 | Tree — BST Insert | Medium | ✅ |
+| 287 | Fibonacci Number | 509 | Recursion — Basic | Easy | ✅ |
+| 288 | Check if String is Palindrome | — | Recursion — Basic | Easy | ✅ |
+| 289 | Check if Array is Sorted | — | Recursion — Basic | Easy | ✅ |
+| 290 | Sum of Digits of a Number | — | Recursion — Basic | Easy | ✅ |
+| 291 | Remove Occurrences of a Character | — | Recursion — Basic | Easy | ✅ |
+| 292 | Count Good Numbers | 1922 | Recursion — Basic | Medium | ✅ |
+| 293 | Pow(x, n) | 50 | Recursion — D&C | Medium | ✅ |
+| 294 | Binary Search (Recursive) | 704 | Recursion — D&C | Easy | ✅ |
+| 295 | Merge Sort | — | Recursion — D&C | Medium | ✅ |
+| 296 | Maximum Subarray (D&C) | 53 | Recursion — D&C | Medium | ✅ |
+| 297 | Count Smaller Numbers After Self | 315 | Recursion — D&C | Hard | ✅ |
+| 298 | Reverse Pairs | 493 | Recursion — D&C | Hard | ✅ |
+| 299 | Count of Range Sum | 327 | Recursion — D&C | Hard | ✅ |
+| 300 | Subsets | 78 | Backtracking — Subsets | Medium | ✅ |
+| 301 | Subsets II | 90 | Backtracking — Subsets | Medium | ✅ |
+| 302 | Permutations | 46 | Backtracking — Permutations | Medium | ✅ |
+| 303 | Permutations II | 47 | Backtracking — Permutations | Medium | ✅ |
+| 304 | Combinations | 77 | Backtracking — Combinations | Medium | ✅ |
+| 305 | Combination Sum | 39 | Backtracking — Combinations | Medium | ✅ |
+| 306 | Combination Sum II | 40 | Backtracking — Combinations | Medium | ✅ |
+| 307 | Generate Parentheses | 22 | Backtracking — String | Medium | ✅ |
+| 308 | Letter Combinations of a Phone Number | 17 | Backtracking — String | Medium | ✅ |
+| 309 | Palindrome Partitioning | 131 | Backtracking — String | Medium | ✅ |
+| 310 | Split String | — | Backtracking — String | Medium | ✅ |
+| 311 | N-Queens | 51 | Backtracking — Hard | Hard | ✅ |
+| 312 | Word Search | 79 | Backtracking — Grid | Medium | ✅ |
+| 313 | Sudoku Solver | 37 | Backtracking — Hard | Hard | ✅ |
+| 314 | Unique Paths III | 980 | Backtracking — Grid | Hard | ✅ |
+| 315 | Path with Maximum Gold | 1219 | Backtracking — Grid | Medium | ✅ |
+| 316 | Jump Game | 55 | Recursive Search | Medium | ✅ |
 ---
 
 ## ⚙️ Setup
@@ -900,11 +961,12 @@ cd DSA-Interview-Notes-Java/10_Binary_Search_Pattern
 cd DSA-Interview-Notes-Java/04_Kadane_Pattern
 cd DSA-Interview-Notes-Java/11_Cyclic_Sort_Pattern
 cd DSA-Interview-Notes-Java/12_Heap_Pattern
+cd DSA-Interview-Notes-Java/13_Recursion_And_Backtracking
+cd DSA-Interview-Notes-Java/14_Trees_Pattern
+
 
 
 # Coming soon
-cd DSA-Interview-Notes-Java/13_Recursion_And_Backtracking
-cd DSA-Interview-Notes-Java/14_Trees_Pattern
 cd DSA-Interview-Notes-Java/15_Graph_Pattern
 cd DSA-Interview-Notes-Java/16_Dynamic_Programming_Pattern
 cd DSA-Interview-Notes-Java/17_Trie_Pattern
