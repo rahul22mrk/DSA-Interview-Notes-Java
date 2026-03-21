@@ -85,7 +85,9 @@ DSA-Interview-Notes-Java/
 │   └── 🔜 coming soon
 │
 ├── 14_Trees_Pattern/
-│   └── 🔜 coming soon
+│   ├── 01_tree_notes.md
+│   ├── 02_tree_problems.md
+│   └── tree_traversal.md
 │
 ├── 15_Graph_Pattern/
 │   └── 🔜 coming soon
@@ -264,12 +266,29 @@ DSA-Interview-Notes-Java/
 
 ---
 
+### ✅ Trees
+| File | Sub-Pattern | Problems | Difficulty |
+|------|------------|----------|------------|
+| [01_tree_notes.md](./14_Trees_Pattern/01_tree_notes.md) | Identification + Templates + Cheatsheet | — | Reference |
+| [02_tree_problems.md](./14_Trees_Pattern/02_tree_problems.md) | Traversal | Inorder, Preorder, Postorder, Level Order, Zigzag, Level Order II | Easy → Medium |
+| [02_tree_problems.md](./14_Trees_Pattern/02_tree_problems.md) | Mirror & Symmetry | Invert Tree, Symmetric Tree, Same Tree, Subtree, Flip Equivalent | Easy → Medium |
+| [02_tree_problems.md](./14_Trees_Pattern/02_tree_problems.md) | Traversal & Search (BST) | Search BST, LCA BST, LCA Binary Tree, LCA Deepest Leaves, Find Mode, Two Sum IV, Kth Smallest | Easy → Medium |
+| [02_tree_problems.md](./14_Trees_Pattern/02_tree_problems.md) | Validation & Properties | Min/Max Depth, Balanced, Diameter, Tilt, Completeness, Validate BST, Recover BST | Easy → Hard |
+| [02_tree_problems.md](./14_Trees_Pattern/02_tree_problems.md) | Path Sum & Root to Leaf | Path Sum I/II/III, Sum Root to Leaf, Max Path Sum | Easy → Hard |
+| [02_tree_problems.md](./14_Trees_Pattern/02_tree_problems.md) | Construction | Construct from Traversals (3 variants), Sorted Array/List to BST, Max BT, Construct BST from Preorder, Serialize/Deserialize | Medium → Hard |
+| [02_tree_problems.md](./14_Trees_Pattern/02_tree_problems.md) | Extended BFS | Even Odd Tree, Reverse Odd Levels, Deepest Leaves Sum, Add One Row, Max Width, Distance K | Medium |
+| [02_tree_problems.md](./14_Trees_Pattern/02_tree_problems.md) | Extended Root to Leaf | Binary Tree Paths, Smallest String Leaf, Insufficient Nodes, Pseudo-Palindromic Paths | Easy → Medium |
+| [02_tree_problems.md](./14_Trees_Pattern/02_tree_problems.md) | Extended Ancestor & BST | Max Diff Node Ancestor, Kth Ancestor, Range Sum BST, Min Abs Diff BST, Insert BST | Easy → Hard |
+| [tree_traversal.md](./14_Trees_Pattern/tree_traversal.md) | Traversal Quick Reference | DFS Iterative/Recursive, BFS, Side Views (Left/Right/Top/Bottom), Boundary | Reference |
+| [tree_traversal.md](./14_Trees_Pattern/tree_traversal.md) | Traversal Quick Revision | DFS Iterative/Recursive, BFS, Side Views (Left/Right/Top/Bottom), Boundary Traversal | Reference |
+
+---
+
 ### 🔜 Coming Soon
 
 | Folder | Pattern | Key Topics |
 |--------|---------|------------|
 | `13_Recursion_And_Backtracking` | Recursion & Backtracking | Subsets, Permutations, Combination sum, N-Queens, Sudoku solver, Word search |
-| `14_Trees_Pattern` | Trees | BFS/DFS traversal, BST operations, LCA, Tree diameter, Serialize/Deserialize |
 | `15_Graph_Pattern` | Graphs | BFS, DFS, Topological sort, Union Find, Dijkstra, Bellman-Ford, Bipartite |
 | `16_Dynamic_Programming_Pattern` | Dynamic Programming | 0/1 Knapsack, LCS, LIS, Coin change, DP on trees, DP on graphs |
 | `17_Trie_Pattern` | Trie | Insert/Search/Delete, Word search II, Auto-complete, Replace words |
@@ -308,6 +327,31 @@ Problems file  (02_*_problems.md):
     ├── Clean Java code
     └── Input → Output example
 ```
+
+---
+
+## ⚡ Trees — Quick Clue Detector
+
+| If you see this in the question | Pattern |
+|---------------------------------|---------|
+| `"inorder / preorder / postorder traversal"` | DFS — recursive or iterative with stack |
+| `"level order / BFS / row by row"` | BFS — queue + snapshot `size = q.size()` |
+| `"zigzag / spiral level order"` | BFS + direction flag per level |
+| `"invert / mirror binary tree"` | Swap left/right recursively |
+| `"symmetric / same tree / subtree"` | Dual DFS — compare pair of nodes |
+| `"lowest common ancestor"` | Post-order DFS — both sides non-null → LCA |
+| `"LCA of BST"` | BST property — both smaller → left, both larger → right |
+| `"validate BST"` | Top-down bounds — pass (min, max) as Long |
+| `"Kth smallest in BST"` | Inorder traversal = sorted order |
+| `"recover BST"` | Find two out-of-order nodes in inorder |
+| `"path sum root to leaf"` | Top-down DFS — pass remaining sum |
+| `"path sum any node to any node"` | Prefix sum + HashMap + backtrack |
+| `"maximum path sum"` | Bottom-up + global max — ignore negatives |
+| `"diameter of binary tree"` | Bottom-up + global — L+R at each node |
+| `"balanced binary tree"` | Bottom-up — return -1 on imbalance |
+| `"construct tree from traversals"` | Divide & conquer — HashMap for inorder index |
+| `"serialize / deserialize tree"` | Preorder DFS + null markers |
+| `"convert sorted array/list to BST"` | Binary mid as root, recurse halves |
 
 ---
 
@@ -783,6 +827,60 @@ Problems file  (02_*_problems.md):
 | 230 | Design Food Rating System | 2353 | Heap — Design | Medium | ✅ |
 | 231 | Distant Barcodes | 1054 | Heap — Greedy | Medium | ✅ |
 | 232 | Sort Array by Frequency | 1636 | Heap — Top K | Easy | ✅ |
+| 233 | Binary Tree Inorder Traversal | 94 | Tree — Traversal | Easy | ✅ |
+| 234 | Binary Tree Preorder Traversal | 144 | Tree — Traversal | Easy | ✅ |
+| 235 | Binary Tree Postorder Traversal | 145 | Tree — Traversal | Easy | ✅ |
+| 236 | Binary Tree Level Order Traversal | 102 | Tree — BFS | Medium | ✅ |
+| 237 | Binary Tree Zigzag Level Order | 103 | Tree — BFS | Medium | ✅ |
+| 238 | Binary Tree Level Order Traversal II | 107 | Tree — BFS | Easy | ✅ |
+| 239 | Invert Binary Tree | 226 | Tree — Mirror | Easy | ✅ |
+| 240 | Symmetric Tree | 101 | Tree — Symmetry | Easy | ✅ |
+| 241 | Same Tree | 100 | Tree — Comparison | Easy | ✅ |
+| 242 | Subtree of Another Tree | 572 | Tree — Comparison | Medium | ✅ |
+| 243 | Flip Equivalent Binary Trees | 951 | Tree — Mirror | Medium | ✅ |
+| 244 | Search in a Binary Search Tree | 700 | Tree — BST Search | Easy | ✅ |
+| 245 | Lowest Common Ancestor of BST | 235 | Tree — BST LCA | Medium | ✅ |
+| 246 | Lowest Common Ancestor of Binary Tree | 236 | Tree — LCA | Medium | ✅ |
+| 247 | LCA of Deepest Leaves | 1123 | Tree — LCA | Medium | ✅ |
+| 248 | Find Mode in BST | 501 | Tree — BST Traversal | Easy | ✅ |
+| 249 | Two Sum IV — BST | 653 | Tree — BST Search | Easy | ✅ |
+| 250 | Kth Smallest Element in BST | 230 | Tree — BST Inorder | Medium | ✅ |
+| 251 | Minimum Depth of Binary Tree | 111 | Tree — Depth | Easy | ✅ |
+| 252 | Maximum Depth of Binary Tree | 104 | Tree — Depth | Easy | ✅ |
+| 253 | Balanced Binary Tree | 110 | Tree — Validation | Easy | ✅ |
+| 254 | Diameter of Binary Tree | 543 | Tree — Properties | Easy | ✅ |
+| 255 | Binary Tree Tilt | 563 | Tree — Properties | Easy | ✅ |
+| 256 | Check Completeness of Binary Tree | 958 | Tree — Validation | Medium | ✅ |
+| 257 | Validate Binary Search Tree | 98 | Tree — BST Validation | Medium | ✅ |
+| 258 | Recover Binary Search Tree | 99 | Tree — BST Recovery | Hard | ✅ |
+| 259 | Path Sum | 112 | Tree — Path Sum | Easy | ✅ |
+| 260 | Path Sum II | 113 | Tree — Path Sum | Medium | ✅ |
+| 261 | Path Sum III | 437 | Tree — Path Sum | Medium | ✅ |
+| 262 | Sum Root to Leaf Numbers | 129 | Tree — Path Sum | Medium | ✅ |
+| 263 | Binary Tree Maximum Path Sum | 124 | Tree — Path Sum | Hard | ✅ |
+| 264 | Construct BT from Preorder and Inorder | 105 | Tree — Construction | Medium | ✅ |
+| 265 | Construct BT from Inorder and Postorder | 106 | Tree — Construction | Medium | ✅ |
+| 266 | Construct BT from Preorder and Postorder | 889 | Tree — Construction | Medium | ✅ |
+| 267 | Convert Sorted Array to BST | 108 | Tree — Construction | Easy | ✅ |
+| 268 | Convert Sorted List to BST | 109 | Tree — Construction | Medium | ✅ |
+| 269 | Serialize and Deserialize Binary Tree | 297 | Tree — Serialization | Hard | ✅ |
+| 270 | Even Odd Tree | 1609 | Tree — BFS | Medium | ✅ |
+| 271 | Reverse Odd Levels of Binary Tree | 2415 | Tree — BFS | Medium | ✅ |
+| 272 | Deepest Leaves Sum | 1302 | Tree — BFS | Medium | ✅ |
+| 273 | Add One Row to Tree | 623 | Tree — BFS | Medium | ✅ |
+| 274 | Maximum Width of Binary Tree | 662 | Tree — BFS | Medium | ✅ |
+| 275 | All Nodes Distance K in Binary Tree | 863 | Tree — BFS + Graph | Medium | ✅ |
+| 276 | Maximum Binary Tree | 654 | Tree — Construction | Medium | ✅ |
+| 277 | Construct BST from Preorder Traversal | 1008 | Tree — Construction | Medium | ✅ |
+| 278 | Binary Tree Paths | 257 | Tree — Root to Leaf | Easy | ✅ |
+| 279 | Smallest String Starting from Leaf | 988 | Tree — Root to Leaf | Medium | ✅ |
+| 280 | Insufficient Nodes in Root to Leaf | 1080 | Tree — Root to Leaf | Medium | ✅ |
+| 281 | Pseudo-Palindromic Paths in Binary Tree | 1457 | Tree — Root to Leaf | Medium | ✅ |
+| 282 | Maximum Difference Between Node and Ancestor | 1026 | Tree — Ancestor | Medium | ✅ |
+| 283 | Kth Ancestor of a Tree Node | 1483 | Tree — Ancestor | Hard | ✅ |
+| 284 | Range Sum of BST | 938 | Tree — BST | Easy | ✅ |
+| 285 | Minimum Absolute Difference in BST | 530 | Tree — BST Inorder | Easy | ✅ |
+| 286 | Insert into a BST | 701 | Tree — BST Insert | Medium | ✅ |
 ---
 
 ## ⚙️ Setup
