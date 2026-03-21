@@ -90,9 +90,6 @@ DSA-Interview-Notes-Java/
 ├── 18_Bit_Manipulation_Pattern/
 │   └── 🔜 coming soon
 │
-├── 19_Two_Pointers_Pattern/
-│   └── 🔜 coming soon  (moved from 01 — keeping slot)
-│
 └── README.md
 ```
 
