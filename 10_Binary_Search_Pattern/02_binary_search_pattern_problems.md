@@ -714,7 +714,7 @@ lo==hi==3 → return 3 ✓ (3 papers with ≥3 citations each)
 
 ```java
 public int maximumCandies(int[] candies, long k) {
-    int lo = 1, hi = 0;
+    int lo = 0, hi = 0;
     for (int c : candies) hi = Math.max(hi, c);
 
     while (lo < hi) {
