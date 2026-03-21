@@ -78,7 +78,8 @@ DSA-Interview-Notes-Java/
 │   └── 02_cyclic_sort_problems.md
 │
 ├── 12_Heap_Pattern/
-│   └── 🔜 coming soon
+│   ├── 01_heap_notes.md
+│   └── 02_heap_problems.md
 │
 ├── 13_Recursion_And_Backtracking/
 │   └── 🔜 coming soon
@@ -250,11 +251,23 @@ DSA-Interview-Notes-Java/
 
 ---
 
+### ✅ Heap / Priority Queue
+| File | Sub-Pattern | Problems | Difficulty |
+|------|------------|----------|------------|
+| [01_heap_notes.md](./12_Heap_Pattern/01_heap_notes.md) | Identification + Templates + Cheatsheet | — | Reference |
+| [02_heap_problems.md](./12_Heap_Pattern/02_heap_problems.md) | Kth Element | Kth Largest Array, Kth Smallest Matrix, Kth Largest Stream, Kth Weakest Row | Easy → Medium |
+| [02_heap_problems.md](./12_Heap_Pattern/02_heap_problems.md) | Top K | Top K Frequent Elements/Words, Sort by Freq, K Closest Points/Elements | Easy → Medium |
+| [02_heap_problems.md](./12_Heap_Pattern/02_heap_problems.md) | Merge K Lists / Arrays | Merge K Lists, Merge K Arrays, K Pairs Smallest Sums, Smallest Range K Lists | Medium → Hard |
+| [02_heap_problems.md](./12_Heap_Pattern/02_heap_problems.md) | Two Heaps (Median) | Find Median from Stream, Sliding Window Median | Hard |
+| [02_heap_problems.md](./12_Heap_Pattern/02_heap_problems.md) | Greedy + Heap | Task Scheduler, Reorganize String, Last Stone Weight, IPO, Course Schedule III, Min Refuel Stops | Medium → Hard |
+| [02_heap_problems.md](./12_Heap_Pattern/02_heap_problems.md) | Design Problems | Design Twitter, Food Rating System, Distant Barcodes | Medium |
+
+---
+
 ### 🔜 Coming Soon
 
 | Folder | Pattern | Key Topics |
 |--------|---------|------------|
-| `12_Heap_Pattern` | Heap / Priority Queue | Top K elements, Kth largest, Merge K sorted lists, Median from stream |
 | `13_Recursion_And_Backtracking` | Recursion & Backtracking | Subsets, Permutations, Combination sum, N-Queens, Sudoku solver, Word search |
 | `14_Trees_Pattern` | Trees | BFS/DFS traversal, BST operations, LCA, Tree diameter, Serialize/Deserialize |
 | `15_Graph_Pattern` | Graphs | BFS, DFS, Topological sort, Union Find, Dijkstra, Bellman-Ford, Bipartite |
@@ -367,6 +380,26 @@ Problems file  (02_*_problems.md):
 | `"first k missing positives"` | Sort + scan + extend beyond n |
 | `"O(n) time O(1) space" + range-constrained array` | Cyclic sort — use indices as HashMap |
 | `"in-place" + range [1,n]` | Each number's home is `nums[i]-1` |
+
+---
+
+## ⚡ Heap / Priority Queue — Quick Clue Detector
+
+| If you see this in the question | Pattern |
+|---------------------------------|---------|
+| `"Kth largest / smallest"` | Min-heap (Kth largest) or Max-heap (Kth smallest) of size k |
+| `"top K frequent / closest / heaviest"` | Freq/dist map + min-heap size k |
+| `"merge K sorted lists / arrays"` | Min-heap as pointer — (val, listIdx, elemIdx) |
+| `"find median from data stream"` | Two heaps — maxHeap(lower) + minHeap(upper) |
+| `"sliding window median"` | Two heaps + lazy deletion |
+| `"task scheduler / reorganize string"` | Max-heap by frequency, greedy alternation |
+| `"maximize profit with capital constraint"` | Sort by capital + max-heap for profit (IPO) |
+| `"course schedule with deadline"` | Sort by deadline + max-heap, replace longest |
+| `"minimum refueling stops"` | Greedy + max-heap — retroactive best station |
+| `"K pairs with smallest sums"` | Min-heap expand (i, j+1) after each pop |
+| `"smallest range covering K lists"` | Min-heap + track current max |
+| `"design Twitter / leaderboard / feed"` | Per-entity heap or top-k with max-heap |
+| `"O(n log k)" + top/bottom selection` | Heap of size k beats full sort |
 
 ---
 
@@ -725,6 +758,31 @@ Problems file  (02_*_problems.md):
 | 205 | Find All Numbers Disappeared | 448 | Cyclic Sort — All Missing | Easy | ✅ |
 | 206 | First Missing Positive | 41 | Cyclic Sort — Missing Positive | Hard | ✅ |
 | 207 | Missing Number (XOR/Math) | 268 | Cyclic Sort — Missing (Multi-approach) | Easy | ✅ |
+| 208 | Kth Largest Element in an Array | 215 | Heap — Kth Element | Medium | ✅ |
+| 209 | Kth Smallest Element in Sorted Matrix | 378 | Heap — Kth Element | Medium | ✅ |
+| 210 | Kth Largest Element in a Stream | 703 | Heap — Kth Element Design | Easy | ✅ |
+| 211 | Kth Weakest Row in a Matrix | 1337 | Heap — Kth Element | Easy | ✅ |
+| 212 | Top K Frequent Elements | 347 | Heap — Top K | Medium | ✅ |
+| 213 | Top K Frequent Words | 692 | Heap — Top K | Medium | ✅ |
+| 214 | Sort Characters By Frequency | 451 | Heap — Top K | Medium | ✅ |
+| 215 | K Closest Points to Origin | 973 | Heap — Top K | Medium | ✅ |
+| 216 | Find K Closest Elements | 658 | Heap — Top K | Medium | ✅ |
+| 217 | Merge K Sorted Lists | 23 | Heap — Merge K | Hard | ✅ |
+| 218 | Merge K Sorted Arrays | — | Heap — Merge K | Medium | ✅ |
+| 219 | K Pairs with Smallest Sums | 373 | Heap — Merge K | Medium | ✅ |
+| 220 | Smallest Range Covering K Lists | 632 | Heap — Merge K | Hard | ✅ |
+| 221 | Find Median from Data Stream | 295 | Heap — Two Heaps | Hard | ✅ |
+| 222 | Sliding Window Median | 480 | Heap — Two Heaps | Hard | ✅ |
+| 223 | Task Scheduler | 621 | Heap — Greedy | Medium | ✅ |
+| 224 | Reorganize String | 767 | Heap — Greedy | Medium | ✅ |
+| 225 | Last Stone Weight | 1046 | Heap — Greedy | Easy | ✅ |
+| 226 | IPO | 502 | Heap — Greedy | Hard | ✅ |
+| 227 | Course Schedule III | 630 | Heap — Greedy | Hard | ✅ |
+| 228 | Minimum Number of Refueling Stops | 871 | Heap — Greedy | Hard | ✅ |
+| 229 | Design Twitter | 355 | Heap — Design | Medium | ✅ |
+| 230 | Design Food Rating System | 2353 | Heap — Design | Medium | ✅ |
+| 231 | Distant Barcodes | 1054 | Heap — Greedy | Medium | ✅ |
+| 232 | Sort Array by Frequency | 1636 | Heap — Top K | Easy | ✅ |
 ---
 
 ## ⚙️ Setup
@@ -742,10 +800,11 @@ cd DSA-Interview-Notes-Java/08_HashMap_Pattern
 cd DSA-Interview-Notes-Java/09_In-Place_Reversal_LinkedList
 cd DSA-Interview-Notes-Java/10_Binary_Search_Pattern
 cd DSA-Interview-Notes-Java/04_Kadane_Pattern
-
-# Coming soon
 cd DSA-Interview-Notes-Java/11_Cyclic_Sort_Pattern
 cd DSA-Interview-Notes-Java/12_Heap_Pattern
+
+
+# Coming soon
 cd DSA-Interview-Notes-Java/13_Recursion_And_Backtracking
 cd DSA-Interview-Notes-Java/14_Trees_Pattern
 cd DSA-Interview-Notes-Java/15_Graph_Pattern
