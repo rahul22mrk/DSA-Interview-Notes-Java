@@ -36,7 +36,8 @@ DSA-Interview-Notes-Java/
 │   └── 🔜 coming soon
 │
 ├── 02_Sliding_Window_Patterns/
-│   └── 🔜 coming soon
+│   ├── 01_sliding_window_pattern_notes.md
+│   └── 02_sliding_window_pattern_problems.md
 │
 ├── 03_Slow_And_Fast_Pointers_Pattern/
 │   └── 01_slow_fast_pointers_notes.md
@@ -65,12 +66,51 @@ DSA-Interview-Notes-Java/
 │   ├── 01_binary_search_pattern_notes.md
 │   └── 02_binary_search_pattern_problems.md
 │
+├── 11_Cyclic_Sort_Pattern/
+│   └── 🔜 coming soon
+│
+├── 12_Heap_Pattern/
+│   └── 🔜 coming soon
+│
+├── 13_Recursion_And_Backtracking/
+│   └── 🔜 coming soon
+│
+├── 14_Trees_Pattern/
+│   └── 🔜 coming soon
+│
+├── 15_Graph_Pattern/
+│   └── 🔜 coming soon
+│
+├── 16_Dynamic_Programming_Pattern/
+│   └── 🔜 coming soon
+│
+├── 17_Trie_Pattern/
+│   └── 🔜 coming soon
+│
+├── 18_Bit_Manipulation_Pattern/
+│   └── 🔜 coming soon
+│
+├── 19_Two_Pointers_Pattern/
+│   └── 🔜 coming soon  (moved from 01 — keeping slot)
+│
 └── README.md
 ```
 
 ---
 
 ## 🧩 Patterns Covered
+
+### ✅ Sliding Window
+| File | Sub-Pattern | Problems | Difficulty |
+|------|------------|----------|------------|
+| [01_sliding_window_pattern_notes.md](./02_Sliding_Window_Patterns/01_sliding_window_pattern_notes.md) | Identification + Templates + Cheatsheet | — | Reference |
+| [02_sliding_window_pattern_problems.md](./02_Sliding_Window_Patterns/02_sliding_window_pattern_problems.md) | Fixed Window | Max Sum K, Max Average, Permutation in String, Find All Anagrams | Easy → Medium |
+| [02_sliding_window_pattern_problems.md](./02_Sliding_Window_Patterns/02_sliding_window_pattern_problems.md) | Variable Window — Maximize | No-Repeat, K Distinct, Fruits/Baskets, Longest Replacement, Max Ones III, Delete One, Budget Substring | Medium → Hard |
+| [02_sliding_window_pattern_problems.md](./02_Sliding_Window_Patterns/02_sliding_window_pattern_problems.md) | Variable Window — Minimize | Min Size Subarray Sum, Min Window Substring, Product Less Than K | Medium → Hard |
+| [02_sliding_window_pattern_problems.md](./02_Sliding_Window_Patterns/02_sliding_window_pattern_problems.md) | At-Most to Exact (Count) | K Different Integers, Binary Subarrays Sum, Nice Subarrays | Medium → Hard |
+| [02_sliding_window_pattern_problems.md](./02_Sliding_Window_Patterns/02_sliding_window_pattern_problems.md) | FAANG Hard | Words Concatenation, Max Freq Element, Exam Confusion, Min Ops Continuous | Medium → Hard |
+
+---
 
 ### ✅ Binary Search
 | File | Sub-Pattern | Problems | Difficulty |
@@ -136,11 +176,18 @@ DSA-Interview-Notes-Java/
 
 | Folder | Pattern | Key Topics |
 |--------|---------|------------|
-| `01_Two_Pointers` | Two Pointers | Sorted arrays, Palindrome, Container with most water, 3Sum |
-| `02_Sliding_Window_Patterns` | Sliding Window | Fixed window, Variable window, At most K distinct |
-| `04_Kadane_Pattern` | Kadane's Algorithm | Max subarray, Max circular subarray |
-| `05_Prefix_Sum_Pattern` | Prefix Sum | Subarray sum equals K, Range sum query |
-| `06_Merge_Interval_Pattern` | Merge Intervals | Merge overlapping, Insert interval, Meeting rooms |
+| `01_Two_Pointers` | Two Pointers | Sorted arrays, Palindrome, Container with most water, 3Sum, Trapping Rain Water |
+| `04_Kadane_Pattern` | Kadane's Algorithm | Max subarray sum, Max circular subarray, Max product subarray |
+| `05_Prefix_Sum_Pattern` | Prefix Sum | Subarray sum equals K, Range sum query, 2D prefix sum |
+| `06_Merge_Interval_Pattern` | Merge Intervals | Merge overlapping, Insert interval, Meeting rooms, Employee free time |
+| `11_Cyclic_Sort_Pattern` | Cyclic Sort | Missing number, Duplicate number, Find all missing, Corrupt pair |
+| `12_Heap_Pattern` | Heap / Priority Queue | Top K elements, Kth largest, Merge K sorted lists, Median from stream |
+| `13_Recursion_And_Backtracking` | Recursion & Backtracking | Subsets, Permutations, Combination sum, N-Queens, Sudoku solver, Word search |
+| `14_Trees_Pattern` | Trees | BFS/DFS traversal, BST operations, LCA, Tree diameter, Serialize/Deserialize |
+| `15_Graph_Pattern` | Graphs | BFS, DFS, Topological sort, Union Find, Dijkstra, Bellman-Ford, Bipartite |
+| `16_Dynamic_Programming_Pattern` | Dynamic Programming | 0/1 Knapsack, LCS, LIS, Coin change, DP on trees, DP on graphs |
+| `17_Trie_Pattern` | Trie | Insert/Search/Delete, Word search II, Auto-complete, Replace words |
+| `18_Bit_Manipulation_Pattern` | Bit Manipulation | XOR tricks, Count bits, Power of two, Subsets via bits, Single number |
 
 ---
 
@@ -162,19 +209,37 @@ Notes file  (01_*_notes.md):
 ├── What is this pattern?
 ├── Core rules  (3 things to always remember)
 ├── 2-question framework  (how to identify the variant)
-├── Variants table
+├── Variants table + Pattern categories
 ├── Universal Java template  (with commented labels)
 ├── Quick reference cheatsheet
 ├── Common mistakes
 └── Complexity summary
 
 Problems file  (02_*_problems.md):
-├── TOC by category
+├── TOC organized by category
 └── Each problem:
     ├── Approach table  (loop / condition / result)
     ├── Clean Java code
     └── Input → Output example
 ```
+
+---
+
+## ⚡ Sliding Window — Quick Clue Detector
+
+| If you see this in the question | Pattern |
+|---------------------------------|---------|
+| `"max / min sum of subarray of size k"` | Fixed Window |
+| `"permutation / anagram of pattern in s"` | Fixed Window (size = pattern length) |
+| `"longest substring with at most k distinct"` | Variable Window — Maximize |
+| `"longest with at most k replacements"` | Variable Window — Maximize |
+| `"longest without repeating characters"` | Variable Window — Maximize |
+| `"max consecutive ones with k flips"` | Variable Window — Maximize |
+| `"smallest subarray with sum ≥ target"` | Variable Window — Minimize |
+| `"minimum window containing all chars"` | Variable Window — Minimize |
+| `"count subarrays with exactly k distinct"` | At-Most Trick |
+| `"subarray product less than k"` | Variable Window — Count |
+| `"contiguous subarray / substring" + optimize` | Sliding Window candidate |
 
 ---
 
@@ -355,6 +420,27 @@ Problems file  (02_*_problems.md):
 | 79 | Kth Missing Positive Number | 1539 | Binary Search — Missing Count | Easy | ✅ |
 | 80 | Time Based Key-Value Store | 981 | Binary Search — FAANG | Medium | ✅ |
 | 81 | Find K Closest Elements | 658 | Binary Search — FAANG | Medium | ✅ |
+| 82 | Maximum Sum Subarray of Size K | — | Sliding Window — Fixed | Easy | ✅ |
+| 83 | Maximum Average Subarray I | 643 | Sliding Window — Fixed | Easy | ✅ |
+| 84 | Permutation in a String | 567 | Sliding Window — Fixed | Medium | ✅ |
+| 85 | Find All Anagrams in a String | 438 | Sliding Window — Fixed | Medium | ✅ |
+| 86 | Longest Substring Without Repeating | 3 | Sliding Window — Variable Maximize | Medium | ✅ |
+| 87 | Longest Substring K Distinct | 340 | Sliding Window — Variable Maximize | Medium | ✅ |
+| 88 | Fruits into Baskets | 904 | Sliding Window — Variable Maximize | Medium | ✅ |
+| 89 | Longest Repeating Char Replacement | 424 | Sliding Window — Variable Maximize | Hard | ✅ |
+| 90 | Max Consecutive Ones III | 1004 | Sliding Window — Variable Maximize | Medium | ✅ |
+| 91 | Longest Subarray of 1s (Delete One) | 1493 | Sliding Window — Variable Maximize | Medium | ✅ |
+| 92 | Get Equal Substrings Within Budget | 1208 | Sliding Window — Variable Maximize | Medium | ✅ |
+| 93 | Minimum Size Subarray Sum | 209 | Sliding Window — Variable Minimize | Medium | ✅ |
+| 94 | Minimum Window Substring | 76 | Sliding Window — Variable Minimize | Hard | ✅ |
+| 95 | Subarray Product Less Than K | 713 | Sliding Window — Variable Count | Medium | ✅ |
+| 96 | Subarrays with K Different Integers | 992 | Sliding Window — At-Most Trick | Hard | ✅ |
+| 97 | Binary Subarrays with Sum | 930 | Sliding Window — At-Most Trick | Medium | ✅ |
+| 98 | Count Number of Nice Subarrays | 1248 | Sliding Window — At-Most Trick | Medium | ✅ |
+| 99 | Substring with Concatenation of Words | 30 | Sliding Window — FAANG Hard | Hard | ✅ |
+| 100 | Frequency of Most Frequent Element | 1838 | Sliding Window — FAANG Hard | Medium | ✅ |
+| 101 | Maximize the Confusion of an Exam | 2024 | Sliding Window — FAANG Hard | Medium | ✅ |
+| 102 | Min Ops to Make Array Continuous | 2009 | Sliding Window — FAANG Hard | Hard | ✅ |
 
 ---
 
@@ -365,11 +451,22 @@ Problems file  (02_*_problems.md):
 git clone https://github.com/rahul22mrk/DSA-Interview-Notes-Java.git
 
 # Navigate to any pattern
+cd DSA-Interview-Notes-Java/02_Sliding_Window_Patterns
 cd DSA-Interview-Notes-Java/03_Slow_And_Fast_Pointers_Pattern
 cd DSA-Interview-Notes-Java/07_Stack_Pattern
 cd DSA-Interview-Notes-Java/08_HashMap_Pattern
 cd DSA-Interview-Notes-Java/09_In-Place_Reversal_LinkedList
 cd DSA-Interview-Notes-Java/10_Binary_Search_Pattern
+
+# Coming soon
+cd DSA-Interview-Notes-Java/11_Cyclic_Sort_Pattern
+cd DSA-Interview-Notes-Java/12_Heap_Pattern
+cd DSA-Interview-Notes-Java/13_Recursion_And_Backtracking
+cd DSA-Interview-Notes-Java/14_Trees_Pattern
+cd DSA-Interview-Notes-Java/15_Graph_Pattern
+cd DSA-Interview-Notes-Java/16_Dynamic_Programming_Pattern
+cd DSA-Interview-Notes-Java/17_Trie_Pattern
+cd DSA-Interview-Notes-Java/18_Bit_Manipulation_Pattern
 ```
 
 > **Java Version:** 11+
