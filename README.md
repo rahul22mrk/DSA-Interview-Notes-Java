@@ -50,7 +50,8 @@ DSA-Interview-Notes-Java/
 │   └── 02_kadane_pattern_problems.md
 │
 ├── 05_Prefix_Sum_Pattern/
-│   └── 🔜 coming soon
+│   ├── 01_prefix_sum_notes.md
+│   └── 02_prefix_sum_problems.md
 │
 ├── 06_Merge_Interval_Pattern/
 │   └── 🔜 coming soon
@@ -112,6 +113,19 @@ DSA-Interview-Notes-Java/
 | [02_two_pointers_problems.md](./01_Two_Pointers_Patterns/02_two_pointers_problems.md) | Two Arrays | Merge Sorted Array, Is Subsequence | Easy |
 | [02_two_pointers_problems.md](./01_Two_Pointers_Patterns/02_two_pointers_problems.md) | Trapping Water / FAANG | Trapping Rain Water, Container with Most Water, Min Window Sort | Medium → Hard |
 | [03_two_pointers_extended.md](./01_Two_Pointers_Patterns/03_two_pointers_extended.md) | Extended Classification + Pseudocode | 60+ problems grouped by sub-pattern with approach skeleton | Easy → Hard |
+
+---
+
+### ✅ Prefix Sum
+| File | Sub-Pattern | Problems | Difficulty |
+|------|------------|----------|------------|
+| [01_prefix_sum_notes.md](./05_Prefix_Sum_Pattern/01_prefix_sum_notes.md) | Identification + Templates + Cheatsheet | — | Reference |
+| [02_prefix_sum_problems.md](./05_Prefix_Sum_Pattern/02_prefix_sum_problems.md) | Basic Prefix Array | Range Sum Query, Find Pivot Index | Easy |
+| [02_prefix_sum_problems.md](./05_Prefix_Sum_Pattern/02_prefix_sum_problems.md) | HashMap — Count / Existence | Subarray Sum Equals K, Contiguous Array, Longest Subarray Sum K | Medium |
+| [02_prefix_sum_problems.md](./05_Prefix_Sum_Pattern/02_prefix_sum_problems.md) | Modulo HashMap | Subarray Sums Divisible by K, Continuous Subarray Sum | Medium |
+| [02_prefix_sum_problems.md](./05_Prefix_Sum_Pattern/02_prefix_sum_problems.md) | 2D Prefix Sum | Range Sum Query 2D, Max Sum Rectangle ≤ K | Medium → Hard |
+| [02_prefix_sum_problems.md](./05_Prefix_Sum_Pattern/02_prefix_sum_problems.md) | Hard (Deque / Merge Sort) | Shortest Subarray Sum ≥ K, Count of Range Sum | Hard |
+| [02_prefix_sum_problems.md](./05_Prefix_Sum_Pattern/02_prefix_sum_problems.md) | Bonus / FAANG | Maximum Product Subarray | Medium |
 
 ---
 
@@ -203,7 +217,6 @@ DSA-Interview-Notes-Java/
 
 | Folder | Pattern | Key Topics |
 |--------|---------|------------|
-| `05_Prefix_Sum_Pattern` | Prefix Sum | Subarray sum equals K, Range sum query, 2D prefix sum |
 | `06_Merge_Interval_Pattern` | Merge Intervals | Merge overlapping, Insert interval, Meeting rooms, Employee free time |
 | `11_Cyclic_Sort_Pattern` | Cyclic Sort | Missing number, Duplicate number, Find all missing, Corrupt pair |
 | `12_Heap_Pattern` | Heap / Priority Queue | Top K elements, Kth largest, Merge K sorted lists, Median from stream |
@@ -343,6 +356,23 @@ Problems file  (02_*_problems.md):
 | `"odd/even index grouping"` | Pointer Rearrangement (odd/even hop) |
 | `"does linked list intersect"` | Redirect technique |
 | `"O(1) space" + linked list` | Cannot use HashSet → Fast & Slow |
+
+---
+
+## ⚡ Prefix Sum — Quick Clue Detector
+
+| If you see this in the question | Pattern |
+|---------------------------------|---------|
+| `"subarray sum equals k"` | HashMap count — `map.put(0,1)` |
+| `"count subarrays with sum / divisible by k"` | Modulo HashMap |
+| `"equal 0s and 1s / equal X and Y"` | Remap 0→-1, sum=0 |
+| `"pivot / equilibrium index"` | `2*leftSum + nums[i] == total` |
+| `"range sum query"` (multiple queries) | Prefix array, O(1) query |
+| `"2D rectangle sum query"` | 2D prefix — inclusion-exclusion |
+| `"shortest subarray sum ≥ k"` (with negatives) | Prefix + monotonic deque |
+| `"count range sums in [lo, hi]"` | Prefix + merge sort |
+| `"max rectangle sum ≤ k"` | 2D prefix + TreeSet |
+| `"running total"` + "O(1) space per query" | Prefix array |
 
 ---
 
@@ -549,6 +579,18 @@ Problems file  (02_*_problems.md):
 | 145 | Max Sum Rectangle in 2D Matrix | 363 | Kadane — 2D | Hard | ✅ |
 | 146 | Max Sum Submatrix No Larger Than K | 363 | Kadane — 2D + Binary Search | Hard | ✅ |
 | 147 | Maximum Alternating Subarray Sum | 2036 | Kadane — Alternating | Medium | ✅ |
+| 148 | Range Sum Query - Immutable | 303 | Prefix Sum — Basic Prefix Array | Easy | ✅ |
+| 149 | Find Pivot Index | 724 | Prefix Sum — Basic Prefix Array | Easy | ✅ |
+| 150 | Subarray Sum Equals K | 560 | Prefix Sum — HashMap Count | Medium | ✅ |
+| 151 | Contiguous Array | 525 | Prefix Sum — HashMap Remap | Medium | ✅ |
+| 152 | Longest Subarray with Sum K | 325 | Prefix Sum — HashMap First-seen | Medium | ✅ |
+| 153 | Subarray Sums Divisible by K | 974 | Prefix Sum — Modulo HashMap | Medium | ✅ |
+| 154 | Continuous Subarray Sum | 523 | Prefix Sum — Modulo HashMap | Medium | ✅ |
+| 155 | Range Sum Query 2D - Immutable | 304 | Prefix Sum — 2D Prefix Array | Medium | ✅ |
+| 156 | Max Sum of Rectangle No Larger Than K | 363 | Prefix Sum — 2D Prefix + TreeSet | Hard | ✅ |
+| 157 | Shortest Subarray with Sum at Least K | 862 | Prefix Sum — Prefix + Deque | Hard | ✅ |
+| 158 | Count of Range Sum | 327 | Prefix Sum — Prefix + Merge Sort | Hard | ✅ |
+| 159 | Maximum Product Subarray | 152 | Prefix Sum — Prefix Product | Medium | ✅ |
 ---
 
 ## ⚙️ Setup
