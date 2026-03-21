@@ -74,7 +74,8 @@ DSA-Interview-Notes-Java/
 │   └── 02_binary_search_pattern_problems.md
 │
 ├── 11_Cyclic_Sort_Pattern/
-│   └── 🔜 coming soon
+│   ├── 01_cyclic_sort_notes.md
+│   └── 02_cyclic_sort_problems.md
 │
 ├── 12_Heap_Pattern/
 │   └── 🔜 coming soon
@@ -167,6 +168,18 @@ DSA-Interview-Notes-Java/
 
 ---
 
+### ✅ Cyclic Sort
+| File | Sub-Pattern | Problems | Difficulty |
+|------|------------|----------|------------|
+| [01_cyclic_sort_notes.md](./11_Cyclic_Sort_Pattern/01_cyclic_sort_notes.md) | Identification + Templates + Cheatsheet | — | Reference |
+| [02_cyclic_sort_problems.md](./11_Cyclic_Sort_Pattern/02_cyclic_sort_problems.md) | Core Cyclic Sort | Cyclic Sort | Easy |
+| [02_cyclic_sort_problems.md](./11_Cyclic_Sort_Pattern/02_cyclic_sort_problems.md) | Find Missing | Missing Number, All Missing Numbers, Smallest Missing Positive, First K Missing | Easy → Hard |
+| [02_cyclic_sort_problems.md](./11_Cyclic_Sort_Pattern/02_cyclic_sort_problems.md) | Find Duplicate | Find Duplicate Number, All Duplicate Numbers | Easy → Medium |
+| [02_cyclic_sort_problems.md](./11_Cyclic_Sort_Pattern/02_cyclic_sort_problems.md) | Combined Missing + Duplicate | Corrupt Pair, Set Mismatch | Easy |
+| [02_cyclic_sort_problems.md](./11_Cyclic_Sort_Pattern/02_cyclic_sort_problems.md) | FAANG / Hard | Missing Number (XOR/Math), Disappeared Numbers, First Missing Positive | Easy → Hard |
+
+---
+
 ### ✅ Binary Search
 | File | Sub-Pattern | Problems | Difficulty |
 |------|------------|----------|------------|
@@ -241,7 +254,6 @@ DSA-Interview-Notes-Java/
 
 | Folder | Pattern | Key Topics |
 |--------|---------|------------|
-| `11_Cyclic_Sort_Pattern` | Cyclic Sort | Missing number, Duplicate number, Find all missing, Corrupt pair |
 | `12_Heap_Pattern` | Heap / Priority Queue | Top K elements, Kth largest, Merge K sorted lists, Median from stream |
 | `13_Recursion_And_Backtracking` | Recursion & Backtracking | Subsets, Permutations, Combination sum, N-Queens, Sudoku solver, Word search |
 | `14_Trees_Pattern` | Trees | BFS/DFS traversal, BST operations, LCA, Tree diameter, Serialize/Deserialize |
@@ -338,6 +350,23 @@ Problems file  (02_*_problems.md):
 | `"max sum submatrix no larger than k"` | 2D Kadane + TreeSet binary search |
 | `"maximum alternating subarray sum"` | Alternating state Kadane |
 | `"maximum absolute sum of any subarray"` | max(maxKadane, abs(minKadane)) |
+
+---
+
+## ⚡ Cyclic Sort — Quick Clue Detector
+
+| If you see this in the question | Pattern |
+|---------------------------------|---------|
+| `"array of n integers in range [1, n]"` | Cyclic Sort — place at index `nums[i]-1` |
+| `"find the missing number"` | Cyclic sort → first `nums[i] != i+1` → `i+1` |
+| `"find all missing numbers"` | Cyclic sort → collect all mismatches |
+| `"find the duplicate number"` | Cyclic sort → `nums[i]==nums[home]` → return it |
+| `"find all duplicates"` | Cyclic sort → collect `nums[i]` at mismatches |
+| `"corrupt pair / missing and duplicate"` | Cyclic sort → `[nums[i], i+1]` at mismatch |
+| `"smallest missing positive"` | Cyclic sort with range guard `[1,n]` |
+| `"first k missing positives"` | Sort + scan + extend beyond n |
+| `"O(n) time O(1) space" + range-constrained array` | Cyclic sort — use indices as HashMap |
+| `"in-place" + range [1,n]` | Each number's home is `nums[i]-1` |
 
 ---
 
@@ -684,6 +713,18 @@ Problems file  (02_*_problems.md):
 | 193 | Employee Free Time | 759 | Merge Interval — Merge + Gap Scan | Hard | ✅ |
 | 194 | Remove Covered Intervals | 1288 | Merge Interval — Sort + maxEnd | Medium | ✅ |
 | 195 | Data Stream as Disjoint Intervals | 352 | Merge Interval — TreeMap Merge | Hard | ✅ |
+| 196 | Cyclic Sort | — | Cyclic Sort — Core | Easy | ✅ |
+| 197 | Find the Missing Number | 268 | Cyclic Sort — Missing | Easy | ✅ |
+| 198 | Find All Missing Numbers | 448 | Cyclic Sort — All Missing | Easy | ✅ |
+| 199 | Find the Duplicate Number | 287 | Cyclic Sort — Duplicate | Medium | ✅ |
+| 200 | Find All Duplicate Numbers | 442 | Cyclic Sort — All Duplicates | Medium | ✅ |
+| 201 | Find the Corrupt Pair | — | Cyclic Sort — Combined | Easy | ✅ |
+| 202 | Smallest Missing Positive Number | 41 | Cyclic Sort — Missing Positive | Hard | ✅ |
+| 203 | First K Missing Positive Numbers | — | Cyclic Sort — K Missing | Hard | ✅ |
+| 204 | Set Mismatch | 645 | Cyclic Sort — Combined | Easy | ✅ |
+| 205 | Find All Numbers Disappeared | 448 | Cyclic Sort — All Missing | Easy | ✅ |
+| 206 | First Missing Positive | 41 | Cyclic Sort — Missing Positive | Hard | ✅ |
+| 207 | Missing Number (XOR/Math) | 268 | Cyclic Sort — Missing (Multi-approach) | Easy | ✅ |
 ---
 
 ## ⚙️ Setup
