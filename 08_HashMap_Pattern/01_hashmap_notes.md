@@ -8,16 +8,15 @@
 
 ## Table of Contents
 
-1. [How to identify a HashMap problem](#1-how-to-identify-a-hashmap-problem) ← **start here**
+1. [How to identify this pattern](#1-how-to-identify-this-pattern) ← **start here**
 2. [What is this pattern?](#2-what-is-this-pattern)
 3. [Core rules](#3-core-rules)
 4. [2-Question framework](#4-2-question-framework)
 5. [Variants table](#5-variants-table)
 6. [Universal Java template](#6-universal-java-template)
-7. [Solved problems](#7-solved-problems)
-8. [Quick reference cheatsheet](#8-quick-reference-cheatsheet)
-9. [Common mistakes](#9-common-mistakes)
-10. [Complexity summary](#10-complexity-summary)
+7. [Quick reference cheatsheet](#7-quick-reference-cheatsheet)
+8. [Common mistakes](#8-common-mistakes)
+9. [Complexity summary](#9-complexity-summary)
 
 ---
 
@@ -47,6 +46,10 @@ Certain words almost always mean HashMap. Scan for these first.
 | "longest subarray / substring" | prefix sum or sliding window map | store `prefixSum → first index` |
 | "can X be constructed from Y" | two-map compare | check supply ≥ demand |
 | "isomorphic / pattern match" | two-map bidirectional | map both directions |
+| "consecutive sequence / streak" | HashSet | O(1) membership, count from starts only |
+| "recently used / LRU cache" | LinkedHashMap or HashMap + DLL | access-order eviction |
+| "jewels in stones / membership" | HashSet lookup | add jewels, check each stone |
+| "nearby duplicate / within k" | index tracking map | `value → last index seen` |
 
 ---
 
@@ -312,6 +315,9 @@ Ask these two questions to identify which variant you need:
 | **Prefix sum** | prefixSum | count / first index | was prefix-k seen before? | Subarray Sum=K, Longest Subarray |
 | **Grouping** | canonical form | `List<item>` | who belongs to this group? | Group Anagrams, Classify |
 | **Index tracking** | element | last index seen | where was x last seen? shrink window | Longest Substr No Repeat |
+| **Two-map bidirectional** | element from A | element from B | is mapping consistent both ways? | Isomorphic, Word Pattern |
+| **HashSet membership** | element | — (just existence) | is x a jewel / duplicate / consecutive? | Jewels, Contains Dup, Consecutive |
+| **LRU / Design** | key | node / value | get O(1), evict LRU on overflow | LRU Cache |
 
 ---
 
@@ -528,471 +534,25 @@ map.merge(key, 1, Integer::sum)                             // another way to in
 
 ---
 
-## 7. Solved problems
-
----
-
-### Problem 1 — Two Sum
-**LeetCode #1 | Difficulty: Easy | Variant: Complement Lookup**
-
-#### Approach table
-
-| Step | Loop over | Condition | Result |
-|------|-----------|-----------|--------|
-| 1 | `nums[i]` | `map.containsKey(target - nums[i])` | Return `[stored_index, i]` |
-| 2 | — | else | `map.put(nums[i], i)` |
-
-#### Java code
-
-```java
-public int[] twoSum(int[] nums, int target) {
-    Map<Integer, Integer> seen = new HashMap<>();  // value → index
-
-    for (int i = 0; i < nums.length; i++) {
-        int complement = target - nums[i];
-
-        if (seen.containsKey(complement)) {
-            return new int[]{seen.get(complement), i};
-        }
-        seen.put(nums[i], i);   // store AFTER checking — avoids self-match
-    }
-    return new int[]{};
-}
-```
-
-#### Example
+## 7. Quick reference cheatsheet
 
 ```
-Input:  nums = [2, 7, 11, 15], target = 9
-i=0: complement=7, map={} → not found, map={2:0}
-i=1: complement=2, map={2:0} → FOUND → return [0, 1]
-Output: [0, 1]
-```
-
----
-
-### Problem 2 — Valid Anagram
-**LeetCode #242 | Difficulty: Easy | Variant: Frequency Count**
-
-#### Approach table
-
-| Step | Loop over | Condition | Result |
-|------|-----------|-----------|--------|
-| 1 | chars of `s` | always | `freq[c]++` |
-| 2 | chars of `t` | `freq[c] == 0` | return `false` |
-| 2 | chars of `t` | else | `freq[c]--`, remove if 0 |
-| 3 | — | `map.isEmpty()` | return `true` |
-
-#### Java code
-
-```java
-public boolean isAnagram(String s, String t) {
-    if (s.length() != t.length()) return false;
-
-    Map<Character, Integer> freq = new HashMap<>();
-
-    for (char c : s.toCharArray())
-        freq.put(c, freq.getOrDefault(c, 0) + 1);
-
-    for (char c : t.toCharArray()) {
-        if (!freq.containsKey(c)) return false;
-        freq.put(c, freq.get(c) - 1);
-        if (freq.get(c) == 0) freq.remove(c);
-    }
-    return freq.isEmpty();
-}
-```
-
-#### Example
-
-```
-Input:  s = "anagram", t = "nagaram"
-After s: {a:3, n:1, g:1, r:1, m:1}
-After t: map becomes empty → return true
-Output: true
-```
-
----
-
-### Problem 3 — First Non-Repeating Character
-**LeetCode #387 | Difficulty: Easy | Variant: Frequency Count + Index Tracking**
-
-#### Approach table
-
-| Step | Loop over | Condition | Result |
-|------|-----------|-----------|--------|
-| 1 | chars of `s` | always | `freq[c]++` |
-| 2 | indices of `s` | `freq[s[i]] == 1` | return `i` |
-| 3 | — | no such char | return `-1` |
-
-> **Why loop twice?** HashMap has no guaranteed order. The second loop uses the **string's order** to find the first unique character.
-
-#### Java code
-
-```java
-public int firstUniqChar(String s) {
-    Map<Character, Integer> freq = new HashMap<>();
-
-    for (char c : s.toCharArray())
-        freq.put(c, freq.getOrDefault(c, 0) + 1);
-
-    for (int i = 0; i < s.length(); i++) {
-        if (freq.get(s.charAt(i)) == 1)
-            return i;
-    }
-    return -1;
-}
-```
-
-#### Example
-
-```
-Input:  s = "leetcode"
-freq:   {l:1, e:2, t:1, c:1, o:1, d:1}
-Loop:   l → freq=1 → return 0
-Output: 0
-```
-
----
-
-### Problem 4 — Maximum Number of Balloons
-**LeetCode #1189 | Difficulty: Easy | Variant: Frequency Count with Division**
-
-#### Approach table
-
-| Step | Action | Note |
-|------|--------|------|
-| 1 | Build `freq` map for `text` | count all chars |
-| 2 | For each letter in `"balloon"` | divide freq by times needed |
-| 3 | Return `min` across all letters | bottleneck letter limits count |
-
-> **Key insight:** `l` and `o` each appear **twice** in "balloon", so divide their frequency by 2.
-
-#### Java code
-
-```java
-public int maxNumberOfBalloons(String text) {
-    Map<Character, Integer> freq = new HashMap<>();
-    for (char c : text.toCharArray())
-        freq.put(c, freq.getOrDefault(c, 0) + 1);
-
-    int ans = Integer.MAX_VALUE;
-    ans = Math.min(ans, freq.getOrDefault('b', 0) / 1);
-    ans = Math.min(ans, freq.getOrDefault('a', 0) / 1);
-    ans = Math.min(ans, freq.getOrDefault('l', 0) / 2);  // needs 2
-    ans = Math.min(ans, freq.getOrDefault('o', 0) / 2);  // needs 2
-    ans = Math.min(ans, freq.getOrDefault('n', 0) / 1);
-    return ans;
-}
-```
-
-#### Example
-
-```
-Input:  text = "nlaebolko"
-freq:   {n:1, l:2, a:1, e:1, b:1, o:2, k:1}
-b:1/1=1  a:1/1=1  l:2/2=1  o:2/2=1  n:1/1=1  →  min=1
-Output: 1
-```
-
----
-
-### Problem 5 — Longest Palindrome
-**LeetCode #409 | Difficulty: Easy | Variant: Frequency Count + Math**
-
-#### Approach table
-
-| Step | Loop over | Condition | Result |
-|------|-----------|-----------|--------|
-| 1 | chars of `s` | always | `freq[c]++` |
-| 2 | freq values | `count % 2 == 0` | `length += count` |
-| 2 | freq values | `count % 2 == 1` | `length += count - 1`, set `oddFound = true` |
-| 3 | — | `oddFound` | `length += 1` (center character) |
-
-> **Key insight:** All even-count characters fit in a palindrome. One odd-count character can sit in the center.
-
-#### Java code
-
-```java
-public int longestPalindrome(String s) {
-    Map<Character, Integer> freq = new HashMap<>();
-    for (char c : s.toCharArray())
-        freq.put(c, freq.getOrDefault(c, 0) + 1);
-
-    int length = 0;
-    boolean oddFound = false;
-
-    for (int count : freq.values()) {
-        length += (count / 2) * 2;   // take the even part of every count
-        if (count % 2 == 1) oddFound = true;
-    }
-    return length + (oddFound ? 1 : 0);
-}
-```
-
-#### Example
-
-```
-Input:  s = "abccccdd"
-freq:   {a:1, b:1, c:4, d:2}
-a:0 (odd)  b:0 (odd)  c:4  d:2  →  length=6, oddFound=true → +1
-Output: 7   ("dccaccd")
-```
-
----
-
-### Problem 6 — Ransom Note
-**LeetCode #383 | Difficulty: Easy | Variant: Two-Map Comparison**
-
-#### Approach table
-
-| Step | Loop over | Condition | Result |
-|------|-----------|-----------|--------|
-| 1 | chars of `magazine` | always | `magFreq[c]++` |
-| 2 | chars of `ransomNote` | `magFreq[c] == 0` | return `false` |
-| 2 | chars of `ransomNote` | else | `magFreq[c]--` |
-| 3 | — | loop finishes | return `true` |
-
-> **Key insight:** Decrement the magazine map as you consume letters. If ever 0, magazine is exhausted for that letter.
-
-#### Java code
-
-```java
-public boolean canConstruct(String ransomNote, String magazine) {
-    Map<Character, Integer> magFreq = new HashMap<>();
-    for (char c : magazine.toCharArray())
-        magFreq.put(c, magFreq.getOrDefault(c, 0) + 1);
-
-    for (char c : ransomNote.toCharArray()) {
-        int available = magFreq.getOrDefault(c, 0);
-        if (available == 0) return false;   // not enough supply
-        magFreq.put(c, available - 1);      // consume one
-    }
-    return true;
-}
-```
-
-#### Example
-
-```
-Input:  ransomNote = "aa", magazine = "aab"
-magFreq: {a:2, b:1}
-note[0]='a': available=2 → put(a,1)
-note[1]='a': available=1 → put(a,0)
-Loop ends → return true   ✓
-
-Input:  ransomNote = "aa", magazine = "ab"
-note[1]='a': available=0 → return false   ✓
-```
-
----
-
-### Problem 7 — Subarray Sum Equals K
-**LeetCode #560 | Difficulty: Medium | Variant: Prefix Sum**
-
-#### Approach table
-
-| Step | Action | Note |
-|------|--------|------|
-| 1 | Init `map.put(0, 1)` | base case: empty prefix |
-| 2 | `prefix += nums[i]` | running sum |
-| 3 | `count += map.getOrDefault(prefix - k, 0)` | how many prior prefixes give a subarray of sum k |
-| 4 | `map.put(prefix, ...)` | store AFTER querying |
-
-> **Why `map.put(0, 1)`?** If the subarray starts at index 0, `prefix - k == 0`. Without seeding the map, we miss these cases.
-
-#### Java code
-
-```java
-public int subarraySum(int[] nums, int k) {
-    Map<Integer, Integer> prefixCount = new HashMap<>();
-    prefixCount.put(0, 1);   // CRITICAL base case
-
-    int count = 0, prefix = 0;
-
-    for (int n : nums) {
-        prefix += n;
-        count += prefixCount.getOrDefault(prefix - k, 0);
-        prefixCount.put(prefix, prefixCount.getOrDefault(prefix, 0) + 1);
-    }
-    return count;
-}
-```
-
-#### Example
-
-```
-Input:  nums = [1, 1, 1], k = 2
-map={0:1}
-i=0: prefix=1, look (1-2)=-1 → 0,  map={0:1,1:1}
-i=1: prefix=2, look (2-2)=0  → 1,  map={0:1,1:1,2:1},  count=1
-i=2: prefix=3, look (3-2)=1  → 1,  map={0:1,1:1,2:1,3:1},  count=2
-Output: 2
-```
-
----
-
-### Problem 8 — Longest Substring Without Repeating Characters
-**LeetCode #3 | Difficulty: Medium | Variant: Index Tracking + Sliding Window**
-
-#### Approach table
-
-| Step | Action | Note |
-|------|--------|------|
-| 1 | `right` pointer moves forward | expand window |
-| 2 | If `map.containsKey(c)` | shrink left: `left = max(left, map.get(c) + 1)` |
-| 3 | `map.put(c, right)` | always update to latest index |
-| 4 | `maxLen = max(maxLen, right - left + 1)` | track answer |
-
-> **`Math.max(left, ...)`** prevents left from moving backwards when a duplicate was outside the current window.
-
-#### Java code
-
-```java
-public int lengthOfLongestSubstring(String s) {
-    Map<Character, Integer> lastSeen = new HashMap<>();  // char → last index
-    int left = 0, maxLen = 0;
-
-    for (int right = 0; right < s.length(); right++) {
-        char c = s.charAt(right);
-
-        if (lastSeen.containsKey(c)) {
-            left = Math.max(left, lastSeen.get(c) + 1);  // shrink window
-        }
-        lastSeen.put(c, right);
-        maxLen = Math.max(maxLen, right - left + 1);
-    }
-    return maxLen;
-}
-```
-
-#### Example
-
-```
-Input:  s = "abcabcbb"
-r=0: a, map={a:0}, len=1
-r=1: b, map={a:0,b:1}, len=2
-r=2: c, map={a:0,b:1,c:2}, len=3
-r=3: a, left=max(0,1)=1, map={a:3,...}, len=3
-r=4: b, left=max(1,2)=2, map={b:4,...}, len=3
-Output: 3   ("abc")
-```
-
----
-
-### Problem 9 — Group Anagrams
-**LeetCode #49 | Difficulty: Medium | Variant: Grouping / Bucketing**
-
-#### Approach table
-
-| Step | Action | Note |
-|------|--------|------|
-| 1 | Sort each string's chars | creates canonical key |
-| 2 | `map.computeIfAbsent(key, x -> new ArrayList<>()).add(s)` | group into bucket |
-| 3 | Return `map.values()` | all groups |
-
-> **Why sorted string as key?** All anagrams have the same sorted form — `"eat"`, `"tea"`, `"ate"` all sort to `"aet"`.
-
-#### Java code
-
-```java
-public List<List<String>> groupAnagrams(String[] strs) {
-    Map<String, List<String>> groups = new HashMap<>();
-
-    for (String s : strs) {
-        char[] arr = s.toCharArray();
-        Arrays.sort(arr);
-        String key = new String(arr);   // canonical form
-
-        groups.computeIfAbsent(key, k -> new ArrayList<>()).add(s);
-    }
-    return new ArrayList<>(groups.values());
-}
-```
-
-#### Example
-
-```
-Input:  ["eat","tea","tan","ate","nat","bat"]
-"eat"→"aet"  "tea"→"aet"  "tan"→"ant"  "ate"→"aet"  "nat"→"ant"  "bat"→"abt"
-Output: [["eat","tea","ate"], ["tan","nat"], ["bat"]]
-```
-
----
-
-### Problem 10 — Top K Frequent Elements
-**LeetCode #347 | Difficulty: Medium | Variant: Frequency Count + Sort/Heap**
-
-#### Approach table
-
-| Step | Action | Note |
-|------|--------|------|
-| 1 | Build frequency map | `freq[num]++` |
-| 2 | Sort entries by value descending | or use a min-heap of size k |
-| 3 | Return first k keys | |
-
-#### Java code
-
-```java
-// Approach A — sort (simple, O(n log n))
-public int[] topKFrequent(int[] nums, int k) {
-    Map<Integer, Integer> freq = new HashMap<>();
-    for (int n : nums)
-        freq.put(n, freq.getOrDefault(n, 0) + 1);
-
-    return freq.entrySet().stream()
-        .sorted((a, b) -> b.getValue() - a.getValue())
-        .limit(k)
-        .mapToInt(Map.Entry::getKey)
-        .toArray();
-}
-
-// Approach B — min-heap (optimal, O(n log k))
-public int[] topKFrequentHeap(int[] nums, int k) {
-    Map<Integer, Integer> freq = new HashMap<>();
-    for (int n : nums)
-        freq.put(n, freq.getOrDefault(n, 0) + 1);
-
-    PriorityQueue<Integer> heap = new PriorityQueue<>(
-        (a, b) -> freq.get(a) - freq.get(b)   // min-heap by frequency
-    );
-    for (int num : freq.keySet()) {
-        heap.offer(num);
-        if (heap.size() > k) heap.poll();      // evict least frequent
-    }
-
-    int[] result = new int[k];
-    for (int i = k - 1; i >= 0; i--)
-        result[i] = heap.poll();
-    return result;
-}
-```
-
-#### Example
-
-```
-Input:  nums = [1,1,1,2,2,3], k = 2
-freq:   {1:3, 2:2, 3:1}
-top 2:  [1, 2]
-Output: [1, 2]
-```
-
----
-
-## 8. Quick reference cheatsheet
-
-```
-SIGNAL IN PROBLEM               → PATTERN               → KEY OPERATION
-──────────────────────────────────────────────────────────────────────────
-"find two numbers that sum to"  → complement lookup     → map.containsKey(target - x)
-"count occurrences / frequency" → frequency map         → map.getOrDefault(x, 0) + 1
-"find duplicate / contains"     → HashSet               → set.contains(x)
-"group / classify / anagram"    → bucketing             → map.computeIfAbsent(key, ...)
-"longest subarray with sum k"   → prefix sum + map      → map.get(prefix - k)
-"first non-repeating"           → freq map, loop twice  → freq.get(c) == 1
-"can X be built from Y"         → two-map compare       → magFreq[c] >= noteFreq[c]
-"palindrome length"             → freq map + math       → even counts + 1 center
-"sliding window + constraint"   → window freq map       → window.size() > k → shrink
+SIGNAL IN PROBLEM               → PATTERN                  → KEY OPERATION
+──────────────────────────────────────────────────────────────────────────────
+"find two numbers that sum to"  → complement lookup        → map.containsKey(target - x)
+"count occurrences / frequency" → frequency map            → map.getOrDefault(x, 0) + 1
+"find duplicate / contains"     → HashSet                  → set.contains(x)
+"group / classify / anagram"    → bucketing                → map.computeIfAbsent(key, ...)
+"longest subarray with sum k"   → prefix sum + map         → map.get(prefix - k)
+"first non-repeating"           → freq map, loop twice     → freq.get(c) == 1
+"can X be built from Y"         → two-map compare          → magFreq[c] >= noteFreq[c]
+"palindrome length"             → freq map + math          → even counts + 1 center
+"sliding window + constraint"   → window freq map          → window.size() > k → shrink
+"isomorphic / word pattern"     → two-map bidirectional    → check sToT and tToS both
+"jewels in stones / membership" → HashSet lookup           → set.contains(stone)
+"consecutive sequence O(n)"     → HashSet + start check    → only count from num-1 not in set
+"nearby duplicate within k"     → index tracking map       → i - lastIndex[val] <= k
+"LRU cache / evict oldest"      → LinkedHashMap or DLL     → access-order, removeEldestEntry
 ```
 
 **Java API quick-pick:**
@@ -1011,7 +571,7 @@ map.forEach((k, v) -> { ... });                            // iterate
 
 ---
 
-## 9. Common mistakes
+## 8. Common mistakes
 
 ### Mistake 1 — Storing before checking (Two Sum self-match bug)
 
@@ -1065,7 +625,7 @@ int val = map.getOrDefault(key, 0);      // safe — CORRECT
 
 ---
 
-## 10. Complexity summary
+## 9. Complexity summary
 
 | Problem | Time | Space | Notes |
 |---------|------|-------|-------|
@@ -1079,6 +639,12 @@ int val = map.getOrDefault(key, 0);      // safe — CORRECT
 | Longest Substring No Repeat | O(n) | O(min(n,α)) | α = alphabet size |
 | Group Anagrams | O(n · k log k) | O(n · k) | k = avg string length |
 | Top K Frequent (heap) | O(n log k) | O(n) | better than O(n log n) sort |
+| Jewels and Stones | O(j + s) | O(j) | j = jewels length, s = stones length |
+| Isomorphic Strings | O(n) | O(1) | at most 256 chars |
+| Word Pattern | O(n) | O(n) | n = number of words |
+| Contains Duplicate II | O(n) | O(min(n,k)) | sliding window of size k |
+| Longest Consecutive Sequence | O(n) | O(n) | each element processed at most twice |
+| LRU Cache | O(1) per op | O(capacity) | HashMap + DLL |
 
 **General rule:**
 - HashMap gives **O(n) time** at the cost of **O(n) extra space**

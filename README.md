@@ -62,7 +62,8 @@ DSA-Interview-Notes-Java/
 │   └── 02_stack_problems.md
 │
 ├── 08_HashMap_Pattern/
-│   └── 01-hashmap-pattern.md
+│   ├── 01_hashmap_notes.md
+│   └── 02_hashmap_problems.md
 │
 ├── 09_In-Place_Reversal_LinkedList/
 │   └── 01-inplace-reversal-linkedlist.md
@@ -209,11 +210,15 @@ DSA-Interview-Notes-Java/
 ### ✅ HashMap
 | File | Sub-Pattern | Problems | Difficulty |
 |------|------------|----------|------------|
-| [01-hashmap-pattern.md](./08_HashMap_Pattern/01-hashmap-pattern.md) | Frequency Count | Valid Anagram, First Non-Repeating Char, Max Balloons, Longest Palindrome, Ransom Note, Top K Frequent | Easy → Medium |
-| [01-hashmap-pattern.md](./08_HashMap_Pattern/01-hashmap-pattern.md) | Complement Lookup | Two Sum | Easy |
-| [01-hashmap-pattern.md](./08_HashMap_Pattern/01-hashmap-pattern.md) | Prefix Sum | Subarray Sum = K | Medium |
-| [01-hashmap-pattern.md](./08_HashMap_Pattern/01-hashmap-pattern.md) | Grouping / Bucketing | Group Anagrams | Medium |
-| [01-hashmap-pattern.md](./08_HashMap_Pattern/01-hashmap-pattern.md) | Index Tracking + Sliding Window | Longest Substring Without Repeating | Medium |
+| [01_hashmap_notes.md](./08_HashMap_Pattern/01_hashmap_notes.md) | Identification + Templates + Cheatsheet | — | Reference |
+| [02_hashmap_problems.md](./08_HashMap_Pattern/02_hashmap_problems.md) | Frequency Count | Valid Anagram, First Non-Repeating, Max Balloons, Longest Palindrome, Ransom Note, Top K Frequent | Easy → Medium |
+| [02_hashmap_problems.md](./08_HashMap_Pattern/02_hashmap_problems.md) | Complement Lookup | Two Sum | Easy |
+| [02_hashmap_problems.md](./08_HashMap_Pattern/02_hashmap_problems.md) | Prefix Sum | Subarray Sum = K | Medium |
+| [02_hashmap_problems.md](./08_HashMap_Pattern/02_hashmap_problems.md) | Grouping / Bucketing | Group Anagrams | Medium |
+| [02_hashmap_problems.md](./08_HashMap_Pattern/02_hashmap_problems.md) | Index Tracking + Sliding Window | Longest Substring Without Repeating | Medium |
+| [02_hashmap_problems.md](./08_HashMap_Pattern/02_hashmap_problems.md) | Two-Map Bidirectional | Isomorphic Strings, Word Pattern | Easy |
+| [02_hashmap_problems.md](./08_HashMap_Pattern/02_hashmap_problems.md) | HashSet Membership | Jewels & Stones, Contains Duplicate II, Longest Consecutive Sequence | Easy → Medium |
+| [02_hashmap_problems.md](./08_HashMap_Pattern/02_hashmap_problems.md) | Design (LRU Cache) | LRU Cache | Medium |
 
 ---
 
@@ -448,7 +453,11 @@ Problems file  (02_*_problems.md):
 | `"longest subarray with sum k"` | Prefix Sum |
 | `"longest substring without repeating"` | Index Tracking + Sliding Window |
 | `"duplicate / already seen"` | HashSet |
-| `"isomorphic / pattern match"` | Two-map (bidirectional) |
+| `"isomorphic / pattern match"` | Two-map Bidirectional |
+| `"jewels in stones / membership check"` | HashSet Lookup |
+| `"nearby duplicate within k indices"` | Index Tracking Map |
+| `"longest consecutive sequence O(n)"` | HashSet + sequence start check |
+| `"LRU cache / evict least recently used"` | LinkedHashMap or HashMap + DLL |
 
 ---
 
@@ -533,127 +542,133 @@ Problems file  (02_*_problems.md):
 | 60 | Longest Substring Without Repeating | 3 | HashMap — Index Tracking | Medium | ✅ |
 | 61 | Group Anagrams | 49 | HashMap — Grouping | Medium | ✅ |
 | 62 | Top K Frequent Elements | 347 | HashMap — Frequency Count | Medium | ✅ |
-| 63 | Reverse a LinkedList | 206 | In-Place Reversal — Full | Easy | ✅ |
-| 64 | Reverse a Sub-list | 92 | In-Place Reversal — Partial | Medium | ✅ |
-| 65 | Reverse List in Pairs | 24 | In-Place Reversal — k=2 | Medium | ✅ |
-| 66 | Reverse Every K-element Sub-list | 25 | In-Place Reversal — K-Group | Hard | ✅ |
-| 67 | Reverse Nodes in Even Length Groups | 2074 | In-Place Reversal — Conditional | Hard | ✅ |
-| 68 | Rotate a LinkedList | 61 | In-Place Reversal — Rotation | Medium | ✅ |
-| 69 | Reverse Alternate K Elements | — | In-Place Reversal — Alternate K | Medium | ✅ |
-| 70 | Palindrome LinkedList | 234 | In-Place Reversal — Tool usage | Easy | ✅ |
-| 71 | LinkedList Cycle | 141 | Slow & Fast — Cycle Detection | Easy | ✅ |
-| 72 | Start of LinkedList Cycle | 142 | Slow & Fast — Cycle Start | Medium | ✅ |
-| 73 | Happy Number | 202 | Slow & Fast — Implicit Cycle | Medium | ✅ |
-| 74 | Find the Duplicate Number | 287 | Slow & Fast — Implicit Cycle | Medium | ✅ |
-| 75 | Middle of the LinkedList | 876 | Slow & Fast — Find Middle | Easy | ✅ |
-| 76 | Palindrome LinkedList | 234 | Slow & Fast — Middle + Reverse | Medium | ✅ |
-| 77 | Reorder List | 143 | Slow & Fast — Middle + Reverse + Merge | Medium | ✅ |
-| 78 | Cycle in a Circular Array | 457 | Slow & Fast — Implicit Cycle (Array) | Hard | ✅ |
-| 79 | Remove Nth Node From End | 19 | Slow & Fast — Gap Technique | Medium | ✅ |
-| 80 | Intersection of Two Lists | 160 | Slow & Fast — Redirect Technique | Easy | ✅ |
-| 81 | Odd Even Linked List | 328 | Slow & Fast — Pointer Rearrangement | Medium | ✅ |
-| 82 | String Compression | 443 | Slow & Fast — Slow Write / Fast Read | Medium | ✅ |
-| 83 | Remove Duplicates from Sorted Array | 26 | Slow & Fast — Slow Write / Fast Read | Easy | ✅ |
-| 84 | Remove Duplicates from Sorted Array II | 80 | Slow & Fast — Slow Write / Fast Read | Medium | ✅ |
-| 85 | Duplicate Zeros | 1089 | Slow & Fast — Slow Write / Fast Read | Easy | ✅ |
-| 86 | Rotate List | 61 | Slow & Fast — Rotate / Reconnect | Medium | ✅ |
-| 87 | Rotate Array | 189 | Slow & Fast — Rotate / Reconnect | Medium | ✅ |
-| 88 | Partition Labels | 763 | Slow & Fast — Two-pointer String | Medium | ✅ |
-| 89 | Counting Binary Substrings | 696 | Slow & Fast — Two-pointer String | Easy | ✅ |
-| 90 | Last Substring in Lexicographical Order | 1163 | Slow & Fast — Two-pointer String | Hard | ✅ |
-| 91 | Sort List | 148 | Slow & Fast — Middle + Merge Sort | Medium | ✅ |
-| 92 | Number of Subarrays with Bounded Maximum | 795 | Slow & Fast — Two-pointer Count | Medium | ✅ |
-| 93 | K-diff Pairs in an Array | 532 | Slow & Fast — Two-pointer Sorted | Medium | ✅ |
-| 94 | Binary Search | 704 | Binary Search — Basic | Easy | ✅ |
-| 95 | Search Insert Position | 35 | Binary Search — Upper Bound | Easy | ✅ |
-| 96 | First and Last Position | 34 | Binary Search — Boundary Search | Medium | ✅ |
-| 97 | Count Occurrences in Sorted Array | — | Binary Search — Counting | Easy | ✅ |
-| 98 | Search in Infinite Sorted Array | — | Binary Search — Exponential + BS | Medium | ✅ |
-| 99 | Peak Index in Mountain Array | 852 | Binary Search — Bitonic | Easy | ✅ |
-| 100 | Search in Bitonic Array | — | Binary Search — Bitonic | Medium | ✅ |
-| 101 | Find Peak Element | 162 | Binary Search — Bitonic | Medium | ✅ |
-| 102 | Find Minimum in Rotated Sorted Array | 153 | Binary Search — Range Search | Medium | ✅ |
-| 103 | Find Number of Rotations | — | Binary Search — Range Search | Easy | ✅ |
-| 104 | Search in Rotated Sorted Array | 33 | Binary Search — Range Search | Medium | ✅ |
-| 105 | Find Min in Rotated II (Duplicates) | 154 | Binary Search — Range Search | Hard | ✅ |
-| 106 | Search in Rotated II (Duplicates) | 81 | Binary Search — Range Search | Medium | ✅ |
-| 107 | Single Element in Sorted Array | 540 | Binary Search — Parity | Medium | ✅ |
-| 108 | Koko Eating Bananas | 875 | Binary Search — Allocate | Medium | ✅ |
-| 109 | Min Days to Make M Bouquets | 1482 | Binary Search — Allocate | Medium | ✅ |
-| 110 | Aggressive Cows | — | Binary Search — Allocate | Medium | ✅ |
-| 111 | H-Index II | 275 | Binary Search — Allocate | Medium | ✅ |
-| 112 | Maximum Candies to K Children | 2226 | Binary Search — Allocate | Medium | ✅ |
-| 113 | Capacity to Ship in D Days | 1011 | Binary Search — Allocate | Medium | ✅ |
-| 114 | Book Allocation Problem | — | Binary Search — Allocate | Hard | ✅ |
-| 115 | Split Array Largest Sum | 410 | Binary Search — Allocate | Hard | ✅ |
-| 116 | Minimum Speed to Arrive on Time | 1870 | Binary Search — Allocate | Medium | ✅ |
-| 117 | Minimize Max Gas Station Distance | 774 | Binary Search — Allocate | Hard | ✅ |
-| 118 | Search a 2D Matrix | 74 | Binary Search — 2D | Medium | ✅ |
-| 119 | Search a 2D Matrix II | 240 | Binary Search — 2D (Staircase) | Medium | ✅ |
-| 120 | Kth Smallest in Sorted Matrix | 378 | Binary Search — Kth Element | Medium | ✅ |
-| 121 | Kth Smallest in Multiplication Table | 668 | Binary Search — Kth Element | Hard | ✅ |
-| 122 | Median of Two Sorted Arrays | 4 | Binary Search — Partition | Hard | ✅ |
-| 123 | Kth Missing Positive Number | 1539 | Binary Search — Missing Count | Easy | ✅ |
-| 124 | Time Based Key-Value Store | 981 | Binary Search — FAANG | Medium | ✅ |
-| 125 | Find K Closest Elements | 658 | Binary Search — FAANG | Medium | ✅ |
-| 126 | Maximum Sum Subarray of Size K | — | Sliding Window — Fixed | Easy | ✅ |
-| 127 | Maximum Average Subarray I | 643 | Sliding Window — Fixed | Easy | ✅ |
-| 128 | Permutation in a String | 567 | Sliding Window — Fixed | Medium | ✅ |
-| 129 | Find All Anagrams in a String | 438 | Sliding Window — Fixed | Medium | ✅ |
-| 130 | Longest Substring Without Repeating | 3 | Sliding Window — Variable Maximize | Medium | ✅ |
-| 131 | Longest Substring K Distinct | 340 | Sliding Window — Variable Maximize | Medium | ✅ |
-| 132 | Fruits into Baskets | 904 | Sliding Window — Variable Maximize | Medium | ✅ |
-| 133 | Longest Repeating Char Replacement | 424 | Sliding Window — Variable Maximize | Hard | ✅ |
-| 134 | Max Consecutive Ones III | 1004 | Sliding Window — Variable Maximize | Medium | ✅ |
-| 135 | Longest Subarray of 1s (Delete One) | 1493 | Sliding Window — Variable Maximize | Medium | ✅ |
-| 136 | Get Equal Substrings Within Budget | 1208 | Sliding Window — Variable Maximize | Medium | ✅ |
-| 137 | Minimum Size Subarray Sum | 209 | Sliding Window — Variable Minimize | Medium | ✅ |
-| 138 | Minimum Window Substring | 76 | Sliding Window — Variable Minimize | Hard | ✅ |
-| 139 | Subarray Product Less Than K | 713 | Sliding Window — Variable Count | Medium | ✅ |
-| 140 | Subarrays with K Different Integers | 992 | Sliding Window — At-Most Trick | Hard | ✅ |
-| 141 | Binary Subarrays with Sum | 930 | Sliding Window — At-Most Trick | Medium | ✅ |
-| 142 | Count Number of Nice Subarrays | 1248 | Sliding Window — At-Most Trick | Medium | ✅ |
-| 143 | Substring with Concatenation of Words | 30 | Sliding Window — FAANG Hard | Hard | ✅ |
-| 144 | Frequency of Most Frequent Element | 1838 | Sliding Window — FAANG Hard | Medium | ✅ |
-| 145 | Maximize the Confusion of an Exam | 2024 | Sliding Window — FAANG Hard | Medium | ✅ |
-| 146 | Min Ops to Make Array Continuous | 2009 | Sliding Window — FAANG Hard | Hard | ✅ |
-| 147 | Maximum Subarray Sum | 53 | Kadane — Classic | Easy | ✅ |
-| 148 | Minimum Subarray Sum | — | Kadane — Classic | Easy | ✅ |
-| 149 | Maximum Product Subarray | 152 | Kadane — Product | Medium | ✅ |
-| 150 | Maximum Sum Circular Subarray | 918 | Kadane — Circular | Medium | ✅ |
-| 151 | Best Time to Buy and Sell Stock | 121 | Kadane — Stock | Easy | ✅ |
-| 152 | Max Subarray Sum with One Deletion | 1186 | Kadane — With State | Medium | ✅ |
-| 153 | Longest Subarray with Positive Sum | — | Kadane — Prefix Sum | Medium | ✅ |
-| 154 | Maximum Absolute Sum of Any Subarray | 1749 | Kadane — Dual | Medium | ✅ |
-| 155 | House Robber | 198 | Kadane — Non-Adjacent DP | Medium | ✅ |
-| 156 | Max Sum Rectangle in 2D Matrix | 363 | Kadane — 2D | Hard | ✅ |
-| 157 | Max Sum Submatrix No Larger Than K | 363 | Kadane — 2D + Binary Search | Hard | ✅ |
-| 158 | Maximum Alternating Subarray Sum | 2036 | Kadane — Alternating | Medium | ✅ |
-| 159 | Range Sum Query - Immutable | 303 | Prefix Sum — Basic Prefix Array | Easy | ✅ |
-| 160 | Find Pivot Index | 724 | Prefix Sum — Basic Prefix Array | Easy | ✅ |
-| 161 | Subarray Sum Equals K | 560 | Prefix Sum — HashMap Count | Medium | ✅ |
-| 162 | Contiguous Array | 525 | Prefix Sum — HashMap Remap | Medium | ✅ |
-| 163 | Longest Subarray with Sum K | 325 | Prefix Sum — HashMap First-seen | Medium | ✅ |
-| 164 | Subarray Sums Divisible by K | 974 | Prefix Sum — Modulo HashMap | Medium | ✅ |
-| 165 | Continuous Subarray Sum | 523 | Prefix Sum — Modulo HashMap | Medium | ✅ |
-| 166 | Range Sum Query 2D - Immutable | 304 | Prefix Sum — 2D Prefix Array | Medium | ✅ |
-| 167 | Max Sum of Rectangle No Larger Than K | 363 | Prefix Sum — 2D Prefix + TreeSet | Hard | ✅ |
-| 168 | Shortest Subarray with Sum at Least K | 862 | Prefix Sum — Prefix + Deque | Hard | ✅ |
-| 169 | Count of Range Sum | 327 | Prefix Sum — Prefix + Merge Sort | Hard | ✅ |
-| 170 | Maximum Product Subarray | 152 | Prefix Sum — Prefix Product | Medium | ✅ |
-| 171 | Merge Intervals | 56 | Merge Interval — Sort + Scan | Medium | ✅ |
-| 172 | Insert Interval | 57 | Merge Interval — 3-Phase Insert | Medium | ✅ |
-| 173 | Interval List Intersections | 986 | Merge Interval — Two-pointer | Medium | ✅ |
-| 174 | Overlapping Intervals Check | — | Merge Interval — Sort + Adjacent | Easy | ✅ |
-| 175 | Minimum Meeting Rooms | 253 | Merge Interval — Min-Heap | Hard | ✅ |
-| 176 | Maximum CPU Load | — | Merge Interval — Min-Heap | Hard | ✅ |
-| 177 | Task Scheduler | 621 | Merge Interval — Max-Heap + Greedy | Medium | ✅ |
-| 178 | Non-overlapping Intervals | 435 | Merge Interval — Greedy Sort End | Medium | ✅ |
-| 179 | Min Arrows to Burst Balloons | 452 | Merge Interval — Greedy Sort End | Medium | ✅ |
-| 180 | Meeting Scheduler | 1229 | Merge Interval — Two-pointer | Medium | ✅ |
-| 181 | Employee Free Time | 759 | Merge Interval — Merge + Gap Scan | Hard | ✅ |
-| 182 | Remove Covered Intervals | 1288 | Merge Interval — Sort + maxEnd | Medium | ✅ |
-| 183 | Data Stream as Disjoint Intervals | 352 | Merge Interval — TreeMap Merge | Hard | ✅ |
+| 63 | Jewels and Stones | 771 | HashMap — HashSet Lookup | Easy | ✅ |
+| 64 | Isomorphic Strings | 205 | HashMap — Two-Map Bidirectional | Easy | ✅ |
+| 65 | Word Pattern | 290 | HashMap — Two-Map Bidirectional | Easy | ✅ |
+| 66 | Contains Duplicate II | 219 | HashMap — Index Tracking | Easy | ✅ |
+| 67 | Longest Consecutive Sequence | 128 | HashMap — HashSet + Sequence | Medium | ✅ |
+| 68 | LRU Cache | 146 | HashMap — Design (LinkedHashMap) | Medium | ✅ |
+| 69 | Reverse a LinkedList | 206 | In-Place Reversal — Full | Easy | ✅ |
+| 70 | Reverse a Sub-list | 92 | In-Place Reversal — Partial | Medium | ✅ |
+| 71 | Reverse List in Pairs | 24 | In-Place Reversal — k=2 | Medium | ✅ |
+| 72 | Reverse Every K-element Sub-list | 25 | In-Place Reversal — K-Group | Hard | ✅ |
+| 73 | Reverse Nodes in Even Length Groups | 2074 | In-Place Reversal — Conditional | Hard | ✅ |
+| 74 | Rotate a LinkedList | 61 | In-Place Reversal — Rotation | Medium | ✅ |
+| 75 | Reverse Alternate K Elements | — | In-Place Reversal — Alternate K | Medium | ✅ |
+| 76 | Palindrome LinkedList | 234 | In-Place Reversal — Tool usage | Easy | ✅ |
+| 77 | LinkedList Cycle | 141 | Slow & Fast — Cycle Detection | Easy | ✅ |
+| 78 | Start of LinkedList Cycle | 142 | Slow & Fast — Cycle Start | Medium | ✅ |
+| 79 | Happy Number | 202 | Slow & Fast — Implicit Cycle | Medium | ✅ |
+| 80 | Find the Duplicate Number | 287 | Slow & Fast — Implicit Cycle | Medium | ✅ |
+| 81 | Middle of the LinkedList | 876 | Slow & Fast — Find Middle | Easy | ✅ |
+| 82 | Palindrome LinkedList | 234 | Slow & Fast — Middle + Reverse | Medium | ✅ |
+| 83 | Reorder List | 143 | Slow & Fast — Middle + Reverse + Merge | Medium | ✅ |
+| 84 | Cycle in a Circular Array | 457 | Slow & Fast — Implicit Cycle (Array) | Hard | ✅ |
+| 85 | Remove Nth Node From End | 19 | Slow & Fast — Gap Technique | Medium | ✅ |
+| 86 | Intersection of Two Lists | 160 | Slow & Fast — Redirect Technique | Easy | ✅ |
+| 87 | Odd Even Linked List | 328 | Slow & Fast — Pointer Rearrangement | Medium | ✅ |
+| 88 | String Compression | 443 | Slow & Fast — Slow Write / Fast Read | Medium | ✅ |
+| 89 | Remove Duplicates from Sorted Array | 26 | Slow & Fast — Slow Write / Fast Read | Easy | ✅ |
+| 90 | Remove Duplicates from Sorted Array II | 80 | Slow & Fast — Slow Write / Fast Read | Medium | ✅ |
+| 91 | Duplicate Zeros | 1089 | Slow & Fast — Slow Write / Fast Read | Easy | ✅ |
+| 92 | Rotate List | 61 | Slow & Fast — Rotate / Reconnect | Medium | ✅ |
+| 93 | Rotate Array | 189 | Slow & Fast — Rotate / Reconnect | Medium | ✅ |
+| 94 | Partition Labels | 763 | Slow & Fast — Two-pointer String | Medium | ✅ |
+| 95 | Counting Binary Substrings | 696 | Slow & Fast — Two-pointer String | Easy | ✅ |
+| 96 | Last Substring in Lexicographical Order | 1163 | Slow & Fast — Two-pointer String | Hard | ✅ |
+| 97 | Sort List | 148 | Slow & Fast — Middle + Merge Sort | Medium | ✅ |
+| 98 | Number of Subarrays with Bounded Maximum | 795 | Slow & Fast — Two-pointer Count | Medium | ✅ |
+| 99 | K-diff Pairs in an Array | 532 | Slow & Fast — Two-pointer Sorted | Medium | ✅ |
+| 100 | Binary Search | 704 | Binary Search — Basic | Easy | ✅ |
+| 101 | Search Insert Position | 35 | Binary Search — Upper Bound | Easy | ✅ |
+| 102 | First and Last Position | 34 | Binary Search — Boundary Search | Medium | ✅ |
+| 103 | Count Occurrences in Sorted Array | — | Binary Search — Counting | Easy | ✅ |
+| 104 | Search in Infinite Sorted Array | — | Binary Search — Exponential + BS | Medium | ✅ |
+| 105 | Peak Index in Mountain Array | 852 | Binary Search — Bitonic | Easy | ✅ |
+| 106 | Search in Bitonic Array | — | Binary Search — Bitonic | Medium | ✅ |
+| 107 | Find Peak Element | 162 | Binary Search — Bitonic | Medium | ✅ |
+| 108 | Find Minimum in Rotated Sorted Array | 153 | Binary Search — Range Search | Medium | ✅ |
+| 109 | Find Number of Rotations | — | Binary Search — Range Search | Easy | ✅ |
+| 110 | Search in Rotated Sorted Array | 33 | Binary Search — Range Search | Medium | ✅ |
+| 111 | Find Min in Rotated II (Duplicates) | 154 | Binary Search — Range Search | Hard | ✅ |
+| 112 | Search in Rotated II (Duplicates) | 81 | Binary Search — Range Search | Medium | ✅ |
+| 113 | Single Element in Sorted Array | 540 | Binary Search — Parity | Medium | ✅ |
+| 114 | Koko Eating Bananas | 875 | Binary Search — Allocate | Medium | ✅ |
+| 115 | Min Days to Make M Bouquets | 1482 | Binary Search — Allocate | Medium | ✅ |
+| 116 | Aggressive Cows | — | Binary Search — Allocate | Medium | ✅ |
+| 117 | H-Index II | 275 | Binary Search — Allocate | Medium | ✅ |
+| 118 | Maximum Candies to K Children | 2226 | Binary Search — Allocate | Medium | ✅ |
+| 119 | Capacity to Ship in D Days | 1011 | Binary Search — Allocate | Medium | ✅ |
+| 120 | Book Allocation Problem | — | Binary Search — Allocate | Hard | ✅ |
+| 121 | Split Array Largest Sum | 410 | Binary Search — Allocate | Hard | ✅ |
+| 122 | Minimum Speed to Arrive on Time | 1870 | Binary Search — Allocate | Medium | ✅ |
+| 123 | Minimize Max Gas Station Distance | 774 | Binary Search — Allocate | Hard | ✅ |
+| 124 | Search a 2D Matrix | 74 | Binary Search — 2D | Medium | ✅ |
+| 125 | Search a 2D Matrix II | 240 | Binary Search — 2D (Staircase) | Medium | ✅ |
+| 126 | Kth Smallest in Sorted Matrix | 378 | Binary Search — Kth Element | Medium | ✅ |
+| 127 | Kth Smallest in Multiplication Table | 668 | Binary Search — Kth Element | Hard | ✅ |
+| 128 | Median of Two Sorted Arrays | 4 | Binary Search — Partition | Hard | ✅ |
+| 129 | Kth Missing Positive Number | 1539 | Binary Search — Missing Count | Easy | ✅ |
+| 130 | Time Based Key-Value Store | 981 | Binary Search — FAANG | Medium | ✅ |
+| 131 | Find K Closest Elements | 658 | Binary Search — FAANG | Medium | ✅ |
+| 132 | Maximum Sum Subarray of Size K | — | Sliding Window — Fixed | Easy | ✅ |
+| 133 | Maximum Average Subarray I | 643 | Sliding Window — Fixed | Easy | ✅ |
+| 134 | Permutation in a String | 567 | Sliding Window — Fixed | Medium | ✅ |
+| 135 | Find All Anagrams in a String | 438 | Sliding Window — Fixed | Medium | ✅ |
+| 136 | Longest Substring Without Repeating | 3 | Sliding Window — Variable Maximize | Medium | ✅ |
+| 137 | Longest Substring K Distinct | 340 | Sliding Window — Variable Maximize | Medium | ✅ |
+| 138 | Fruits into Baskets | 904 | Sliding Window — Variable Maximize | Medium | ✅ |
+| 139 | Longest Repeating Char Replacement | 424 | Sliding Window — Variable Maximize | Hard | ✅ |
+| 140 | Max Consecutive Ones III | 1004 | Sliding Window — Variable Maximize | Medium | ✅ |
+| 141 | Longest Subarray of 1s (Delete One) | 1493 | Sliding Window — Variable Maximize | Medium | ✅ |
+| 142 | Get Equal Substrings Within Budget | 1208 | Sliding Window — Variable Maximize | Medium | ✅ |
+| 143 | Minimum Size Subarray Sum | 209 | Sliding Window — Variable Minimize | Medium | ✅ |
+| 144 | Minimum Window Substring | 76 | Sliding Window — Variable Minimize | Hard | ✅ |
+| 145 | Subarray Product Less Than K | 713 | Sliding Window — Variable Count | Medium | ✅ |
+| 146 | Subarrays with K Different Integers | 992 | Sliding Window — At-Most Trick | Hard | ✅ |
+| 147 | Binary Subarrays with Sum | 930 | Sliding Window — At-Most Trick | Medium | ✅ |
+| 148 | Count Number of Nice Subarrays | 1248 | Sliding Window — At-Most Trick | Medium | ✅ |
+| 149 | Substring with Concatenation of Words | 30 | Sliding Window — FAANG Hard | Hard | ✅ |
+| 150 | Frequency of Most Frequent Element | 1838 | Sliding Window — FAANG Hard | Medium | ✅ |
+| 151 | Maximize the Confusion of an Exam | 2024 | Sliding Window — FAANG Hard | Medium | ✅ |
+| 152 | Min Ops to Make Array Continuous | 2009 | Sliding Window — FAANG Hard | Hard | ✅ |
+| 153 | Maximum Subarray Sum | 53 | Kadane — Classic | Easy | ✅ |
+| 154 | Minimum Subarray Sum | — | Kadane — Classic | Easy | ✅ |
+| 155 | Maximum Product Subarray | 152 | Kadane — Product | Medium | ✅ |
+| 156 | Maximum Sum Circular Subarray | 918 | Kadane — Circular | Medium | ✅ |
+| 157 | Best Time to Buy and Sell Stock | 121 | Kadane — Stock | Easy | ✅ |
+| 158 | Max Subarray Sum with One Deletion | 1186 | Kadane — With State | Medium | ✅ |
+| 159 | Longest Subarray with Positive Sum | — | Kadane — Prefix Sum | Medium | ✅ |
+| 160 | Maximum Absolute Sum of Any Subarray | 1749 | Kadane — Dual | Medium | ✅ |
+| 161 | House Robber | 198 | Kadane — Non-Adjacent DP | Medium | ✅ |
+| 162 | Max Sum Rectangle in 2D Matrix | 363 | Kadane — 2D | Hard | ✅ |
+| 163 | Max Sum Submatrix No Larger Than K | 363 | Kadane — 2D + Binary Search | Hard | ✅ |
+| 164 | Maximum Alternating Subarray Sum | 2036 | Kadane — Alternating | Medium | ✅ |
+| 165 | Range Sum Query - Immutable | 303 | Prefix Sum — Basic Prefix Array | Easy | ✅ |
+| 166 | Find Pivot Index | 724 | Prefix Sum — Basic Prefix Array | Easy | ✅ |
+| 167 | Subarray Sum Equals K | 560 | Prefix Sum — HashMap Count | Medium | ✅ |
+| 168 | Contiguous Array | 525 | Prefix Sum — HashMap Remap | Medium | ✅ |
+| 169 | Longest Subarray with Sum K | 325 | Prefix Sum — HashMap First-seen | Medium | ✅ |
+| 170 | Subarray Sums Divisible by K | 974 | Prefix Sum — Modulo HashMap | Medium | ✅ |
+| 171 | Continuous Subarray Sum | 523 | Prefix Sum — Modulo HashMap | Medium | ✅ |
+| 172 | Range Sum Query 2D - Immutable | 304 | Prefix Sum — 2D Prefix Array | Medium | ✅ |
+| 173 | Max Sum of Rectangle No Larger Than K | 363 | Prefix Sum — 2D Prefix + TreeSet | Hard | ✅ |
+| 174 | Shortest Subarray with Sum at Least K | 862 | Prefix Sum — Prefix + Deque | Hard | ✅ |
+| 175 | Count of Range Sum | 327 | Prefix Sum — Prefix + Merge Sort | Hard | ✅ |
+| 176 | Maximum Product Subarray | 152 | Prefix Sum — Prefix Product | Medium | ✅ |
+| 177 | Merge Intervals | 56 | Merge Interval — Sort + Scan | Medium | ✅ |
+| 178 | Insert Interval | 57 | Merge Interval — 3-Phase Insert | Medium | ✅ |
+| 179 | Interval List Intersections | 986 | Merge Interval — Two-pointer | Medium | ✅ |
+| 180 | Overlapping Intervals Check | — | Merge Interval — Sort + Adjacent | Easy | ✅ |
+| 181 | Minimum Meeting Rooms | 253 | Merge Interval — Min-Heap | Hard | ✅ |
+| 182 | Maximum CPU Load | — | Merge Interval — Min-Heap | Hard | ✅ |
+| 183 | Task Scheduler | 621 | Merge Interval — Max-Heap + Greedy | Medium | ✅ |
+| 184 | Non-overlapping Intervals | 435 | Merge Interval — Greedy Sort End | Medium | ✅ |
+| 185 | Min Arrows to Burst Balloons | 452 | Merge Interval — Greedy Sort End | Medium | ✅ |
+| 186 | Meeting Scheduler | 1229 | Merge Interval — Two-pointer | Medium | ✅ |
+| 187 | Employee Free Time | 759 | Merge Interval — Merge + Gap Scan | Hard | ✅ |
+| 188 | Remove Covered Intervals | 1288 | Merge Interval — Sort + maxEnd | Medium | ✅ |
+| 189 | Data Stream as Disjoint Intervals | 352 | Merge Interval — TreeMap Merge | Hard | ✅ |
 ---
 
 ## ⚙️ Setup
