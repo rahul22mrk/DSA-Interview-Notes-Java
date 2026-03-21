@@ -43,7 +43,8 @@ DSA-Interview-Notes-Java/
 │   └── 01_slow_fast_pointers_notes.md
 │
 ├── 04_Kadane_Pattern/
-│   └── 🔜 coming soon
+│   ├── 01_kadane_pattern_notes.md
+│   └── 02_kadane_pattern_problems.md
 │
 ├── 05_Prefix_Sum_Pattern/
 │   └── 🔜 coming soon
@@ -106,6 +107,18 @@ DSA-Interview-Notes-Java/
 | [02_sliding_window_pattern_problems.md](./02_Sliding_Window_Patterns/02_sliding_window_pattern_problems.md) | Variable Window — Minimize | Min Size Subarray Sum, Min Window Substring, Product Less Than K | Medium → Hard |
 | [02_sliding_window_pattern_problems.md](./02_Sliding_Window_Patterns/02_sliding_window_pattern_problems.md) | At-Most to Exact (Count) | K Different Integers, Binary Subarrays Sum, Nice Subarrays | Medium → Hard |
 | [02_sliding_window_pattern_problems.md](./02_Sliding_Window_Patterns/02_sliding_window_pattern_problems.md) | FAANG Hard | Words Concatenation, Max Freq Element, Exam Confusion, Min Ops Continuous | Medium → Hard |
+
+---
+
+### ✅ Kadane's Algorithm
+| File | Sub-Pattern | Problems | Difficulty |
+|------|------------|----------|------------|
+| [01_kadane_pattern_notes.md](./04_Kadane_Pattern/01_kadane_pattern_notes.md) | Identification + Templates + Cheatsheet | — | Reference |
+| [02_kadane_pattern_problems.md](./04_Kadane_Pattern/02_kadane_pattern_problems.md) | Classic Kadane (Sum) | Max Subarray Sum, Min Subarray Sum, Circular Max Sum | Easy → Medium |
+| [02_kadane_pattern_problems.md](./04_Kadane_Pattern/02_kadane_pattern_problems.md) | Product Kadane | Max Product Subarray, Max Absolute Sum | Medium |
+| [02_kadane_pattern_problems.md](./04_Kadane_Pattern/02_kadane_pattern_problems.md) | Kadane + Stock / DP | Buy & Sell Stock, House Robber, Longest Positive Sum | Easy → Medium |
+| [02_kadane_pattern_problems.md](./04_Kadane_Pattern/02_kadane_pattern_problems.md) | Kadane with State | Max Sum with One Deletion, Alternating Subarray Sum | Medium |
+| [02_kadane_pattern_problems.md](./04_Kadane_Pattern/02_kadane_pattern_problems.md) | 2D Kadane | Max Sum Rectangle in Matrix, Max Sum Submatrix ≤ K | Hard |
 
 ---
 
@@ -174,7 +187,6 @@ DSA-Interview-Notes-Java/
 | Folder | Pattern | Key Topics |
 |--------|---------|------------|
 | `01_Two_Pointers` | Two Pointers | Sorted arrays, Palindrome, Container with most water, 3Sum, Trapping Rain Water |
-| `04_Kadane_Pattern` | Kadane's Algorithm | Max subarray sum, Max circular subarray, Max product subarray |
 | `05_Prefix_Sum_Pattern` | Prefix Sum | Subarray sum equals K, Range sum query, 2D prefix sum |
 | `06_Merge_Interval_Pattern` | Merge Intervals | Merge overlapping, Insert interval, Meeting rooms, Employee free time |
 | `11_Cyclic_Sort_Pattern` | Cyclic Sort | Missing number, Duplicate number, Find all missing, Corrupt pair |
@@ -237,6 +249,24 @@ Problems file  (02_*_problems.md):
 | `"count subarrays with exactly k distinct"` | At-Most Trick |
 | `"subarray product less than k"` | Variable Window — Count |
 | `"contiguous subarray / substring" + optimize` | Sliding Window candidate |
+
+---
+
+## ⚡ Kadane's Algorithm — Quick Clue Detector
+
+| If you see this in the question | Pattern |
+|---------------------------------|---------|
+| `"maximum subarray sum"` | Classic Kadane |
+| `"minimum subarray sum"` | Min Kadane |
+| `"maximum product subarray"` | Product Kadane (track max + min) |
+| `"maximum sum circular subarray"` | Circular Kadane (total − min subarray) |
+| `"best time to buy and sell stock"` | Kadane on price differences |
+| `"max sum with one deletion"` | Forward + Backward Kadane arrays |
+| `"house robber / non-adjacent elements"` | Non-adjacent DP (Kadane style) |
+| `"maximum sum rectangle in 2D matrix"` | 2D Kadane (column compression) |
+| `"max sum submatrix no larger than k"` | 2D Kadane + TreeSet binary search |
+| `"maximum alternating subarray sum"` | Alternating state Kadane |
+| `"maximum absolute sum of any subarray"` | max(maxKadane, abs(minKadane)) |
 
 ---
 
@@ -438,6 +468,18 @@ Problems file  (02_*_problems.md):
 | 100 | Frequency of Most Frequent Element | 1838 | Sliding Window — FAANG Hard | Medium | ✅ |
 | 101 | Maximize the Confusion of an Exam | 2024 | Sliding Window — FAANG Hard | Medium | ✅ |
 | 102 | Min Ops to Make Array Continuous | 2009 | Sliding Window — FAANG Hard | Hard | ✅ |
+| 103 | Maximum Subarray Sum | 53 | Kadane — Classic | Easy | ✅ |
+| 104 | Minimum Subarray Sum | — | Kadane — Classic | Easy | ✅ |
+| 105 | Maximum Product Subarray | 152 | Kadane — Product | Medium | ✅ |
+| 106 | Maximum Sum Circular Subarray | 918 | Kadane — Circular | Medium | ✅ |
+| 107 | Best Time to Buy and Sell Stock | 121 | Kadane — Stock | Easy | ✅ |
+| 108 | Max Subarray Sum with One Deletion | 1186 | Kadane — With State | Medium | ✅ |
+| 109 | Longest Subarray with Positive Sum | — | Kadane — Prefix Sum | Medium | ✅ |
+| 110 | Maximum Absolute Sum of Any Subarray | 1749 | Kadane — Dual | Medium | ✅ |
+| 111 | House Robber | 198 | Kadane — Non-Adjacent DP | Medium | ✅ |
+| 112 | Max Sum Rectangle in 2D Matrix | 363 | Kadane — 2D | Hard | ✅ |
+| 113 | Max Sum Submatrix No Larger Than K | 363 | Kadane — 2D + Binary Search | Hard | ✅ |
+| 114 | Maximum Alternating Subarray Sum | 2036 | Kadane — Alternating | Medium | ✅ |
 
 ---
 
@@ -454,6 +496,7 @@ cd DSA-Interview-Notes-Java/07_Stack_Pattern
 cd DSA-Interview-Notes-Java/08_HashMap_Pattern
 cd DSA-Interview-Notes-Java/09_In-Place_Reversal_LinkedList
 cd DSA-Interview-Notes-Java/10_Binary_Search_Pattern
+cd DSA-Interview-Notes-Java/04_Kadane_Pattern
 
 # Coming soon
 cd DSA-Interview-Notes-Java/11_Cyclic_Sort_Pattern
