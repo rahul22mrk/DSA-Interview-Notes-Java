@@ -202,7 +202,6 @@ DSA-Interview-Notes-Java/
 
 | Folder | Pattern | Key Topics |
 |--------|---------|------------|
-| `01_Two_Pointers` | Two Pointers | Sorted arrays, Palindrome, Container with most water, 3Sum, Trapping Rain Water |
 | `05_Prefix_Sum_Pattern` | Prefix Sum | Subarray sum equals K, Range sum query, 2D prefix sum |
 | `06_Merge_Interval_Pattern` | Merge Intervals | Merge overlapping, Insert interval, Meeting rooms, Employee free time |
 | `11_Cyclic_Sort_Pattern` | Cyclic Sort | Missing number, Duplicate number, Find all missing, Corrupt pair |
