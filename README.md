@@ -91,7 +91,10 @@ DSA-Interview-Notes-Java/
 │   └── tree_traversal.md
 │
 ├── 15_Graph_Pattern/
-│   └── 🔜 coming soon
+│   ├── 01_graph_notes.md
+│   ├── 02_graph_problems.md
+│   ├── 03_graph_beginners_problems.md
+│   └── 04_graph_algorithms_quick_revision.md
 │
 ├── 16_Dynamic_Programming_Pattern/
 │   └── 🔜 coming soon
@@ -297,11 +300,25 @@ DSA-Interview-Notes-Java/
 
 ---
 
+### ✅ Graph
+| File | Sub-Pattern | Problems | Difficulty |
+|------|------------|----------|------------|
+| [01_graph_notes.md](./15_Graph_Pattern/01_graph_notes.md) | Identification + All Algorithm Templates + Cheatsheet | — | Reference |
+| [02_graph_problems.md](./15_Graph_Pattern/02_graph_problems.md) | BFS / DFS / Grid | Number of Islands, Friend Circles, Max Area, Surrounded Regions, Shortest Path Binary Matrix, Word Ladder, Path Min Effort, Swim in Water, Find Safe States, All Paths, Longest Increasing Path | Easy → Hard |
+| [02_graph_problems.md](./15_Graph_Pattern/02_graph_problems.md) | Shortest Path (Dijkstra / BF / Floyd) | Network Delay Time, Cheapest Flights K Stops, Path Max Probability, Min Cost Reach Destination, Find City | Medium → Hard |
+| [02_graph_problems.md](./15_Graph_Pattern/02_graph_problems.md) | Topological Sort | Course Schedule I/II/IV, Alien Dictionary, Sequence Reconstruction, Strange Printer II | Medium → Hard |
+| [02_graph_problems.md](./15_Graph_Pattern/02_graph_problems.md) | Union Find | Redundant Connection I/II, Accounts Merge, Network Connected, Equality Equations, Min Cost Connect Points | Medium → Hard |
+| [02_graph_problems.md](./15_Graph_Pattern/02_graph_problems.md) | Bipartite / Graph Coloring | Is Graph Bipartite, Possible Bipartition, Flower Planting, M-Coloring | Easy → Medium |
+| [02_graph_problems.md](./15_Graph_Pattern/02_graph_problems.md) | MST (Kruskal / Prim) | Min Cost Connect Points, Connecting Cities, Min Cost Water, Connect Sticks | Medium → Hard |
+| [03_graph_beginners_problems.md](./15_Graph_Pattern/03_graph_beginners_problems.md) | Beginners Guide — 30 Solved Problems | All patterns with approach table + code + dry run | Easy → Medium |
+| [04_graph_algorithms_quick_revision.md](./15_Graph_Pattern/04_graph_algorithms_quick_revision.md) | Quick Revision — Dijkstra, BF, Floyd, Prim, Kruskal, DSU | Full Java implementations for interview revision | Medium → Hard |
+
+---
+
 ### 🔜 Coming Soon
 
 | Folder | Pattern | Key Topics |
 |--------|---------|------------|
-| `15_Graph_Pattern` | Graphs | BFS, DFS, Topological sort, Union Find, Dijkstra, Bellman-Ford, Bipartite |
 | `16_Dynamic_Programming_Pattern` | Dynamic Programming | 0/1 Knapsack, LCS, LIS, Coin change, DP on trees, DP on graphs |
 | `17_Trie_Pattern` | Trie | Insert/Search/Delete, Word search II, Auto-complete, Replace words |
 | `18_Bit_Manipulation_Pattern` | Bit Manipulation | XOR tricks, Count bits, Power of two, Subsets via bits, Single number |
@@ -339,6 +356,28 @@ Problems file  (02_*_problems.md):
     ├── Clean Java code
     └── Input → Output example
 ```
+
+---
+
+## ⚡ Graph — Quick Clue Detector
+
+| If you see this in the question | Algorithm |
+|---------------------------------|-----------|
+| `"connected components / islands / provinces"` | DFS or BFS (visited array) / Union Find |
+| `"flood fill / spreading / rotting oranges"` | Multi-source BFS (seed all sources first) |
+| `"shortest path, no weights"` | BFS (level = distance) |
+| `"shortest path, positive weights"` | Dijkstra (min-heap + stale check) |
+| `"shortest path, negative weights / K stops"` | Bellman-Ford (relax V-1 times) |
+| `"shortest path between ALL pairs"` | Floyd-Warshall (3 nested loops) |
+| `"task ordering / course prerequisites"` | Topological Sort — Kahn's BFS |
+| `"cycle in directed graph"` | DFS 3-color (0=unseen, 1=in-path, 2=done) |
+| `"cycle in undirected graph / merge groups"` | Union Find |
+| `"minimum cost to connect all nodes"` | Kruskal (sort edges + UF) / Prim |
+| `"2-colorable / bipartite / possible bipartition"` | BFS 2-coloring (conflict = false) |
+| `"DFS from boundary / enclosed region"` | DFS from border cells first, mark safe |
+| `"find eventual safe states"` | DFS 3-color (safe = no cycle reachable) |
+| `"all paths from source to target"` | DFS backtracking |
+| `"O(1) space" + connectivity` | Union Find instead of visited array |
 
 ---
 
@@ -942,6 +981,50 @@ Problems file  (02_*_problems.md):
 | 314 | Unique Paths III | 980 | Backtracking — Grid | Hard | ✅ |
 | 315 | Path with Maximum Gold | 1219 | Backtracking — Grid | Medium | ✅ |
 | 316 | Jump Game | 55 | Recursive Search | Medium | ✅ |
+| 317 | Number of Islands | 200 | Graph — DFS/BFS | Medium | ✅ |
+| 318 | Friend Circles (Number of Provinces) | 547 | Graph — DFS/UF | Medium | ✅ |
+| 319 | Max Area of Island | 695 | Graph — DFS | Medium | ✅ |
+| 320 | Surrounded Regions | 130 | Graph — DFS Boundary | Medium | ✅ |
+| 321 | Shortest Path in Binary Matrix | 1091 | Graph — BFS | Medium | ✅ |
+| 322 | Word Ladder | 127 | Graph — BFS | Hard | ✅ |
+| 323 | Path with Minimum Effort | 1631 | Graph — Dijkstra | Medium | ✅ |
+| 324 | Swim in Rising Water | 778 | Graph — Dijkstra | Hard | ✅ |
+| 325 | Find Eventual Safe States | 802 | Graph — DFS Cycle | Medium | ✅ |
+| 326 | All Paths Source to Target | 797 | Graph — DFS | Medium | ✅ |
+| 327 | Longest Increasing Path in Matrix | 329 | Graph — DFS + Memo | Hard | ✅ |
+| 328 | Network Delay Time | 743 | Graph — Dijkstra | Medium | ✅ |
+| 329 | Cheapest Flights Within K Stops | 787 | Graph — Bellman-Ford | Medium | ✅ |
+| 330 | Path with Maximum Probability | 1514 | Graph — Dijkstra | Medium | ✅ |
+| 331 | Find the City (Smallest Neighbours) | 1334 | Graph — Floyd-Warshall | Medium | ✅ |
+| 332 | Course Schedule | 207 | Graph — Topological Sort | Medium | ✅ |
+| 333 | Course Schedule II | 210 | Graph — Topological Sort | Medium | ✅ |
+| 334 | Course Schedule IV | 1462 | Graph — Topological Sort | Medium | ✅ |
+| 335 | Alien Dictionary | 269 | Graph — Topological Sort | Hard | ✅ |
+| 336 | Sequence Reconstruction | 444 | Graph — Topological Sort | Medium | ✅ |
+| 337 | Redundant Connection | 684 | Graph — Union Find | Medium | ✅ |
+| 338 | Redundant Connection II | 685 | Graph — Union Find | Hard | ✅ |
+| 339 | Accounts Merge | 721 | Graph — Union Find | Medium | ✅ |
+| 340 | Number of Operations — Network | 1319 | Graph — Union Find | Medium | ✅ |
+| 341 | Satisfiability of Equality Equations | 990 | Graph — Union Find | Medium | ✅ |
+| 342 | Min Cost to Connect All Points | 1584 | Graph — Kruskal / Prim | Medium | ✅ |
+| 343 | Connecting Cities with Min Cost | 1135 | Graph — Kruskal | Medium | ✅ |
+| 344 | Is Graph Bipartite? | 785 | Graph — BFS Coloring | Medium | ✅ |
+| 345 | Possible Bipartition | 886 | Graph — BFS Coloring | Medium | ✅ |
+| 346 | Flower Planting With No Adjacent | 1042 | Graph — Greedy Coloring | Easy | ✅ |
+| 347 | M-Coloring Problem | — | Graph — Backtracking | Medium | ✅ |
+| 348 | Min Cost to Provide Water | 1168 | Graph — Kruskal | Hard | ✅ |
+| 349 | Minimum Obstacle Removal | 2290 | Graph — 0-1 BFS | Hard | ✅ |
+| 350 | Minimum Moves to Move Box | 1263 | Graph — BFS (states) | Hard | ✅ |
+| 351 | Minimum Cost Reach Destination in Time | 1928 | Graph — Dijkstra | Hard | ✅ |
+| 352 | Connect Sticks (Min Cost) | 1167 | Graph — Greedy Heap | Medium | ✅ |
+| 353 | Longest Path in DAG | — | Graph — Topo Sort + DP | Medium | ✅ |
+| 354 | Number of Enclaves | 1020 | Graph — DFS Boundary | Medium | ✅ |
+| 355 | Time to Inform All Employees | 1376 | Graph — DFS | Medium | ✅ |
+| 356 | 01 Matrix | 542 | Graph — Multi-source BFS | Medium | ✅ |
+| 357 | Rotting Oranges | 994 | Graph — Multi-source BFS | Medium | ✅ |
+| 358 | As Far from Land as Possible | 1162 | Graph — Multi-source BFS | Medium | ✅ |
+| 359 | Most Stones Removed | 947 | Graph — Union Find | Medium | ✅ |
+| 360 | Strange Printer II | 1591 | Graph — Topological Sort | Hard | ✅ |
 ---
 
 ## ⚙️ Setup
@@ -963,11 +1046,9 @@ cd DSA-Interview-Notes-Java/11_Cyclic_Sort_Pattern
 cd DSA-Interview-Notes-Java/12_Heap_Pattern
 cd DSA-Interview-Notes-Java/13_Recursion_And_Backtracking
 cd DSA-Interview-Notes-Java/14_Trees_Pattern
-
-
+cd DSA-Interview-Notes-Java/15_Graph_Pattern
 
 # Coming soon
-cd DSA-Interview-Notes-Java/15_Graph_Pattern
 cd DSA-Interview-Notes-Java/16_Dynamic_Programming_Pattern
 cd DSA-Interview-Notes-Java/17_Trie_Pattern
 cd DSA-Interview-Notes-Java/18_Bit_Manipulation_Pattern
