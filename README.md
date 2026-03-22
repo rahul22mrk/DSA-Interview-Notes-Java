@@ -97,7 +97,10 @@ DSA-Interview-Notes-Java/
 │   └── 04_graph_algorithms_quick_revision.md
 │
 ├── 16_Dynamic_Programming_Pattern/
-│   └── 🔜 coming soon
+│   ├── 01_dp_notes.md
+│   ├── 02_dp_problems.md
+│   ├── 03_dp_patterns_level1.md
+│   └── 04_dp_patterns_level2.md
 │
 ├── 17_Trie_Pattern/
 │   └── 🔜 coming soon
@@ -315,11 +318,27 @@ DSA-Interview-Notes-Java/
 
 ---
 
+### ✅ Dynamic Programming
+| File | Sub-Pattern | Problems | Difficulty |
+|------|------------|----------|------------|
+| [01_dp_notes.md](./16_Dynamic_Programming_Pattern/01_dp_notes.md) | Identification + Templates + Cheatsheet | — | Reference |
+| [02_dp_problems.md](./16_Dynamic_Programming_Pattern/02_dp_problems.md) | Fibonacci / Decision Making | House Robber, Maximum Subarray, Decode Ways | Easy → Medium |
+| [02_dp_problems.md](./16_Dynamic_Programming_Pattern/02_dp_problems.md) | Min/Max Path to Target | Coin Change, Min Path Sum, Min Falling Path Sum, Unique Paths | Medium |
+| [02_dp_problems.md](./16_Dynamic_Programming_Pattern/02_dp_problems.md) | 0/1 Knapsack | 0/1 Knapsack, Partition Equal Subset Sum, Target Sum, Ones and Zeroes, Last Stone Weight II | Medium |
+| [02_dp_problems.md](./16_Dynamic_Programming_Pattern/02_dp_problems.md) | Unbounded Knapsack | Coin Change II, Count Numbers with Unique Digits | Medium |
+| [02_dp_problems.md](./16_Dynamic_Programming_Pattern/02_dp_problems.md) | LIS / Subsequences | LIS, Count Palindromic Subsequences | Medium → Hard |
+| [02_dp_problems.md](./16_Dynamic_Programming_Pattern/02_dp_problems.md) | DP on Strings | LCS, Edit Distance, LPS, Distinct Subsequences | Medium → Hard |
+| [02_dp_problems.md](./16_Dynamic_Programming_Pattern/02_dp_problems.md) | Interval DP | Burst Balloons, Min Cost Cut Stick, MCM, Strange Printer, Merge Stones, Remove Boxes | Hard |
+| [02_dp_problems.md](./16_Dynamic_Programming_Pattern/02_dp_problems.md) | Probability / Expectation DP | Knight Probability, Dice Roll Simulation, Soup Servings, New 21 Game | Medium |
+| [03_dp_patterns_level1.md](./16_Dynamic_Programming_Pattern/03_dp_patterns_level1.md) | Level 1 Extended (48 problems) | Stocks, Grid DP, All Knapsack variants, All LCS/LIS variants | Easy → Hard |
+| [04_dp_patterns_level2.md](./16_Dynamic_Programming_Pattern/04_dp_patterns_level2.md) | Level 2 Advanced (30 problems) | Interval DP, Tree DP, Digit DP, Bitmask DP, Probability DP | Hard |
+
+---
+
 ### 🔜 Coming Soon
 
 | Folder | Pattern | Key Topics |
 |--------|---------|------------|
-| `16_Dynamic_Programming_Pattern` | Dynamic Programming | 0/1 Knapsack, LCS, LIS, Coin change, DP on trees, DP on graphs |
 | `17_Trie_Pattern` | Trie | Insert/Search/Delete, Word search II, Auto-complete, Replace words |
 | `18_Bit_Manipulation_Pattern` | Bit Manipulation | XOR tricks, Count bits, Power of two, Subsets via bits, Single number |
 
@@ -378,6 +397,27 @@ Problems file  (02_*_problems.md):
 | `"find eventual safe states"` | DFS 3-color (safe = no cycle reachable) |
 | `"all paths from source to target"` | DFS backtracking |
 | `"O(1) space" + connectivity` | Union Find instead of visited array |
+
+---
+
+## ⚡ Dynamic Programming — Quick Clue Detector
+
+| If you see this in the question | Pattern |
+|---------------------------------|---------|
+| `"max/min way to reach target"` | Min/Max path DP — `dp[i] = best(dp[i-way]+cost)` |
+| `"count ways / how many ways"` | Counting DP — `dp[i] += dp[i-way]`, `dp[0]=1` |
+| `"can we achieve / is it possible"` | Boolean DP — `dp[w] \|= dp[w-num]` |
+| `"each item used at most once"` | 0/1 Knapsack — **REVERSE** capacity loop |
+| `"items reusable / unlimited supply"` | Unbounded Knapsack — **FORWARD** capacity loop |
+| `"two strings — match / edit / common"` | DP on Strings — 2D `dp[i][j]` |
+| `"longest increasing subsequence"` | LIS — `dp[i]=max(dp[j]+1)` or O(n log n) binary search |
+| `"buy/sell stock with cooldown/fee/k transactions"` | State machine — hold/notHold states |
+| `"split interval [i..j] at point k"` | Interval DP — loop by LENGTH, then i, then k |
+| `"assign n≤20 elements / visit all nodes"` | Bitmask DP — `dp[mask|(1<<j)]` |
+| `"count integers in range with digit property"` | Digit DP — pos/tight/cnt state |
+| `"probability / expected value after k steps"` | Probability DP — spread per step |
+| `"rob nodes on tree / max on tree"` | Tree DP — post-order, include/exclude per node |
+| `"overlapping subproblems + optimal substructure"` | DP — memoize recursive or tabulate bottom-up |
 
 ---
 
@@ -1025,6 +1065,44 @@ Problems file  (02_*_problems.md):
 | 358 | As Far from Land as Possible | 1162 | Graph — Multi-source BFS | Medium | ✅ |
 | 359 | Most Stones Removed | 947 | Graph — Union Find | Medium | ✅ |
 | 360 | Strange Printer II | 1591 | Graph — Topological Sort | Hard | ✅ |
+| 361 | House Robber | 198 | DP — Fibonacci / Decision | Medium | ✅ |
+| 362 | Maximum Subarray | 53 | DP — Fibonacci / Decision | Easy | ✅ |
+| 363 | Decode Ways | 91 | DP — Fibonacci / Decision | Medium | ✅ |
+| 364 | Coin Change | 322 | DP — Min/Max Path | Medium | ✅ |
+| 365 | Minimum Path Sum | 64 | DP — Min/Max Path | Medium | ✅ |
+| 366 | Minimum Falling Path Sum | 931 | DP — Min/Max Path | Medium | ✅ |
+| 367 | Unique Paths | 62 | DP — Min/Max Path | Medium | ✅ |
+| 368 | 0/1 Knapsack | — | DP — 0/1 Knapsack | Medium | ✅ |
+| 369 | Partition Equal Subset Sum | 416 | DP — 0/1 Knapsack | Medium | ✅ |
+| 370 | Target Sum | 494 | DP — 0/1 Knapsack | Medium | ✅ |
+| 371 | Ones and Zeroes | 474 | DP — 0/1 Knapsack | Medium | ✅ |
+| 372 | Last Stone Weight II | 1049 | DP — 0/1 Knapsack | Medium | ✅ |
+| 373 | Coin Change II | 518 | DP — Unbounded Knapsack | Medium | ✅ |
+| 374 | Count Numbers with Unique Digits | 357 | DP — Unbounded Knapsack | Medium | ✅ |
+| 375 | Longest Increasing Subsequence | 300 | DP — LIS / Subsequences | Medium | ✅ |
+| 376 | Count Different Palindromic Subsequences | 730 | DP — LIS / Subsequences | Hard | ✅ |
+| 377 | Longest Common Subsequence | 1143 | DP — Strings | Medium | ✅ |
+| 378 | Edit Distance | 72 | DP — Strings | Hard | ✅ |
+| 379 | Longest Palindromic Subsequence | 516 | DP — Strings | Medium | ✅ |
+| 380 | Distinct Subsequences | 115 | DP — Strings | Hard | ✅ |
+| 381 | Burst Balloons | 312 | DP — Interval | Hard | ✅ |
+| 382 | Min Cost to Cut a Stick | 1547 | DP — Interval | Hard | ✅ |
+| 383 | Matrix Chain Multiplication | — | DP — Interval | Hard | ✅ |
+| 384 | Strange Printer | 664 | DP — Interval | Hard | ✅ |
+| 385 | Minimum Cost to Merge Stones | 1000 | DP — Interval | Hard | ✅ |
+| 386 | Remove Boxes | 546 | DP — Interval | Hard | ✅ |
+| 387 | Knight Probability in Chessboard | 688 | DP — Probability | Medium | ✅ |
+| 388 | Dice Roll Simulation | 1223 | DP — Probability | Medium | ✅ |
+| 389 | Soup Servings | 808 | DP — Probability | Medium | ✅ |
+| 390 | New 21 Game | 837 | DP — Probability | Medium | ✅ |
+| 391 | Number of Ways | — | DP — Climbing Stairs | Easy | ✅ |
+| 392 | Decode Ways II | — | DP — Strings | Hard | ✅ |
+| 393 | Longest Palindromic Substring | 5 | DP — Strings | Medium | ✅ |
+| 394 | Word Break | 139 | DP — Unbounded | Medium | ✅ |
+| 395 | Jump Game II | 45 | DP — Greedy | Medium | ✅ |
+| 396 | House Robber II | 213 | DP — Fibonacci | Medium | ✅ |
+| 397 | Maximal Square | 221 | DP — Grid | Medium | ✅ |
+| 398 | Two Boxes | 1467 | DP — Probability | Hard | ✅ |
 ---
 
 ## ⚙️ Setup
