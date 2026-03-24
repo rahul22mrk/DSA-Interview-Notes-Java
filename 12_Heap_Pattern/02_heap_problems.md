@@ -389,6 +389,34 @@ Binary search to find the optimal left boundary, then return `arr[left..left+k-1
 #### Java code
 
 ```java
+My Code: Heap Solution
+class Solution {
+    public List<Integer> findClosestElements(int[] arr, int k, int x) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>(
+            (a,b)->{
+                int da = Math.abs(a-x);
+                int db = Math.abs(b-x);
+
+                if(db!=da) return Integer.compare(db,da);
+                return Integer.compare(b,a);
+            }
+        );
+
+        for(int num:arr){
+            pq.offer(num);
+            if(pq.size()>k){
+                pq.poll();
+            }
+        }
+        List<Integer> ans = new ArrayList<>(pq);
+        Collections.sort(ans);
+        return ans;
+        
+    }
+}
+```
+
+```java
 public List<Integer> findClosestElements(int[] arr, int k, int x) {
     int lo = 0, hi = arr.length - k;
 
