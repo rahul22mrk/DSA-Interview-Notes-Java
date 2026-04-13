@@ -200,10 +200,36 @@ sumOfDigits(1234)
 #### Java code
 
 ```java
+
 public String removeChar(String s, char ch) {
     if (s.isEmpty()) return "";                                // base case
     String rest = removeChar(s.substring(1), ch);            // recurse on rest
     return s.charAt(0) == ch ? rest : s.charAt(0) + rest;    // skip or keep
+}
+
+
+My Solution :
+class Solution {
+    // Function to remove all occurrences of the character from the string
+    public void removeCharacter(StringBuilder s, char c) {
+        // code here
+     solve(s,c,0);
+     return;
+    }
+    
+    private void solve(StringBuilder sb,char ch,int left){
+        if(left>=sb.length()){
+            return ;
+        }
+        
+        if(sb.charAt(left)==ch){
+            sb.deleteCharAt(left);
+        }else{
+            left++;
+        }
+        
+         solve(sb,ch,left);
+    }
 }
 ```
 
