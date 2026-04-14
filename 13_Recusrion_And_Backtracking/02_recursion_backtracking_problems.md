@@ -882,6 +882,33 @@ private void backtrack(List<String> list, StringBuilder sb, int open, int close,
 }
 ```
 
+```My Solution 2
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        //your code goes here
+        List<String> res = new ArrayList<>();
+
+        generate(0,0,n,"",res);
+        return res;
+    }
+
+    private void generate(int open,int close,int n,String current,List<String>res){
+        
+        if(open+close==2*n && open==close){
+            res.add(current);
+            return;
+        }
+
+        if(open<n){
+            generate(open+1,close,n,current+'(',res);
+        }
+        if(close<open){
+            generate(open,close+1,n,current+')',res);
+        }
+    }
+}
+```
+
 #### Example
 
 ```
@@ -915,33 +942,6 @@ private void backtrack(List<String> list, StringBuilder sb, String digits, int i
         sb.append(c);
         backtrack(list, sb, digits, idx + 1);
         sb.deleteCharAt(sb.length() - 1);
-    }
-}
-```
-
-```My Solution 2
-class Solution {
-    public List<String> generateParenthesis(int n) {
-        //your code goes here
-        List<String> res = new ArrayList<>();
-
-        generate(0,0,n,"",res);
-        return res;
-    }
-
-    private void generate(int open,int close,int n,String current,List<String>res){
-        
-        if(open+close==2*n && open==close){
-            res.add(current);
-            return;
-        }
-
-        if(open<n){
-            generate(open+1,close,n,current+'(',res);
-        }
-        if(close<open){
-            generate(open,close+1,n,current+')',res);
-        }
     }
 }
 ```
