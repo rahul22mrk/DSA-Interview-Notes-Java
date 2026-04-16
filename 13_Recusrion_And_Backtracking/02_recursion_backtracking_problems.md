@@ -206,9 +206,10 @@ public String removeChar(String s, char ch) {
     String rest = removeChar(s.substring(1), ch);            // recurse on rest
     return s.charAt(0) == ch ? rest : s.charAt(0) + rest;    // skip or keep
 }
-
+```
 
 My Solution :
+```java
 class Solution {
     // Function to remove all occurrences of the character from the string
     public void removeCharacter(StringBuilder s, char c) {
@@ -705,7 +706,7 @@ private void backtrack(List<List<Integer>> list, List<Integer> tempList, int[] n
 ```
 
 Better Approach
-```
+```java
 class Solution {
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
@@ -845,7 +846,7 @@ private void backtrack(List<List<Integer>> list, List<Integer> tempList, int[] n
 ```
 
 Better Approach
-```
+```java
 class Solution {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<List<Integer>> result = new ArrayList<>();
