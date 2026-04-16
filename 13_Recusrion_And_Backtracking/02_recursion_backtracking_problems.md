@@ -913,6 +913,34 @@ private void backtrack(List<List<Integer>> list, List<Integer> tempList, int[] n
     }
 }
 ```
+```java
+class Solution {
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(candidates);
+        findUniqueCombinations(0,candidates,target,new ArrayList<>(),result);
+        return result;
+    }
+
+    private void findUniqueCombinations(int index,int[]candidates,int target,
+    List<Integer>current,List<List<Integer>>result ){
+        if(target==0){
+            result.add(new ArrayList<>(current));
+            return ;
+        }
+        for(int i=index;i<candidates.length;i++){
+            if(i>index && candidates[i]==candidates[i-1])continue;
+            if(candidates[i]>target)break;
+
+            current.add(candidates[i]);
+            findUniqueCombinations(i+1,candidates,target-candidates[i],current,result);
+            current.remove(current.size()-1);
+        }
+
+    }
+}
+```
 
 ---
 
