@@ -1031,6 +1031,86 @@ class Solution {
 ```
 
 ---
+## 🔥 Problem  — Combination Sum III  
+**LeetCode #216 | Difficulty: Medium | Company: Amazon | Category: Backtracking**
+
+> Find all valid combinations of **k numbers** that sum up to **n** such that:  
+> - Only numbers **1 to 9** are used  
+> - Each number is used **at most once**  
+> - Return all **unique combinations**
+
+---
+
+### 🧠 Key Points
+- Fixed range → `1 to 9`
+- Each number used once
+- No duplicates in input → **no need of sort / skip**
+- Use **backtracking + pruning**
+
+---
+
+## ✅ Approach 1 — Include / Exclude 
+
+```java
+class Solution {
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        List<List<Integer>> ans = new ArrayList<>();
+        solve(1, k, n, new ArrayList<>(), ans);
+        return ans;
+    }
+
+    private void solve(int num, int k, int target, List<Integer> temp, List<List<Integer>> ans) {
+
+        // valid
+        if (target == 0 && temp.size() == k) {
+            ans.add(new ArrayList<>(temp));
+            return;
+        }
+
+        // pruning
+        if (num > 9 || temp.size() > k || target < 0) {
+            return;
+        }
+
+        // take
+        temp.add(num);
+        solve(num + 1, k, target - num, temp, ans);
+        temp.remove(temp.size() - 1);
+
+        // not take
+        solve(num + 1, k, target, temp, ans);
+    }
+}
+```
+
+🚀 Approach 2 — For-loop (Preferred in Interviews)
+```java
+class Solution {
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        List<List<Integer>> ans = new ArrayList<>();
+        solve(1, k, n, new ArrayList<>(), ans);
+        return ans;
+    }
+
+    private void solve(int start, int k, int target, List<Integer> temp, List<List<Integer>> ans) {
+
+        if (target == 0 && temp.size() == k) {
+            ans.add(new ArrayList<>(temp));
+            return;
+        }
+
+        for (int i = start; i <= 9; i++) {
+
+            // pruning
+            if (i > target) break;
+
+            temp.add(i);
+            solve(i + 1, k, target - i, temp, ans);
+            temp.remove(temp.size() - 1);
+        }
+    }
+}
+```
 
 ### Problem 21 — Generate Parentheses
 **LeetCode #22 | Difficulty: Medium | Company: Amazon, Google, Facebook | Category: Backtracking**
