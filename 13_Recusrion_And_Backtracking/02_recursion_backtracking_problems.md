@@ -700,6 +700,38 @@ Output: [[], [1], [1,2], [1,2,3], [1,3], [2], [2,3], [3]] ✓ (2^3 = 8 subsets)
 #### Java code
 
 ```java
+class Solution {
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> ans = new ArrayList<>();
+        solve(0,nums,new ArrayList<>(),ans);
+        return ans;
+    }
+
+    private void solve(int idx,int []nums,List<Integer>temp,List<List<Integer>>ans){
+        if(idx==nums.length){
+            ans.add(new ArrayList<>(temp));
+            return ;
+        }
+
+        //take
+        temp.add(nums[idx]);
+        solve(idx+1,nums,temp,ans);
+        temp.remove(temp.size()-1);
+
+        //skip duplicate no
+        int next = idx+1;
+        while(next<nums.length && nums[next]==nums[idx]){
+            next++;
+        }
+
+        //not take
+        solve(next,nums,temp,ans);
+    }
+}
+```
+
+```java
 public List<List<Integer>> subsetsWithDup(int[] nums) {
     List<List<Integer>> list = new ArrayList<>();
     Arrays.sort(nums);                             // MUST sort first
