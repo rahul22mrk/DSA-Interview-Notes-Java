@@ -867,6 +867,47 @@ private void backtrack(List<List<Integer>> list, List<Integer> tempList, int[] n
     }
 }
 ```
+```java
+class Solution {
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        List<List<Integer>>ans = new ArrayList<>();
+        Arrays.sort(nums);
+        solve(0,nums,ans);
+        return ans;
+    }
+
+    private void solve(int idx, int nums[], List<List<Integer>>ans){
+        if(idx==nums.length){
+            List<Integer> temp = new ArrayList<>();
+            for(int num : nums){
+                temp.add(num);
+            }
+            ans.add(temp);
+            return ;
+        }
+
+        for(int i=idx;i<nums.length;i++){
+            boolean duplicate = false;
+            for(int j=idx; j<i; j++){
+                if(nums[i]==nums[j]){
+                    duplicate =true;
+                    break;
+                }
+            }
+            if(duplicate) continue;
+            swap(nums,i,idx);
+            solve(idx+1,nums,ans);
+            swap(nums,i,idx);
+        }
+    }
+
+    private void swap(int nums[], int i, int idx){
+        int temp = nums[i];
+        nums[i] = nums[idx];
+        nums[idx] = temp;
+    }
+}
+```
 
 #### Why `!used[i-1]`?
 
