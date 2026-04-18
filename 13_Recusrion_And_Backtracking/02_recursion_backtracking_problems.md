@@ -631,6 +631,33 @@ private int mergeSort(long[] prefix, int left, int right, int lower, int upper) 
 #### Java code
 
 ```java
+class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        solve(0,nums,new ArrayList<>(),ans);
+        return ans;
+    }
+
+    private void solve(int idx, int nums[],List<Integer> temp, List<List<Integer>>ans){
+        if(idx==nums.length){
+            ans.add(new ArrayList<>(temp));
+            return ;
+        }
+
+        //taken
+        temp.add(nums[idx]);
+        solve(idx+1,nums,temp,ans);
+
+        //backtrack
+        temp.remove(temp.size()-1);
+
+        //not taken
+        solve(idx+1,nums,temp,ans);
+    }
+}
+```
+
+```java
 public List<List<Integer>> subsets(int[] nums) {
     List<List<Integer>> list = new ArrayList<>();
     Arrays.sort(nums);
