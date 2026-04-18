@@ -295,6 +295,35 @@ Split: `pow(x, n) = pow(x, n/2) * pow(x, n/2)`. Handle odd n: multiply one more 
 #### Java code
 
 ```java
+class Solution {
+    public double myPow(double x, int n) {
+        long num = n ;
+        if(num<0){
+            return (1/pow(x,-1*num));
+        }
+
+        return pow(x,num);
+    }
+
+    private double pow(double x,long num){
+        if(num==0){
+            return 1.0;
+        }
+
+        if(num==1){
+            return x;
+        }
+
+        if(num%2==0){
+            return pow(x*x, num/2);
+        }
+
+        return x*pow(x,num-1);
+    }
+}
+```
+
+```java
 public double myPow(double x, int n) {
     long N = n;                      // avoid overflow when n = Integer.MIN_VALUE
     if (N < 0) { x = 1 / x; N = -N; }
