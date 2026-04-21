@@ -2892,3 +2892,185 @@ Largest BST: subtree rooted at 5 → [1, 5, 8], size = 3
 Output: 3 ✓
 ```
 
+
+---
+
+## Category 7 — FAANG Extra Problems
+
+> These 4 problems are frequently asked at Amazon, Google, and Microsoft but are not on Striver's standard sheet.
+
+---
+
+### Problem 71 — Flatten Binary Tree to Linked List
+**LeetCode #114 | Difficulty: Medium | Company: Amazon, Microsoft | Category: DFS / Morris**
+
+> Flatten the binary tree to a linked list in-place using right pointers, in preorder order.
+
+#### Core insight
+
+Morris-style O(1) space: For each node with a left child, find the rightmost node of the left subtree → connect it to node's right → move entire left subtree to right → clear left.
+
+#### Java code
+
+```java
+public void flatten(TreeNode root) {
+    TreeNode curr = root;
+    while (curr != null) {
+        if (curr.left != null) {
+            TreeNode rightmost = curr.left;
+            while (rightmost.right != null) rightmost = rightmost.right;
+            rightmost.right = curr.right;
+            curr.right = curr.left;
+            curr.left  = null;
+        }
+        curr = curr.right;
+    }
+}
+```
+
+#### Example
+
+```
+    1              1
+   / \              \
+  2   5    →         2
+ / \   \              \
+3   4   6              3
+                        \
+                         4
+                          \
+                           5
+                            \
+                             6
+```
+
+---
+
+### Problem 72 — Populating Next Right Pointers in Each Node
+**LeetCode #116 + #117 | Difficulty: Medium | Company: Microsoft, Google | Category: BFS O(1) space**
+
+> Connect each node to its next right node at the same level. Use the `next` pointer. Solve in O(1) extra space.
+
+#### Java code
+
+```java
+// LC #116 — Perfect Binary Tree
+public Node connect(Node root) {
+    if (root == null) return null;
+    Node leftmost = root;
+    while (leftmost.left != null) {
+        Node curr = leftmost;
+        while (curr != null) {
+            curr.left.next = curr.right;
+            if (curr.next != null) curr.right.next = curr.next.left;
+            curr = curr.next;
+        }
+        leftmost = leftmost.left;
+    }
+    return root;
+}
+
+// LC #117 — Any Binary Tree
+public Node connect117(Node root) {
+    Node curr = root, nextHead = null, nextTail = null;
+    while (curr != null) {
+        while (curr != null) {
+            for (Node child : new Node[]{curr.left, curr.right}) {
+                if (child != null) {
+                    if (nextTail != null) nextTail.next = child;
+                    else nextHead = child;
+                    nextTail = child;
+                }
+            }
+            curr = curr.next;
+        }
+        curr = nextHead;
+        nextHead = nextTail = null;
+    }
+    return root;
+}
+```
+
+---
+
+### Problem 73 — Binary Tree Cameras
+**LeetCode #968 | Difficulty: Hard | Company: Google, Amazon | Category: Greedy + DFS**
+
+> Place minimum cameras to monitor all nodes. A camera monitors its node, parent, and children.
+
+#### Core insight
+
+Greedy bottom-up. 3 states: `0` = not covered, `1` = has camera, `2` = covered (by child). Place camera only when a child is uncovered. Null nodes return 2 (already "covered") to avoid forcing cameras at every leaf.
+
+#### Java code
+
+```java
+private int cameras = 0;
+
+public int minCameraCover(TreeNode root) {
+    return (dfs(root) == 0 ? 1 : 0) + cameras;
+}
+
+private int dfs(TreeNode node) {
+    if (node == null) return 2;
+    int left = dfs(node.left), right = dfs(node.right);
+    if (left == 0 || right == 0) { cameras++; return 1; }
+    if (left == 1 || right == 1) return 2;
+    return 0;
+}
+```
+
+---
+
+### Problem 74 — Sum of Distances in Tree
+**LeetCode #834 | Difficulty: Hard | Company: Google, Facebook | Category: Rerooting DFS**
+
+> Return array where `answer[i]` = sum of distances from node `i` to all other nodes. O(n) solution required.
+
+#### Core insight
+
+Two DFS passes (rerooting technique):
+1. Post-order from root 0: compute `count[v]` (subtree size) and `dist[0]`
+2. Pre-order reroot: `dist[child] = dist[parent] - count[child] + (n - count[child])`
+
+#### Java code
+
+```java
+public int[] sumOfDistancesInTree(int n, int[][] edges) {
+    List<List<Integer>> g = new ArrayList<>();
+    for (int i = 0; i < n; i++) g.add(new ArrayList<>());
+    for (int[] e : edges) { g.get(e[0]).add(e[1]); g.get(e[1]).add(e[0]); }
+
+    int[] count = new int[n], dist = new int[n];
+    Arrays.fill(count, 1);
+
+    dfs1(0, -1, g, count, dist);
+    dfs2(0, -1, n, g, count, dist);
+    return dist;
+}
+
+private void dfs1(int u, int p, List<List<Integer>> g, int[] count, int[] dist) {
+    for (int v : g.get(u)) {
+        if (v == p) continue;
+        dfs1(v, u, g, count, dist);
+        count[u] += count[v];
+        dist[u]  += dist[v] + count[v];
+    }
+}
+
+private void dfs2(int u, int p, int n, List<List<Integer>> g, int[] count, int[] dist) {
+    for (int v : g.get(u)) {
+        if (v == p) continue;
+        dist[v] = dist[u] - count[v] + (n - count[v]);
+        dfs2(v, u, n, g, count, dist);
+    }
+}
+```
+
+#### Example
+
+```
+Tree: 0 — 1 — 2
+dist[0]=3, dist[1]=2, dist[2]=3 ✓
+```
+

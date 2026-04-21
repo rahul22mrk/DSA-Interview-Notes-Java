@@ -40,23 +40,28 @@
 | 26 | Morris Inorder Traversal | Medium | Threaded tree O(1) space | P1 (notes) |
 | 27 | Morris Preorder Traversal | Medium | Threaded tree O(1) space | P64 |
 
+| 28 | Flatten Binary Tree to Linked List | Medium | DFS + Morris trick | P71 |
+| 29 | Populating Next Right Pointers | Medium | BFS / O(1) space | P72 |
+| 30 | Binary Tree Cameras | Hard | Greedy + DFS states | P73 |
+| 31 | Sum of Distances in Tree | Hard | Rerooting DFS | P74 |
+
 ### Binary Search Tree
 | # | Problem | Difficulty | Pattern | P# in full file |
 |---|---------|-----------|---------|-----------------|
-| 28 | Search in BST | Easy | BST property | P12 |
-| 29 | Floor and Ceil in BST | Medium | BST property | P65 |
-| 30 | Insert a Node in BST | Medium | BST property | P54 |
-| 31 | Delete a Node in BST | Medium | Inorder successor | P66 |
-| 32 | Kth Smallest in BST | Medium | Inorder + counter | P18 |
-| 33 | Kth Largest in BST | Medium | Reverse inorder | P67 |
-| 34 | Check if Tree is BST | Medium | Top-down bounds | P25 |
-| 35 | LCA in BST | Medium | BST property | P13 |
-| 36 | Construct BST from Preorder | Medium | Divide & Conquer | P45 |
-| 37 | Inorder Successor and Predecessor | Medium | BST traversal | P68 |
-| 38 | BST Iterator | Medium | Simulated inorder stack | P69 |
-| 39 | Two Sum in BST | Easy | DFS + HashSet | P17 |
-| 40 | Correct BST with Two Nodes Swapped | Hard | Inorder find violations | P26 |
-| 41 | Largest BST in Binary Tree | Hard | Bottom-up (size,min,max) | P70 |
+| 32 | Search in BST | Easy | BST property | P12 |
+| 33 | Floor and Ceil in BST | Medium | BST property | P65 |
+| 34 | Insert a Node in BST | Medium | BST property | P54 |
+| 35 | Delete a Node in BST | Medium | Inorder successor | P66 |
+| 36 | Kth Smallest in BST | Medium | Inorder + counter | P18 |
+| 37 | Kth Largest in BST | Medium | Reverse inorder | P67 |
+| 38 | Check if Tree is BST | Medium | Top-down bounds | P25 |
+| 39 | LCA in BST | Medium | BST property | P13 |
+| 40 | Construct BST from Preorder | Medium | Divide & Conquer | P45 |
+| 41 | Inorder Successor and Predecessor | Medium | BST traversal | P68 |
+| 42 | BST Iterator | Medium | Simulated inorder stack | P69 |
+| 43 | Two Sum in BST | Easy | DFS + HashSet | P17 |
+| 44 | Correct BST with Two Nodes Swapped | Hard | Inorder find violations | P26 |
+| 45 | Largest BST in Binary Tree | Hard | Bottom-up (size,min,max) | P70 |
 
 ---
 
@@ -429,4 +434,284 @@ private int[] dfs(TreeNode node) {  // returns {size, min, max}; size=-1 if not 
 
 ---
 
-*Focus on these 41 problems. They cover every pattern Striver tests in tree interviews.*
+---
+
+## FAANG Extra Problems (4 problems)
+
+> These 4 are **not on Striver's sheet** but are frequently asked at Amazon, Google, and Microsoft. Add them to your prep.
+
+---
+
+### 13. Flatten Binary Tree to Linked List (P71)
+**LeetCode #114 | Difficulty: Medium | Company: Amazon, Microsoft | Pattern: DFS / Morris**
+
+> Flatten a binary tree to a linked list **in-place** using the same TreeNode (right pointer = next, left = null). Order = preorder.
+
+#### Core insight
+
+**Morris-style approach (O(1) space):** For each node that has a left child, find the rightmost node of the left subtree and connect it to `node.right`. Then move left subtree to right, set left to null.
+
+```java
+public void flatten(TreeNode root) {
+    TreeNode curr = root;
+    while (curr != null) {
+        if (curr.left != null) {
+            // find rightmost node of left subtree
+            TreeNode rightmost = curr.left;
+            while (rightmost.right != null) rightmost = rightmost.right;
+
+            rightmost.right = curr.right;   // connect: rightmost → old right subtree
+            curr.right = curr.left;         // move left subtree to right
+            curr.left  = null;              // clear left
+        }
+        curr = curr.right;
+    }
+}
+```
+
+#### Example
+
+```
+      1                    1
+     / \                    \
+    2   5       →            2
+   / \   \                    \
+  3   4   6                    3
+                                \
+                                 4
+                                  \
+                                   5
+                                    \
+                                     6
+```
+
+#### Why it's asked
+
+Tests whether you know Morris threading or can do in-place tree manipulation without extra space. Amazon asks this to check if you go beyond basic recursion.
+
+---
+
+### 14. Populating Next Right Pointers in Each Node (P72)
+**LeetCode #116 (perfect BT) + #117 (any BT) | Difficulty: Medium | Company: Microsoft, Google**
+
+> Connect each node to its next right node on the same level. Use the `next` pointer (initially null).
+
+#### Core insight
+
+**O(1) space trick:** Use the already-connected `next` pointers of current level to traverse and link the next level — like a linked list traversal. No queue needed.
+
+```java
+// LC #116 — Perfect Binary Tree (cleaner)
+public Node connect(Node root) {
+    if (root == null) return null;
+    Node leftmost = root;
+
+    while (leftmost.left != null) {         // while not at leaf level
+        Node curr = leftmost;
+        while (curr != null) {
+            curr.left.next  = curr.right;                          // connect siblings
+            if (curr.next != null) curr.right.next = curr.next.left; // connect cousins
+            curr = curr.next;
+        }
+        leftmost = leftmost.left;           // move to next level
+    }
+    return root;
+}
+
+// LC #117 — Any Binary Tree (handles missing nodes)
+public Node connect117(Node root) {
+    Node curr = root, nextLevelHead = null, nextLevelTail = null;
+
+    while (curr != null) {
+        // iterate current level using next pointers
+        while (curr != null) {
+            for (Node child : new Node[]{curr.left, curr.right}) {
+                if (child != null) {
+                    if (nextLevelTail != null) nextLevelTail.next = child;
+                    else nextLevelHead = child;
+                    nextLevelTail = child;
+                }
+            }
+            curr = curr.next;
+        }
+        curr = nextLevelHead;
+        nextLevelHead = nextLevelTail = null;
+    }
+    return root;
+}
+```
+
+#### Example
+
+```
+      1  →  null                 1  →  null
+     / \              →         / \
+    2 → 3  →  null             2 → 3  →  null
+   /\ / \                     /\ / \
+  4→5→6→7 → null             4→5→6→7 → null
+```
+
+#### Why it's asked
+
+Microsoft favourite — tests BFS thinking without actually using a queue. The O(1) space solution using `next` pointers is the key insight they're looking for.
+
+---
+
+### 15. Binary Tree Cameras (P73)
+**LeetCode #968 | Difficulty: Hard | Company: Google, Amazon | Pattern: Greedy + DFS**
+
+> Place the minimum number of cameras to monitor the entire tree. A camera at a node monitors the node, its parent, and its children.
+
+#### Core insight
+
+**Greedy:** Place cameras as high up (close to root) as possible — so camera covers more nodes. Process bottom-up. Each node has 3 states:
+- `0` = not covered (needs a camera from parent)
+- `1` = has a camera
+- `2` = covered (by a child's camera), no camera here
+
+**Rule:** If any child returns `0` (not covered) → place camera here (return 1). If any child has camera (returns 1) → this node is covered (return 2). If all children are covered (return 2) → this node is not covered yet (return 0, let parent handle).
+
+```java
+private int cameras = 0;
+
+public int minCameraCover(TreeNode root) {
+    // if root itself is not covered, place a camera at root
+    return (dfs(root) == 0 ? 1 : 0) + cameras;
+}
+
+// 0 = not covered, 1 = has camera, 2 = covered
+private int dfs(TreeNode node) {
+    if (node == null) return 2;   // null nodes are "covered" — don't force camera at leaves
+
+    int left  = dfs(node.left);
+    int right = dfs(node.right);
+
+    if (left == 0 || right == 0) {   // child not covered → place camera here
+        cameras++;
+        return 1;
+    }
+    if (left == 1 || right == 1) {   // a child has camera → this node is covered
+        return 2;
+    }
+    return 0;   // both children covered but no camera nearby → not covered, ask parent
+}
+```
+
+#### Example
+
+```
+      0
+     / \
+    0   0
+   /
+  0
+
+Optimal: place cameras at depth-1 nodes (marked C)
+      0
+     / \
+    C   C
+   /
+  0  ← covered by left C
+cameras = 2 ✓
+```
+
+#### Why it's asked
+
+Google asks this to test greedy thinking on trees. Most candidates try DP — the greedy 3-state DFS is the elegant O(n) solution. Shows pattern recognition on "leave decisions to parent" logic.
+
+---
+
+### 16. Sum of Distances in Tree (P74)
+**LeetCode #834 | Difficulty: Hard | Company: Google, Facebook | Pattern: Rerooting DFS**
+
+> Given an undirected tree with n nodes, return an array where `answer[i]` = sum of distances from node `i` to all other nodes.
+
+#### Core insight
+
+**Rerooting technique — two DFS passes:**
+
+**Pass 1 (root = 0):** Compute `count[v]` = number of nodes in subtree of v, and `dist[0]` = sum of distances from root to all nodes.
+
+**Pass 2 (reroot):** When moving root from parent `u` to child `v`:
+- All nodes in `v`'s subtree get 1 closer → subtract `count[v]`
+- All other nodes get 1 farther → add `(n - count[v])`
+- Formula: `dist[v] = dist[u] - count[v] + (n - count[v])`
+
+```java
+public int[] sumOfDistancesInTree(int n, int[][] edges) {
+    List<List<Integer>> graph = new ArrayList<>();
+    for (int i = 0; i < n; i++) graph.add(new ArrayList<>());
+    for (int[] e : edges) { graph.get(e[0]).add(e[1]); graph.get(e[1]).add(e[0]); }
+
+    int[] count = new int[n];   // subtree sizes
+    int[] dist  = new int[n];   // answer array
+    Arrays.fill(count, 1);
+
+    // Pass 1: post-order from root=0 → compute count[] and dist[0]
+    dfs1(0, -1, graph, count, dist);
+
+    // Pass 2: pre-order re-root → propagate dist[] to all nodes
+    dfs2(0, -1, n, graph, count, dist);
+
+    return dist;
+}
+
+private void dfs1(int node, int parent, List<List<Integer>> graph, int[] count, int[] dist) {
+    for (int child : graph.get(node)) {
+        if (child == parent) continue;
+        dfs1(child, node, graph, count, dist);
+        count[node] += count[child];
+        dist[node]  += dist[child] + count[child];   // all nodes in child subtree are 1 farther
+    }
+}
+
+private void dfs2(int node, int parent, int n, List<List<Integer>> graph, int[] count, int[] dist) {
+    for (int child : graph.get(node)) {
+        if (child == parent) continue;
+        // reroot: move perspective from node → child
+        dist[child] = dist[node] - count[child] + (n - count[child]);
+        dfs2(child, node, n, graph, count, dist);
+    }
+}
+```
+
+#### Example
+
+```
+Tree:  0 - 1 - 2
+
+dist[0] = d(0,1) + d(0,2) = 1 + 2 = 3
+dist[1] = d(1,0) + d(1,2) = 1 + 1 = 2
+dist[2] = d(2,0) + d(2,1) = 2 + 1 = 3
+Output: [3, 2, 3] ✓
+```
+
+#### Why it's asked
+
+Google's favourite hard-level tree problem. Brute force is O(n²) — rerooting gives O(n). Tests if you can think beyond simple DFS and derive the "moving root" recurrence relation.
+
+---
+
+## Updated Complexity Quick Reference
+
+| Problem | Time | Space | Key insight |
+|---------|------|-------|-------------|
+| All 3 traversals in one pass | O(n) | O(n) | state machine per node |
+| Top / Bottom View | O(n log n) | O(n) | TreeMap by HD |
+| Vertical Order Traversal | O(n log n) | O(n) | TreeMap col→row→PQ |
+| Boundary Traversal | O(n) | O(h) | 3 separate DFS passes |
+| Burn Tree | O(n) | O(n) | BFS from target on undirected graph |
+| Count nodes complete BT | O(log²n) | O(log n) | height check shortcut |
+| Floor / Ceil in BST | O(h) | O(1) | BST walk with candidate |
+| Delete in BST | O(h) | O(h) | inorder successor replace |
+| Inorder Successor | O(h) | O(1) | candidate on left turns |
+| BST Iterator | O(1) amortized | O(h) | pushLeft trick |
+| Largest BST in BT | O(n) | O(h) | return (size,min,max) |
+| **Flatten BT to LL** | **O(n)** | **O(1)** | **Morris-style: find rightmost, rewire** |
+| **Next Right Pointers** | **O(n)** | **O(1)** | **Use existing next pointers as queue** |
+| **Binary Tree Cameras** | **O(n)** | **O(h)** | **Greedy: 3 states bottom-up** |
+| **Sum of Distances** | **O(n)** | **O(n)** | **Rerooting: 2 DFS passes** |
+
+---
+
+*Focus on these 45 problems. They cover every pattern tested at FAANG for trees — SDE-1 to SDE-2 level.*
