@@ -1,4 +1,4 @@
-# Tree Pattern — Solved Problems (54 Problems)
+# Tree Pattern — Solved Problems (74 Problems)
 
 > **Pattern family:** Binary Tree / BST / Tree Traversal / Construction
 > **Notes & Templates:** [01_tree_notes.md](./01_tree_notes.md)
@@ -103,6 +103,12 @@
 - [P68 — Inorder Successor and Predecessor in BST](#problem-68--inorder-successor-and-predecessor-in-bst)
 - [P69 — BST Iterator](#problem-69--bst-iterator)
 - [P70 — Largest BST in Binary Tree](#problem-70--largest-bst-in-binary-tree)
+
+### Category 7 — FAANG Extra Problems ⭐ Must-Do
+- [P71 — Flatten Binary Tree to Linked List](#problem-71--flatten-binary-tree-to-linked-list)
+- [P72 — Populating Next Right Pointers in Each Node](#problem-72--populating-next-right-pointers-in-each-node)
+- [P73 — Binary Tree Cameras](#problem-73--binary-tree-cameras)
+- [P74 — Sum of Distances in Tree](#problem-74--sum-of-distances-in-tree)
 
 ---
 
@@ -3073,4 +3079,3 @@ private void dfs2(int u, int p, int n, List<List<Integer>> g, int[] count, int[]
 Tree: 0 — 1 — 2
 dist[0]=3, dist[1]=2, dist[2]=3 ✓
 ```
-
