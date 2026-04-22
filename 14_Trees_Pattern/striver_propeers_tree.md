@@ -116,6 +116,9 @@ private void inorder(TreeNode node, List<Integer> res) {
     inorder(node.right, res);
 }
 
+```
+
+```java
 // Iterative (preferred in interviews)
 public List<Integer> inorderIterative(TreeNode root) {
     List<Integer> res = new ArrayList<>();
@@ -129,8 +132,9 @@ public List<Integer> inorderIterative(TreeNode root) {
     }
     return res;
 }
+```
 
-
+```java
 class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> ans = new ArrayList<>();
@@ -182,6 +186,9 @@ private void preorder(TreeNode node, List<Integer> res) {
     preorder(node.left, res);
     preorder(node.right, res);
 }
+```
+
+```java
 
 // Iterative
 public List<Integer> preorderIterative(TreeNode root) {
@@ -219,6 +226,9 @@ private void postorder(TreeNode node, List<Integer> res) {
     postorder(node.right, res);
     res.add(node.val);
 }
+```
+
+```java
 
 // Iterative (reverse of modified preorder)
 public List<Integer> postorderIterative(TreeNode root) {
@@ -234,6 +244,9 @@ public List<Integer> postorderIterative(TreeNode root) {
     }
     return res;
 }
+```
+
+```java
 
 
 class Solution {
@@ -417,6 +430,9 @@ class Solution {
     }
 }
 
+```
+
+```java
 public void allTraversals(TreeNode root) {
     List<Integer> pre = new ArrayList<>(), in = new ArrayList<>(), post = new ArrayList<>();
     Deque<Object[]> st = new ArrayDeque<>();
