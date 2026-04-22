@@ -129,6 +129,29 @@ public List<Integer> inorderIterative(TreeNode root) {
     }
     return res;
 }
+
+
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> ans = new ArrayList<>();
+        TreeNode node = root;
+        Deque<TreeNode> st = new ArrayDeque<>();
+
+        while(true){
+            if(node!=null){
+                st.push(node);
+                node = node.left ;
+            }else{
+                if(st.isEmpty()) break;
+                node = st.pop();
+                ans.add(node.val);
+                node = node.right;
+            }
+        }
+        return ans;
+        
+    }
+}
 ```
 
 ```
@@ -210,6 +233,30 @@ public List<Integer> postorderIterative(TreeNode root) {
         if (node.right != null) stack.push(node.right);
     }
     return res;
+}
+
+
+class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> ans = new ArrayList<>();
+        Deque<TreeNode> st = new ArrayDeque<>();
+        if(root!=null) st.push(root);
+
+        while(!st.isEmpty()){
+            TreeNode node = st.pop();
+            ans.add(node.val);
+
+            if(node.left!=null){
+                st.push(node.left);
+            }
+            
+            if(node.right!=null){
+                st.push(node.right);
+            }
+        }
+        Collections.reverse(ans);
+        return ans;
+    }
 }
 ```
 
@@ -318,6 +365,58 @@ public List<List<Integer>> levelOrderBottom(TreeNode root) {
 **Core insight:** Each node visited 3 times. state=1 → preorder, state=2 → inorder, state=3 → postorder.
 
 ```java
+
+ class NodeState{
+    TreeNode node;
+    int state;
+
+    NodeState(TreeNode node, int state){
+        this.node = node;
+        this.state = state;
+    }
+ }
+
+class Solution {
+    List<List<Integer>> treeTraversal(TreeNode root) {
+        //your code goes here
+        List<Integer> in = new ArrayList<>();
+        List<Integer> pre = new ArrayList<>();
+        List<Integer> post = new ArrayList<>();
+
+        if(root == null){
+            return Arrays.asList(in,pre,post);
+        }
+        Deque<NodeState> st = new ArrayDeque<>();
+        st.push(new NodeState(root,1));
+
+        while(!st.isEmpty()){
+            NodeState nodeState = st.poll();
+            TreeNode node = nodeState.node;
+            int state = nodeState.state;
+
+            if(state==1){
+                pre.add(node.data);
+                st.push(new NodeState(node,2));
+                if(node.left!=null){
+                    st.push(new NodeState(node.left,1));
+                }
+
+            }else if(state==2){
+                in.add(node.data);
+                st.push(new NodeState(node,3));
+                if(node.right!=null){
+                    st.push(new NodeState(node.right,1));
+                }
+            }else{
+                post.add(node.data);
+            }
+            
+        }
+
+        return Arrays.asList(in,pre,post);
+    }
+}
+
 public void allTraversals(TreeNode root) {
     List<Integer> pre = new ArrayList<>(), in = new ArrayList<>(), post = new ArrayList<>();
     Deque<Object[]> st = new ArrayDeque<>();
