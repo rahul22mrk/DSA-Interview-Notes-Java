@@ -227,6 +227,199 @@ class Solution {
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
+5. Pre, Post, Inorder in one traversal
 
+
+ class NodeState{
+    TreeNode node;
+    int state;
+
+    NodeState(TreeNode node, int state){
+        this.node = node;
+        this.state = state;
+    }
+ }
+
+class Solution {
+    List<List<Integer>> treeTraversal(TreeNode root) {
+        //your code goes here
+        List<Integer> in = new ArrayList<>();
+        List<Integer> pre = new ArrayList<>();
+        List<Integer> post = new ArrayList<>();
+
+        if(root == null){
+            return Arrays.asList(in,pre,post);
+        }
+        Deque<NodeState> st = new ArrayDeque<>();
+        st.push(new NodeState(root,1));
+
+        while(!st.isEmpty()){
+            NodeState nodeState = st.poll();
+            TreeNode node = nodeState.node;
+            int state = nodeState.state;
+
+            if(state==1){
+                pre.add(node.data);
+                st.push(new NodeState(node,2));
+                if(node.left!=null){
+                    st.push(new NodeState(node.left,1));
+                }
+
+            }else if(state==2){
+                in.add(node.data);
+                st.push(new NodeState(node,3));
+                if(node.right!=null){
+                    st.push(new NodeState(node.right,1));
+                }
+            }else{
+                post.add(node.data);
+            }
+            
+        }
+
+        return Arrays.asList(in,pre,post);
+    }
+}
+
+-------------------------------------------------------------------------------------------------------------------------
+
+6. 103. Binary Tree Zigzag Level Order Traversal
+
+class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if(root==null) return res;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        boolean leftToRight = true;
+
+        while(!q.isEmpty()){
+            int size = q.size();
+            
+            List<Integer> level = new ArrayList<>(Collections.nCopies(size,0));
+
+            for(int i=0;i<size;i++){
+                TreeNode node = q.poll();
+                int index = leftToRight ? i : size - i -1;
+
+                level.set(index, node.val);
+
+                if(node.left!=null){
+                    q.offer(node.left);
+                }
+
+                if(node.right!=null){
+                    q.offer(node.right);
+                }
+                
+            }
+
+            res.add(level);
+            leftToRight = !leftToRight;
+        }
+        return res;
+    }
+}
+
+
+public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+    List<List<Integer>> res = new ArrayList<>();
+    if (root == null) return res;
+    Queue<TreeNode> q = new LinkedList<>();
+    q.offer(root);
+    boolean leftToRight = true;
+    while (!q.isEmpty()) {
+        int size = q.size();
+        LinkedList<Integer> level = new LinkedList<>();
+        for (int i = 0; i < size; i++) {
+            TreeNode node = q.poll();
+            if (leftToRight) level.addLast(node.val);
+            else             level.addFirst(node.val);  // reverse direction
+            if (node.left  != null) q.offer(node.left);
+            if (node.right != null) q.offer(node.right);
+        }
+        res.add(level);
+        leftToRight = !leftToRight;
+    }
+    return res;
+}
+
+-------------------------------------------------------------------------------------------------------------------------
+
+7. 107. Binary Tree Level Order Traversal II
+
+
+class Solution {
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+
+        if(root==null){
+            return res;
+        }
+
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+
+        while(!q.isEmpty()){
+            int size = q.size();
+            List<Integer> level = new ArrayList<>();
+
+            for(int i=0;i<size;i++){
+                TreeNode node = q.poll();
+                level.add(node.val);
+
+                if(node.left!=null){
+                    q.offer(node.left);
+                }
+
+                if(node.right!=null){
+                    q.offer(node.right);
+                }
+            }
+
+            res.add(0,level);
+        }
+        return res;
+        
+    }
+}
+
+class Solution {
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        LinkedList<List<Integer>> res = new LinkedList<>();
+
+        if(root==null){
+            return res;
+        }
+
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+
+        while(!q.isEmpty()){
+            int size = q.size();
+            List<Integer> level = new ArrayList<>();
+
+            for(int i=0;i<size;i++){
+                TreeNode node = q.poll();
+                level.add(node.val);
+
+                if(node.left!=null){
+                    q.offer(node.left);
+                }
+
+                if(node.right!=null){
+                    q.offer(node.right);
+                }
+            }
+
+            res.addFirst(level);
+        }
+        return res;
+        
+    }
+}
+
+
+-------------------------------------------------------------------------------------------------------------------------
 
 
