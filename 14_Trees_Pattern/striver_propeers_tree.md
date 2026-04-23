@@ -340,6 +340,45 @@ public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
 }
 ```
 
+```java
+public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if(root==null) return res;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        boolean leftToRight = true;
+
+        while(!q.isEmpty()){
+            int size = q.size();
+            
+            List<Integer> level = new ArrayList<>(Collections.nCopies(size,0));
+
+            for(int i=0;i<size;i++){
+                TreeNode node = q.poll();
+                int index = leftToRight ? i : size - i -1;
+
+                level.set(index, node.val);
+
+                if(node.left!=null){
+                    q.offer(node.left);
+                }
+
+                if(node.right!=null){
+                    q.offer(node.right);
+                }
+                
+            }
+
+            res.add(level);
+            leftToRight = !leftToRight;
+        }
+        return res;
+    }
+
+```
+
+
+
 ---
 
 ### 6. Level Order II — Bottom Up
@@ -366,6 +405,42 @@ public List<List<Integer>> levelOrderBottom(TreeNode root) {
     }
     return res;
 }
+
+```
+
+```java
+ public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+
+        if(root==null){
+            return res;
+        }
+
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+
+        while(!q.isEmpty()){
+            int size = q.size();
+            List<Integer> level = new ArrayList<>();
+
+            for(int i=0;i<size;i++){
+                TreeNode node = q.poll();
+                level.add(node.val);
+
+                if(node.left!=null){
+                    q.offer(node.left);
+                }
+
+                if(node.right!=null){
+                    q.offer(node.right);
+                }
+            }
+
+            res.add(0,level);
+        }
+        return res;
+        
+    }
 ```
 
 ---
@@ -484,6 +559,47 @@ public TreeNode invertTree(TreeNode root) {
     TreeNode tmp   = root.left;
     root.left      = invertTree(root.right);
     root.right     = invertTree(tmp);
+    return root;
+}
+```
+
+```java
+// Approach 2 — BFS (Queue)
+public TreeNode invertTree(TreeNode root) {
+    if (root == null) return null;
+    Queue<TreeNode> q = new LinkedList<>();
+    q.offer(root);
+    while (!q.isEmpty()) {
+        TreeNode node = q.poll();
+        // swap
+        TreeNode tmp  = node.left;
+        node.left     = node.right;
+        node.right    = tmp;
+
+        if (node.left  != null) q.offer(node.left);
+        if (node.right != null) q.offer(node.right);
+    }
+    return root;
+}
+
+```
+
+```java
+// Approach 3 — DFS (Stack)
+public TreeNode invertTree(TreeNode root) {
+    if (root == null) return null;
+    Deque<TreeNode> stack = new ArrayDeque<>();
+    stack.push(root);
+    while (!stack.isEmpty()) {
+        TreeNode node = stack.pop();
+        // swap
+        TreeNode tmp  = node.left;
+        node.left     = node.right;
+        node.right    = tmp;
+
+        if (node.left  != null) stack.push(node.left);
+        if (node.right != null) stack.push(node.right);
+    }
     return root;
 }
 ```
