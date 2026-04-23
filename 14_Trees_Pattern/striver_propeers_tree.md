@@ -1,4 +1,4 @@
-# Tree Problems — Striver + Pro Peers
+# Tree Problems — Striver + ProPeers
 
 > **Language:** Java | **Total Problems: 44** (duplicates counted once)
 > **Notes & Templates:** [01_tree_notes.md](./01_tree_notes.md)
@@ -98,7 +98,7 @@
 ---
 
 ### 1. Inorder Traversal
-**LeetCode #94 | Easy | Striver + Pratush**
+**LeetCode #94 | Easy | Striver + ProPeers**
 
 > Return inorder (Left → Root → Right) traversal of a binary tree.
 
@@ -169,7 +169,7 @@ class Solution {
 ---
 
 ### 2. Preorder Traversal
-**LeetCode #144 | Easy | Striver + Pratush**
+**LeetCode #144 | Easy | Striver + ProPeers**
 
 > Return preorder (Root → Left → Right) traversal.
 
@@ -209,7 +209,7 @@ public List<Integer> preorderIterative(TreeNode root) {
 ---
 
 ### 3. Postorder Traversal
-**LeetCode #145 | Easy | Striver + Pratush**
+**LeetCode #145 | Easy | Striver + ProPeers**
 
 > Return postorder (Left → Right → Root) traversal.
 
@@ -276,7 +276,7 @@ class Solution {
 ---
 
 ### 4. Level Order Traversal
-**LeetCode #102 | Medium | Striver + Pratush**
+**LeetCode #102 | Medium | Striver + ProPeers**
 
 > Return nodes level by level (BFS).
 
@@ -312,7 +312,7 @@ public List<List<Integer>> levelOrder(TreeNode root) {
 ---
 
 ### 5. ZigZag / Spiral Traversal
-**LeetCode #103 | Medium | Striver + Pratush**
+**LeetCode #103 | Medium | Striver + ProPeers**
 
 > Level order but alternate left-to-right and right-to-left each level.
 
@@ -343,7 +343,7 @@ public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
 ---
 
 ### 6. Level Order II — Bottom Up
-**LeetCode #107 | Easy | Pratush**
+**LeetCode #107 | Easy | ProPeers**
 
 > Same as level order but return bottom-up (deepest level first).
 
@@ -474,7 +474,7 @@ public void allTraversals(TreeNode root) {
 ---
 
 ### 8. Invert Binary Tree
-**LeetCode #226 | Easy | Pratush**
+**LeetCode #226 | Easy | ProPeers**
 
 > Mirror a binary tree — swap left and right children at every node.
 
@@ -499,7 +499,7 @@ public TreeNode invertTree(TreeNode root) {
 ---
 
 ### 9. Symmetric Tree
-**LeetCode #101 | Easy | Striver + Pratush**
+**LeetCode #101 | Easy | Striver + ProPeers**
 
 > Check if a binary tree is a mirror image of itself.
 
@@ -519,7 +519,7 @@ private boolean isMirror(TreeNode left, TreeNode right) {
 ---
 
 ### 10. Same Tree — Check if Two Trees are Identical
-**LeetCode #100 | Easy | Striver + Pratush**
+**LeetCode #100 | Easy | Striver + ProPeers**
 
 > Check if two binary trees have same structure and values.
 
@@ -536,7 +536,7 @@ public boolean isSameTree(TreeNode p, TreeNode q) {
 ---
 
 ### 11. Subtree of Another Tree
-**LeetCode #572 | Medium | Pratush**
+**LeetCode #572 | Medium | ProPeers**
 
 > Check if `subRoot` is a subtree of `root`.
 
@@ -556,7 +556,7 @@ private boolean isSameTree(TreeNode p, TreeNode q) {
 ---
 
 ### 12. Flip Equivalent Binary Trees
-**LeetCode #951 | Medium | Pratush**
+**LeetCode #951 | Medium | ProPeers**
 
 > Two trees are flip equivalent if one can be obtained by flipping children at some nodes.
 
@@ -578,7 +578,7 @@ public boolean flipEquiv(TreeNode r1, TreeNode r2) {
 ---
 
 ### 13. Maximum Depth of Binary Tree
-**LeetCode #104 | Easy | Striver + Pratush**
+**LeetCode #104 | Easy | Striver + ProPeers**
 
 > Find the maximum depth (height) of a binary tree.
 
@@ -592,7 +592,7 @@ public int maxDepth(TreeNode root) {
 ---
 
 ### 14. Minimum Depth of Binary Tree
-**LeetCode #111 | Easy | Pratush**
+**LeetCode #111 | Easy | ProPeers**
 
 > Find the minimum depth (root to nearest leaf). Handle one-child nodes carefully.
 
@@ -609,7 +609,7 @@ public int minDepth(TreeNode root) {
 ---
 
 ### 15. Check for Balanced Binary Tree
-**LeetCode #110 | Easy | Striver + Pratush**
+**LeetCode #110 | Easy | Striver + ProPeers**
 
 > Check if every node's left and right heights differ by at most 1.
 
@@ -632,7 +632,7 @@ private int checkHeight(TreeNode node) {
 ---
 
 ### 16. Diameter of Binary Tree
-**LeetCode #543 | Easy | Striver + Pratush**
+**LeetCode #543 | Easy | Striver + ProPeers**
 
 > Longest path between any two nodes (may not pass through root).
 
@@ -663,7 +663,7 @@ private int height(TreeNode node) {
 ---
 
 ### 17. Binary Tree Tilt
-**LeetCode #563 | Easy | Pratush**
+**LeetCode #563 | Easy | ProPeers**
 
 > Sum of every node's tilt. Tilt = |sum(left subtree) - sum(right subtree)|.
 
@@ -686,7 +686,7 @@ private int subtreeSum(TreeNode node) {
 ---
 
 ### 18. Check Completeness of Binary Tree
-**LeetCode #958 | Medium | Pratush**
+**LeetCode #958 | Medium | ProPeers**
 
 > A complete BT has all levels full except possibly the last (filled left to right).
 
@@ -718,7 +718,7 @@ public boolean isCompleteTree(TreeNode root) {
 ---
 
 ### 19. Maximum Path Sum in BT
-**LeetCode #124 | Hard | Striver + Pratush**
+**LeetCode #124 | Hard | Striver + ProPeers**
 
 > Maximum path sum where path can start and end at any node.
 
@@ -751,7 +751,7 @@ private int dfs(TreeNode node) {
 ---
 
 ### 20. Path Sum
-**LeetCode #112 | Easy | Pratush**
+**LeetCode #112 | Easy | ProPeers**
 
 > Check if there is a root-to-leaf path with sum equal to targetSum.
 
@@ -767,7 +767,7 @@ public boolean hasPathSum(TreeNode root, int targetSum) {
 ---
 
 ### 21. Path Sum II
-**LeetCode #113 | Medium | Pratush**
+**LeetCode #113 | Medium | ProPeers**
 
 > Find all root-to-leaf paths where the sum equals targetSum.
 
@@ -791,7 +791,7 @@ private void dfs(TreeNode node, int rem, List<Integer> path, List<List<Integer>>
 ---
 
 ### 22. Path Sum III
-**LeetCode #437 | Medium | Pratush**
+**LeetCode #437 | Medium | ProPeers**
 
 > Count paths (not necessarily root-to-leaf) where sum equals targetSum.
 
@@ -818,7 +818,7 @@ private int dfs(TreeNode node, long curr, int target, Map<Long, Integer> map) {
 ---
 
 ### 23. Sum of Root to Leaf Numbers
-**LeetCode #129 | Medium | Pratush**
+**LeetCode #129 | Medium | ProPeers**
 
 > Each root-to-leaf path forms a number. Return total sum of all such numbers.
 
@@ -1040,7 +1040,7 @@ public List<Integer> rightSideView(TreeNode root) {
 ---
 
 ### 30. LCA in Binary Tree
-**LeetCode #236 | Medium | Striver + Pratush**
+**LeetCode #236 | Medium | Striver + ProPeers**
 
 > Find Lowest Common Ancestor in a general binary tree.
 
@@ -1069,7 +1069,7 @@ public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
 ---
 
 ### 31. LCA of Deepest Leaves
-**LeetCode #1123 | Medium | Pratush**
+**LeetCode #1123 | Medium | ProPeers**
 
 > Find LCA of the deepest leaves.
 
@@ -1266,7 +1266,7 @@ KEY RULE: Inorder is MANDATORY in any pair for a unique BT.
 ---
 
 ### 37. Construct BT from Preorder and Inorder
-**LeetCode #105 | Medium | Striver + Pratush**
+**LeetCode #105 | Medium | Striver + ProPeers**
 
 > preorder[0] = root. Find root in inorder → split left/right. Use HashMap for O(1) lookup.
 
@@ -1301,7 +1301,7 @@ preorder=[3,9,20,15,7], inorder=[9,3,15,20,7]
 ---
 
 ### 38. Construct BT from Postorder and Inorder
-**LeetCode #106 | Medium | Striver + Pratush**
+**LeetCode #106 | Medium | Striver + ProPeers**
 
 > postorder[last] = root. Find in inorder → build right FIRST (postorder is L,R,Root).
 
@@ -1328,7 +1328,7 @@ private TreeNode build(int[] postorder, int inLeft, int inRight) {
 ---
 
 ### 39. Construct BT from Preorder and Postorder
-**LeetCode #889 | Medium | Pratush**
+**LeetCode #889 | Medium | ProPeers**
 
 > Result may not be unique. preorder[preIdx+1] = left child root → find in postorder for left size.
 
@@ -1355,7 +1355,7 @@ private TreeNode build(int[] preorder, int postLeft, int postRight) {
 ---
 
 ### 40. Convert Sorted Array to BST
-**LeetCode #108 | Easy | Pratush**
+**LeetCode #108 | Easy | ProPeers**
 
 > Mid element = root, recurse on left and right halves. Result is height-balanced BST.
 
@@ -1376,7 +1376,7 @@ private TreeNode build(int[] nums, int left, int right) {
 ---
 
 ### 41. Convert Sorted List to BST
-**LeetCode #109 | Medium | Pratush**
+**LeetCode #109 | Medium | ProPeers**
 
 > Find mid using slow/fast pointers. Cut list, make mid = root, recurse.
 
@@ -1399,7 +1399,7 @@ public TreeNode sortedListToBST(ListNode head) {
 ---
 
 ### 42. Serialize and Deserialize BT
-**LeetCode #297 | Hard | Striver + Pratush**
+**LeetCode #297 | Hard | Striver + ProPeers**
 
 > Preorder DFS with "null" markers. Queue-based rebuild on deserialize.
 
@@ -1534,7 +1534,7 @@ Delete: O(log n) avg
 ---
 
 ### 46. Search in BST
-**LeetCode #700 | Easy | Striver + Pratush**
+**LeetCode #700 | Easy | Striver + ProPeers**
 
 > Find node with value `val`. Use BST property to go left or right.
 
@@ -1630,7 +1630,7 @@ public TreeNode deleteNode(TreeNode root, int key) {
 ---
 
 ### 50. Kth Smallest and Largest Element in BST
-**LeetCode #230 / GFG | Medium | Striver + Pratush**
+**LeetCode #230 / GFG | Medium | Striver + ProPeers**
 
 > Inorder = sorted ascending → kth smallest. Reverse inorder = descending → kth largest.
 
@@ -1663,7 +1663,7 @@ private void reverseInorder(TreeNode node) {
 ---
 
 ### 51. Check if a Tree is a BST
-**LeetCode #98 | Medium | Striver + Pratush**
+**LeetCode #98 | Medium | Striver + ProPeers**
 
 > Pass min and max bounds top-down. Every node must satisfy `min < val < max`. Use Long to avoid overflow.
 
@@ -1682,7 +1682,7 @@ private boolean validate(TreeNode node, long min, long max) {
 ---
 
 ### 52. LCA in BST
-**LeetCode #235 | Medium | Striver + Pratush**
+**LeetCode #235 | Medium | Striver + ProPeers**
 
 > Both p,q < root → go left. Both > root → go right. Otherwise root is LCA.
 
@@ -1784,7 +1784,7 @@ class BSTIterator {
 ---
 
 ### 56. Two Sum in BST
-**LeetCode #653 | Easy | Striver + Pratush**
+**LeetCode #653 | Easy | Striver + ProPeers**
 
 > Find if two elements in BST sum to k.
 
@@ -1804,7 +1804,7 @@ private boolean dfs(TreeNode node, int k, Set<Integer> seen) {
 ---
 
 ### 57. Correct BST with Two Nodes Swapped
-**LeetCode #99 | Hard | Striver + Pratush**
+**LeetCode #99 | Hard | Striver + ProPeers**
 
 > Two nodes swapped by mistake. Fix without changing structure.
 
