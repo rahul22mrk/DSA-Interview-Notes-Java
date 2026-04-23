@@ -632,6 +632,67 @@ private boolean isMirror(TreeNode left, TreeNode right) {
 }
 ```
 
+```java
+
+public boolean isSymmetric(TreeNode root) {
+    Queue<TreeNode> q = new LinkedList<>();
+    q.offer(root.left);
+    q.offer(root.right);
+
+    while (!q.isEmpty()) {
+        TreeNode left  = q.poll();
+        TreeNode right = q.poll();
+
+        if (left == null && right == null) continue;  // both null → ok, check next pair
+        if (left == null || right == null) return false;  // one null → not symmetric
+        if (left.val != right.val)         return false;  // values differ → not symmetric
+
+        // outer pair: left.left ↔ right.right
+        q.offer(left.left);
+        q.offer(right.right);
+
+        // inner pair: left.right ↔ right.left
+        q.offer(left.right);
+        q.offer(right.left);
+    }
+    return true;
+}
+}
+```
+
+```java
+public boolean isSymmetric(TreeNode root) {
+    if (root == null) return true;
+
+    Stack<TreeNode> stack = new Stack<>();
+    
+    stack.push(root.left);
+    stack.push(root.right);
+
+    while (!stack.isEmpty()) {
+        TreeNode right = stack.pop();
+        TreeNode left  = stack.pop();
+
+        if (left == null && right == null) continue;
+        if (left == null || right == null) return false;
+        if (left.val != right.val) return false;
+
+        // IMPORTANT: order matters in stack (reverse push)
+        
+        // outer pair
+        stack.push(left.left);
+        stack.push(right.right);
+
+        // inner pair
+        stack.push(left.right);
+        stack.push(right.left);
+    }
+
+    return true;
+}
+```
+
+
 ---
 
 ### 10. Same Tree — Check if Two Trees are Identical
@@ -648,6 +709,73 @@ public boolean isSameTree(TreeNode p, TreeNode q) {
         && isSameTree(p.right, q.right);
 }
 ```
+
+```java
+class Solution {
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        if(p==null || q==null){
+            return p==q;
+        }
+
+        return (p.val==q.val) && isSameTree(p.left,q.left) && isSameTree(p.right, q.right);
+    }
+}
+```
+
+```java
+public boolean isSameTree(TreeNode p, TreeNode q) {
+    Stack<TreeNode> stack = new Stack<>();
+    
+    stack.push(p);
+    stack.push(q);
+
+    while (!stack.isEmpty()) {
+        TreeNode n2 = stack.pop();
+        TreeNode n1 = stack.pop();
+
+        if (n1 == null && n2 == null) continue;
+        if (n1 == null || n2 == null) return false;
+        if (n1.val != n2.val) return false;
+
+        // push children (order matters but here either is fine)
+        stack.push(n1.left);
+        stack.push(n2.left);
+
+        stack.push(n1.right);
+        stack.push(n2.right);
+    }
+
+    return true;
+}
+```
+
+```java
+
+public boolean isSameTree(TreeNode p, TreeNode q) {
+    Queue<TreeNode> queue = new LinkedList<>();
+    
+    queue.offer(p);
+    queue.offer(q);
+
+    while (!queue.isEmpty()) {
+        TreeNode n1 = queue.poll();
+        TreeNode n2 = queue.poll();
+
+        if (n1 == null && n2 == null) continue;
+        if (n1 == null || n2 == null) return false;
+        if (n1.val != n2.val) return false;
+
+        queue.offer(n1.left);
+        queue.offer(n2.left);
+
+        queue.offer(n1.right);
+        queue.offer(n2.right);
+    }
+
+    return true;
+}
+```
+
 
 ---
 
