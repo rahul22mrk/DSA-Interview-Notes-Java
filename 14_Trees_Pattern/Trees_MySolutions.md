@@ -1099,3 +1099,151 @@ class Solution {
         return x.val == y.val;
     }
 }
+
+13. 104. Maximum Depth of Binary Tree
+class Solution {
+    public int maxDepth(TreeNode root) {
+        if(root==null) return 0;
+
+        int lh = maxDepth(root.left);
+        int rh = maxDepth(root.right);
+
+        return 1+Math.max(lh,rh);
+        
+    }
+}
+
+class Solution {
+    public int maxDepth(TreeNode root) {
+        if(root==null) return 0;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        int depth = 0;
+
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            depth++;
+            for(int i=0;i<size;i++){
+                TreeNode node = queue.poll();
+
+                if(node.left!=null) queue.offer(node.left);
+                if(node.right!=null) queue.offer(node.right);
+            }
+        }
+        return depth;
+        
+    }
+}
+
+
+14. Check for balanced binary tree
+
+
+class Solution {
+    public boolean isBalanced(TreeNode root) {
+        if(root==null) return true;
+        int lh = height(root.left);
+        int rh = height(root.right);
+
+        if(Math.abs(rh-lh)>1) return false;
+
+        return isBalanced(root.left) && isBalanced(root.right);
+	}
+
+
+    private int height(TreeNode node){
+        if(node==null) return 0;
+
+        return 1+Math.max(height(node.left),height(node.right));  
+    }
+}
+
+
+class Solution {
+    public boolean isBalanced(TreeNode root) {
+
+        return dfsHeight(root)!=-1;
+	}
+
+
+    private int dfsHeight(TreeNode node){
+        if(node==null)return 0;
+        int lh = dfsHeight(node.left);
+        if(lh==-1) return -1;
+        int rh = dfsHeight(node.right);
+        if(rh==-1) return -1;
+
+        if(Math.abs(lh-rh)>1) return -1;
+        return 1+Math.max(lh,rh);
+    
+    }
+}
+
+
+15. Diameter of Binary Tree
+
+class Solution {
+    int diameter = 0;
+    public int diameterOfBinaryTree(TreeNode root) {
+        height(root);
+        return diameter;
+    }
+
+    private int height(TreeNode root){
+        if(root==null) return 0;
+
+        int lh = height(root.left);
+        int rh = height(root.right);
+
+        diameter = Math.max(lh+rh, diameter);
+
+        return 1+ Math.max(lh,rh);
+    }
+}
+
+class Solution {
+    public int diameterOfBinaryTree(TreeNode root) {
+        if(root==null) return 0;
+
+        int lh = height(root.left);
+        int rh = height(root.right);
+        
+        int ld = diameterOfBinaryTree(root.left);
+        int rd = diameterOfBinaryTree(root.right);
+
+        return Math.max(lh+rh, Math.max(ld,rd));
+
+        
+    }
+
+    private int height(TreeNode node){
+        if(node==null) return 0;
+
+        return 1+ Math.max(height(node.left),height(node.right));
+    }
+}
+
+
+class Solution {
+    public int diameterOfBinaryTree(TreeNode root) {
+       int ans [] = new int[1];
+       ans[0] = 0;
+       height(root,ans);
+       return ans[0];     
+    }
+
+    private int height(TreeNode node, int ans[]){
+        if(node==null) return 0;
+
+        int lh[] = new int[1];
+        int rh[] = new int[1];
+
+        lh[0] = height(node.left,ans);
+        rh[0] = height(node.right,ans);
+
+        ans[0] = Math.max(lh[0]+rh[0],ans[0]);
+
+        return 1+ Math.max(lh[0],rh[0]);
+    }
+}
+16. 
