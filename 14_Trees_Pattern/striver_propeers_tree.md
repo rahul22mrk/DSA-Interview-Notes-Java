@@ -797,6 +797,105 @@ private boolean isSameTree(TreeNode p, TreeNode q) {
 }
 ```
 
+
+#### Approach 2 — Iterative BFS (outer) + BFS (isSameTree)
+| TC | SC |
+|----|----|
+| O(n × m) | O(n + m) — two queues |
+
+```java
+class Solution {
+    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+        if (subRoot == null) return true;
+        if (root == null)    return false;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+            if (isSameTree(node, subRoot)) return true;
+            if (node.left  != null) queue.offer(node.left);
+            if (node.right != null) queue.offer(node.right);
+        }
+        return false;
+    }
+
+    private boolean isSameTree(TreeNode p, TreeNode q) {
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(p);
+        queue.offer(q);
+
+        while (!queue.isEmpty()) {
+            TreeNode n1 = queue.poll();
+            TreeNode n2 = queue.poll();
+            if (n1 == null && n2 == null) continue;
+            if (n1 == null || n2 == null) return false;
+            if (n1.val != n2.val)         return false;
+            queue.offer(n1.left);  queue.offer(n2.left);
+            queue.offer(n1.right); queue.offer(n2.right);
+        }
+        return true;
+    }
+}
+```
+
+#### Approach 3 — Iterative DFS (outer) + DFS (isSameTree)
+| TC | SC |
+|----|----|
+| O(n × m) | O(n + m) — two stacks |
+
+```java
+class Solution {
+    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+        if (subRoot == null) return true;
+        if (root == null)    return false;
+
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        stack.push(root);
+
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            if (isSameTree(node, subRoot)) return true;
+            if (node.right != null) stack.push(node.right);
+            if (node.left  != null) stack.push(node.left);
+        }
+        return false;
+    }
+
+    private boolean isSameTree(TreeNode p, TreeNode q) {
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        stack.push(p);
+        stack.push(q);
+
+        while (!stack.isEmpty()) {
+            TreeNode n2 = stack.pop();
+            TreeNode n1 = stack.pop();
+            if (n1 == null && n2 == null) continue;
+            if (n1 == null || n2 == null) return false;
+            if (n1.val != n2.val)         return false;
+            stack.push(n1.right); stack.push(n2.right);
+            stack.push(n1.left);  stack.push(n2.left);
+        }
+        return true;
+    }
+}
+```
+
+```
+root:           subRoot:
+     3               4
+    / \             / \
+   4   5           1   2
+  / \
+ 1   2
+
+isSubtree(root, subRoot) = true ✓  (subtree rooted at 4 matches)
+```
+
+> **Approach 1 preferred** — cleaner and easier to explain in interviews.
+> All three are O(n × m) — no way to avoid checking every node of root against subRoot.
+
 ---
 
 ### 12. Flip Equivalent Binary Trees
@@ -813,6 +912,109 @@ public boolean flipEquiv(TreeNode r1, TreeNode r2) {
     boolean flip   = flipEquiv(r1.left, r2.right)  && flipEquiv(r1.right, r2.left);
     return noFlip || flip;
 }
+```
+
+
+```java
+
+//Iterative BFS (Queue)
+class Solution {
+    public boolean flipEquiv(TreeNode root1, TreeNode root2) {
+
+        Queue<TreeNode[]> queue = new LinkedList<>();
+        queue.offer(new TreeNode[]{root1, root2});
+
+        while (!queue.isEmpty()) {
+
+            TreeNode[] pair = queue.poll();
+
+            TreeNode a = pair[0];
+            TreeNode b = pair[1];
+
+            if (a == null && b == null) continue;
+            if (a == null || b == null) return false;
+            if (a.val != b.val) return false;
+
+            boolean noFlip =
+                isMatch(a.left, b.left) &&
+                isMatch(a.right, b.right);
+
+            boolean flip =
+                isMatch(a.left, b.right) &&
+                isMatch(a.right, b.left);
+
+            if (!noFlip && !flip) return false;
+
+            if (noFlip) {
+                queue.offer(new TreeNode[]{a.left, b.left});
+                queue.offer(new TreeNode[]{a.right, b.right});
+            } else {
+                queue.offer(new TreeNode[]{a.left, b.right});
+                queue.offer(new TreeNode[]{a.right, b.left});
+            }
+        }
+
+        return true;
+    }
+
+    private boolean isMatch(TreeNode x, TreeNode y) {
+        if (x == null && y == null) return true;
+        if (x == null || y == null) return false;
+        return x.val == y.val;
+    }
+}
+```
+
+
+```java
+//Iterative DFS (Stack)
+class Solution {
+    public boolean flipEquiv(TreeNode root1, TreeNode root2) {
+        Deque<TreeNode[]> stack = new ArrayDeque<>();
+        stack.push(new TreeNode[]{root1, root2});
+
+        while (!stack.isEmpty()) {
+
+            TreeNode[] pair = stack.pop();
+
+            TreeNode a = pair[0];
+            TreeNode b = pair[1];
+
+            if (a == null && b == null) continue;
+            if (a == null || b == null) return false;
+            if (a.val != b.val) return false;
+
+            // Check no-flip possibility
+            boolean noFlip =
+                isMatch(a.left, b.left) &&
+                isMatch(a.right, b.right);
+
+            // Check flip possibility
+            boolean flip =
+                isMatch(a.left, b.right) &&
+                isMatch(a.right, b.left);
+
+            if (!noFlip && !flip) return false;
+
+            if (noFlip) {
+                stack.push(new TreeNode[]{a.left, b.left});
+                stack.push(new TreeNode[]{a.right, b.right});
+            } else {
+                stack.push(new TreeNode[]{a.left, b.right});
+                stack.push(new TreeNode[]{a.right, b.left});
+            }
+        }
+
+        return true;
+    }
+
+    private boolean isMatch(TreeNode x, TreeNode y) {
+        if (x == null && y == null) return true;
+        if (x == null || y == null) return false;
+        return x.val == y.val;
+    }
+}
+
 ```
 
 ---
