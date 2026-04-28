@@ -1246,4 +1246,162 @@ class Solution {
         return 1+ Math.max(lh[0],rh[0]);
     }
 }
-16. 
+16. 124. Binary Tree Maximum Path Sum
+
+class Solution {
+    int maxSum = Integer.MIN_VALUE;
+    public int maxPathSum(TreeNode root) {
+        findMaxPathSum(root);
+        return maxSum;
+        
+    }
+
+    private int findMaxPathSum(TreeNode root){
+        if(root == null) return 0;
+
+        int leftSum = Math.max(0, findMaxPathSum(root.left));
+        int rightSum = Math.max(0, findMaxPathSum(root.right));
+
+        maxSum = Math.max(maxSum, leftSum + rightSum + root.val);
+
+        return root.val + Math.max(leftSum, rightSum);
+    }
+}
+
+
+17. Boundary Traversal
+
+class Solution {
+    public List<Integer> boundary(TreeNode root) {
+        //your code goes here
+        List<Integer> ans = new ArrayList<>();
+        if(root==null) return ans;
+
+        if(!isLeaf(root)){
+            ans.add(root.data);
+        }
+        addLeftBoundary(root,ans);
+        addLeaves(root, ans);
+        addRightBoundary(root,ans);
+
+        return ans;
+    }
+
+    private void addLeftBoundary(TreeNode root, List<Integer> ans){
+        TreeNode curr = root.left;
+
+        while(curr!=null){
+            if(!isLeaf(curr)) {
+                ans.add(curr.data);
+            }
+
+            if(curr.left!=null){
+                curr = curr.left;
+            }else{
+                curr = curr.right;
+            }
+        }
+    }
+
+    private void addRightBoundary(TreeNode root, List<Integer>ans){
+        TreeNode curr = root.right;
+
+        List<Integer> temp = new ArrayList<>();
+        while(curr!=null){
+            if(!isLeaf(curr)){
+                temp.add(curr.data);
+            }
+
+            if(curr.right!=null){
+                curr = curr.right;
+            }else{
+                curr = curr.left;
+            }
+        }
+
+        for(int i=temp.size()-1;i>=0;i--){
+            ans.add(temp.get(i));
+        }
+    }
+
+    private void addLeaves(TreeNode root, List<Integer> ans){
+        if(isLeaf(root)){
+            ans.add(root.data);
+            return ;
+        }
+
+        if(root.left!=null){
+            addLeaves(root.left,ans);
+        }
+
+        if(root.right!=null){
+            addLeaves(root.right,ans);
+        }
+    }
+
+    public boolean isLeaf(TreeNode node){
+        return node.left==null && node.right==null;
+    }
+}
+
+
+18. 987. Vertical Order Traversal of a Binary Tree
+
+
+ class Tuple{
+    TreeNode node;
+    int x; // vertical distance
+    int y; // level
+
+    Tuple(TreeNode node, int x, int y){
+        this.node = node;
+        this.x = x;
+        this.y = y;
+    }
+ }
+class Solution {
+    public List<List<Integer>> verticalTraversal(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
+
+        if(root == null) return ans;
+
+        TreeMap<Integer, TreeMap<Integer, PriorityQueue<Integer>>> nodesMap = new TreeMap<>();
+
+        Queue<Tuple> queue = new LinkedList<>();
+        queue.offer(new Tuple(root, 0, 0));
+
+        while(!queue.isEmpty()){
+            Tuple tuple = queue.poll();
+            TreeNode node = tuple.node;
+            int x = tuple.x;
+            int y = tuple.y;
+
+            nodesMap.putIfAbsent(x,new TreeMap<>());
+            nodesMap.get(x).putIfAbsent(y, new PriorityQueue<>());
+
+            nodesMap.get(x).get(y).offer(node.val);
+
+            if(node.left != null){
+                queue.offer(new Tuple(node.left, x-1, y+1));
+            }
+
+            if(node.right != null){
+                queue.offer(new Tuple(node.right, x+1, y+1));
+            }
+        }
+
+        for(TreeMap<Integer, PriorityQueue<Integer>> yMap : nodesMap.values()){
+            List<Integer> cols = new ArrayList<>();
+
+            for(PriorityQueue<Integer> nodes : yMap.values()){
+                while(!nodes.isEmpty()){
+                    cols.add(nodes.poll());
+                }
+            }
+            ans.add(cols);
+        }
+
+        return ans;
+        
+    }
+}
