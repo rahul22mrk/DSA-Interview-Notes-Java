@@ -1405,3 +1405,212 @@ class Solution {
         
     }
 }
+
+19. Bottom view of BT
+
+
+class Solution {
+    static class Pair< K, V >{
+        private K key;
+        private V value;
+
+        public Pair(K key, V value){
+            this.key = key;
+            this.value = value;
+        }
+
+        public K getKey(){
+            return key;
+        }
+
+        public V getValue(){
+            return value;
+        }
+    }
+    public List<Integer> topView(TreeNode root) {
+        //your code goes here
+        List<Integer> ans = new ArrayList<>();
+
+        if(root==null){
+            return ans;
+        }
+
+        Map<Integer,Integer> map = new TreeMap<>();
+
+        Queue<Pair<TreeNode, Integer>> q = new LinkedList<>();
+
+        q.offer(new Pair<>(root,0));
+
+        while(!q.isEmpty()){
+            Pair<TreeNode, Integer> it = q.poll();
+            TreeNode node = it.getKey();
+            int line = it.getValue();
+
+            if(!map.containsKey(line)){
+                map.put(line, node.data);
+            }
+
+            if(node.left!=null){
+                q.offer(new Pair<>(node.left, line-1));
+            }
+
+            if(node.right!=null){
+                q.offer(new Pair<>(node.right, line+1));
+            }
+        }
+
+        for(Integer value : map.values()){
+            ans.add(value);
+        }
+
+        return ans;
+    }   
+}
+
+20. Bottom view of BT
+
+
+class Solution {
+       static class Pair<K, V>{
+        private K key;
+        private V value;
+        
+        public Pair(K key, V value){
+            this.key = key;
+            this.value = value;
+        }
+        
+        public K getKey(){
+            return key;
+        }
+        
+        public V getValue(){
+            return value;
+        }
+    }
+
+    public List<Integer> bottomView(TreeNode root) {
+        //your code goes here
+        ArrayList<Integer> ans = new ArrayList<>();
+        
+        if(root == null){
+            return ans;
+        }
+        
+        Map<Integer, Integer> map = new TreeMap<>();
+        
+        Queue<Pair<TreeNode, Integer>> queue = new LinkedList<>();
+        queue.offer(new Pair<>(root,0));
+        
+        while(!queue.isEmpty()){
+            Pair<TreeNode, Integer> it = queue.poll();
+            TreeNode node = it.getKey();
+            int line = it.getValue();
+            
+            map.put(line, node.data);
+            
+            if(node.left!=null){
+                queue.offer(new Pair<>(node.left, line-1));
+            }
+            
+            if(node.right!=null){
+                queue.offer(new Pair<>(node.right, line+1));
+            }
+        }
+        
+        for(Integer value : map.values()){
+            ans.add(value);
+        }
+        return ans;
+    }
+}
+
+
+class Solution {
+
+    public List<Integer> bottomView(TreeNode root) {
+        //your code goes here
+        ArrayList<Integer> ans = new ArrayList<>();
+        
+        if(root == null){
+            return ans;
+        }
+        
+        Map<Integer, Integer> map = new TreeMap<>();
+        
+        Queue<Map.Entry<TreeNode, Integer>> queue = new LinkedList<>();
+        queue.offer(new AbstractMap.SimpleEntry<>(root,0));
+        
+        while(!queue.isEmpty()){
+            Map.Entry<TreeNode, Integer> it = queue.poll();
+            TreeNode node = it.getKey();
+            int line = it.getValue();
+            
+            map.put(line, node.data);
+            
+            if(node.left!=null){
+                queue.offer(new AbstractMap.SimpleEntry<>(node.left, line-1));
+            }
+            
+            if(node.right!=null){
+                queue.offer(new AbstractMap.SimpleEntry<>(node.right, line+1));
+            }
+        }
+        
+        for(Integer value : map.values()){
+            ans.add(value);
+        }
+        return ans;
+    }
+}
+
+21. Right View of BT
+
+
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> ans = new ArrayList<>();
+        rightView(root, ans, 0);
+        return ans;
+        
+    }
+
+    private void rightView(TreeNode node, List<Integer> ans, int currDepth){
+        if(node == null){
+            return ;
+        }
+
+        if(currDepth == ans.size()){
+            ans.add(node.val);
+        }
+
+        rightView(node.right, ans, currDepth+1);
+        rightView(node.left, ans, currDepth+1);
+    }
+}
+
+22. Left View of BT
+
+class Solution {
+    public ArrayList<Integer> leftView(Node root) {
+        // code here
+        ArrayList<Integer> ans = new ArrayList<>();
+        
+        leftSideView(root, ans, 0);
+        
+        return ans;
+    }
+    
+    private void leftSideView(Node node, ArrayList<Integer> ans, int currDepth){
+        if(node == null ){
+            return ;
+        }
+        
+        if(currDepth == ans.size()){
+            ans.add(node.data);
+        }
+        
+        leftSideView(node.left, ans, currDepth+1);
+        leftSideView(node.right, ans, currDepth+1);
+    }
+}
