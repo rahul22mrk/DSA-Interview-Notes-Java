@@ -1647,8 +1647,111 @@ class Solution {
 }
 
 24. LCA in BT
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        // base case
+        if (root == null || root == p || root == q) {
+            return root;
+        }
+
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+
+        // if one side is null → return the other
+        if (left == null) return right;
+        if (right == null) return left;
+
+        // both sides non-null → this is LCA
+        return root;
+    }
+}
 
 25. Maximum Width of BT
+class Pair {
+    TreeNode node;
+    int index;
+
+    Pair(TreeNode node, int index) {
+        this.node = node;
+        this.index = index;
+    }
+}
+
+class Solution {
+    public int widthOfBinaryTree(TreeNode root) {
+        if (root == null) return 0;
+
+        long ans = 0;
+        Queue<Pair> queue = new LinkedList<>();
+        queue.offer(new Pair(root, 0));
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            int min = queue.peek().index;
+
+            long first = 0, last = 0;
+
+            for (int i = 0; i < size; i++) {
+                Pair p = queue.poll();
+                TreeNode node = p.node;
+                int curr = p.index - min;
+
+                if (i == 0) first = curr;
+                if (i == size - 1) last = curr;
+
+                if (node.left != null) {
+                    queue.offer(new Pair(node.left, 2 * curr + 1));
+                }
+                if (node.right != null) {
+                    queue.offer(new Pair(node.right, 2 * curr + 2));
+                }
+            }
+
+            ans = Math.max(ans, last - first + 1);
+        }
+
+        return (int) ans;
+    }
+}
+
+ import java.util.AbstractMap;
+class Solution {
+    public int widthOfBinaryTree(TreeNode root) {
+        int ans = 0;
+
+        Queue<Map.Entry<TreeNode, Integer>> queue = new LinkedList<>();
+
+        if(root != null ){
+            queue.offer(new AbstractMap.SimpleEntry<>(root,0));
+        }
+
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            int minLine = queue.peek().getValue();
+            int first = 0, last = 0;
+
+            for(int i=0; i<size; i++){
+                Map.Entry<TreeNode,Integer> entry = queue.poll();
+
+                TreeNode node = entry.getKey();
+                int currLine = entry.getValue() - minLine;
+
+                if(i == 0) first = currLine;
+                if(i == size-1) last = currLine;
+
+                if(node.left!=null){
+                    queue.offer(new AbstractMap.SimpleEntry<>(node.left, 2*currLine + 1));
+                }
+
+                if(node.right!=null){
+                    queue.offer(new AbstractMap.SimpleEntry<>(node.right, 2*currLine + 2));
+                }
+            }
+            ans = Math.max(ans, last-first+1);
+        }
+        return ans; 
+    }
+}
 
 26. Print all nodes at a distance of K in BT
 
