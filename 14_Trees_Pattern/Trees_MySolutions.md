@@ -1614,3 +1614,90 @@ class Solution {
         leftSideView(node.right, ans, currDepth+1);
     }
 }
+
+23. Print root to leaf path in BT
+
+class Solution {
+    public List<List<Integer>> allRootToLeaf(TreeNode root) {
+        //your code goes here
+        List<List<Integer>> allPaths = new ArrayList<>();
+
+        List<Integer> path = new ArrayList<>();
+
+        dfs(root,path,allPaths);
+        return allPaths;
+    }
+
+    private void dfs(TreeNode node, List<Integer> path, List<List<Integer>> allPaths){
+        if(node==null) {
+            return ;
+        }
+
+        path.add(node.data);
+
+        if(node.left==null && node.right==null){
+            allPaths.add(new ArrayList<>(path));
+        }else{
+            dfs(node.left, path, allPaths);
+            dfs(node.right, path, allPaths);
+        }
+
+        path.remove(path.size()-1);
+    }
+}
+
+24. LCA in BT
+
+25. Maximum Width of BT
+
+26. Print all nodes at a distance of K in BT
+
+27. Minimum time taken to burn the BT from a given Node
+
+28. Count total nodes in a complete BT
+
+29. Requirements needed to construct a unique BT
+
+30. Construct a BT from Preorder and Inorder
+
+31. Construct a BT from Postorder and Inorder
+
+32. Serialize and De-serialize BT
+
+33. Morris Inorder Traversal
+
+34. Morris Preorder Traversal
+
+35. Search in BST
+
+
+36. Floor in a BST
+
+37. Ceil in a BST
+
+38. Insert a given node in BST
+
+39. Delete a node in BST
+
+40. Kth Smallest element in BST (Kth Smallest and Largest element in BST)
+
+41. Kth Largest element in BST
+
+42. Check if a tree is a BST or not
+
+43. LCA in BST
+
+44. Construct a BST from a preorder traversal
+
+45. Inorder successor and predecessor in BST
+
+46. BST iterator
+
+47. Two sum in BST
+
+48. Correct BST with two nodes swapped
+
+49. Largest BST in Binary Tree
+
+50.
+
