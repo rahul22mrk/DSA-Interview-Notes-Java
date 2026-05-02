@@ -2028,10 +2028,92 @@ class Solution {
 }
 
 29. Requirements needed to construct a unique BT
+class Solution {
+    public boolean uniqueBinaryTree(int a, int b) {
+        //your code goes here
+        if(a==2 || b==2) {
+            return a!=b;
+        }
+        return false;
+    }
+}
+
+class Solution {
+    public boolean uniqueBinaryTree(int a, int b) {
+        return (a != b) && (a == 2 || b == 2);
+    }
+}
 
 30. Construct a BT from Preorder and Inorder
+class Solution {
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        Map<Integer, Integer> inMap = new HashMap<>();
+
+        for(int i=0; i<inorder.length; i++){
+            inMap.put(inorder[i], i);
+        }
+
+        TreeNode root = buildTree( preorder, 0, preorder.length - 1,
+                                   inorder, 0, inorder.length - 1, inMap );
+        return root;
+        
+    }
+
+    private TreeNode buildTree( int[] preorder, int preStart, int preEnd,
+                                int[] inorder, int inStart, int inEnd, Map<Integer,Integer> inMap){
+
+        if(preStart > preEnd || inStart > inEnd){
+            return null;
+        }
+
+        TreeNode root = new TreeNode(preorder[preStart]);
+
+        int inRoot = inMap.get(root.val);
+        int numsLeft = inRoot - inStart;
+
+        root.left = buildTree( preorder, preStart + 1, preStart + numsLeft,
+                                inorder, inStart, inRoot - 1, inMap );
+        root.right = buildTree( preorder, preStart + numsLeft + 1, preEnd,
+                                inorder, inRoot + 1, inEnd, inMap );
+
+        return root;
+    }
+}
 
 31. Construct a BT from Postorder and Inorder
+
+class Solution {
+    public TreeNode buildTree(int[] inorder, int[] postorder) {
+        if(inorder.length != postorder.length){
+            return null;
+        }
+
+        Map<Integer, Integer> inMap = new HashMap<>();
+
+        for(int i=0; i<inorder.length; i++){
+            inMap.put(inorder[i],  i);
+        }
+
+
+        return build(inorder, 0, inorder.length - 1, postorder, 0, postorder.length -1, inMap);
+    }
+
+    private TreeNode build(int [] inorder, int inStart, int inEnd, int[] postorder, int postStart, int postEnd, Map<Integer, Integer> inMap){
+        if( postStart > postEnd || inStart > inEnd){
+            return null;
+        }
+
+        TreeNode root = new TreeNode(postorder[postEnd]);
+
+        int inRoot = inMap.get(root.val);
+        int numsLeft = inRoot - inStart;
+
+        root.left = build(inorder, inStart, inRoot - 1, postorder, postStart, postStart + numsLeft - 1, inMap);
+        root.right = build(inorder, inRoot + 1, inEnd, postorder, postStart + numsLeft, postEnd - 1, inMap);
+
+        return root;
+    }
+}
 
 32. Serialize and De-serialize BT
 
