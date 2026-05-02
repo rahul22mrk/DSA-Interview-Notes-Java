@@ -1755,9 +1755,277 @@ class Solution {
 
 26. Print all nodes at a distance of K in BT
 
+
+class Solution {
+    private HashMap<TreeNode, TreeNode> parentNodes = new HashMap<>();
+
+    public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
+        List<Integer> res = new ArrayList<>();
+        
+        if (root == null) return res;
+        if (k == 0) {
+            res.add(target.val);
+            return res;
+        }
+
+        parentNodes.clear();
+        buildParentMap(root);
+        bfs(target, k, res);
+
+        return res;
+    }
+
+    private void buildParentMap(TreeNode root) {
+        if (root == null) return;
+
+        if (root.left != null) {
+            parentNodes.put(root.left, root);
+        }
+        buildParentMap(root.left);
+
+        if (root.right != null) {
+            parentNodes.put(root.right, root);
+        }
+        buildParentMap(root.right);
+    }
+
+    private void bfs(TreeNode target, int k, List<Integer> res) {
+        Set<TreeNode> visited = new HashSet<>();
+        Queue<TreeNode> q = new LinkedList<>();
+
+        q.offer(target);
+        visited.add(target);
+
+        while (!q.isEmpty()) {
+            int size = q.size();
+
+            if (k == 0) break;
+
+            for (int i = 0; i < size; i++) {
+                TreeNode node = q.poll();
+
+                if (node.left != null && !visited.contains(node.left)) {
+                    q.offer(node.left);
+                    visited.add(node.left);
+                }
+
+                if (node.right != null && !visited.contains(node.right)) {
+                    q.offer(node.right);
+                    visited.add(node.right);
+                }
+
+                TreeNode parent = parentNodes.get(node);
+                if (parent != null && !visited.contains(parent)) {
+                    q.offer(parent);
+                    visited.add(parent);
+                }
+            }
+            k--;
+        }
+
+        while (!q.isEmpty()) {
+            res.add(q.poll().val);
+        }
+    }
+}
+
+class Solution {
+    public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
+        // Step 1: Create a map to store the parent of each node
+        Map<TreeNode, TreeNode> parentMap = new HashMap<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+            // If the left child exists, map its parent and push it into the queue
+            if (node.left != null) {
+                parentMap.put(node.left, node);
+                queue.add(node.left);
+            }
+            // If the right child exists, map its parent and push it into the queue
+            if (node.right != null) {
+                parentMap.put(node.right, node);
+                queue.add(node.right);
+            }
+        }
+
+        // Step 2: Use BFS to find all nodes at distance k from the target
+        List<Integer> result = new ArrayList<>();
+        Set<TreeNode> visited = new HashSet<>();
+        queue.add(target);
+        visited.add(target);
+        int currentDistance = 0;
+
+        // Continue BFS until the desired distance is reached
+        while (!queue.isEmpty()) {
+            if (currentDistance == k) {
+                // Collect all nodes at distance k
+                while (!queue.isEmpty()) {
+                    result.add(queue.poll().val);
+                }
+                return result;
+            }
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                // Check left child
+                if (node.left != null && !visited.contains(node.left)) {
+                    queue.add(node.left);
+                    visited.add(node.left);
+                }
+                // Check right child
+                if (node.right != null && !visited.contains(node.right)) {
+                    queue.add(node.right);
+                    visited.add(node.right);
+                }
+                // Check parent
+                if (parentMap.containsKey(node) && !visited.contains(parentMap.get(node))) {
+                    queue.add(parentMap.get(node));
+                    visited.add(parentMap.get(node));
+                }
+            }
+            currentDistance++;
+        }
+
+        return result;
+    }
+}
+
 27. Minimum time taken to burn the BT from a given Node
 
+class Solution {
+    public int timeToBurnTree(TreeNode root, int start) {
+        if (root == null) return 0;
+
+        HashMap<TreeNode, TreeNode> parents = new HashMap<>();
+        TreeNode target = mapParents(root, start, parents);
+
+        return burnTime(target, parents);
+    }
+
+    private int burnTime(TreeNode target, HashMap<TreeNode, TreeNode> parents) {
+        Set<TreeNode> visited = new HashSet<>();
+        Queue<TreeNode> q = new LinkedList<>();
+
+        q.offer(target);
+        visited.add(target);
+
+        int time = 0;
+
+        while (!q.isEmpty()) {
+            int size = q.size();
+            boolean burned = false;
+
+            for (int i = 0; i < size; i++) {
+                TreeNode node = q.poll();
+
+                if (node.left != null && !visited.contains(node.left)) {
+                    q.offer(node.left);
+                    visited.add(node.left);
+                    burned = true;
+                }
+
+                if (node.right != null && !visited.contains(node.right)) {
+                    q.offer(node.right);
+                    visited.add(node.right);
+                    burned = true;
+                }
+
+                TreeNode parent = parents.get(node);
+                if (parent != null && !visited.contains(parent)) {
+                    q.offer(parent);
+                    visited.add(parent);
+                    burned = true;
+                }
+            }
+
+            if (burned) time++;
+        }
+
+        return time;
+    }
+
+    private TreeNode mapParents(TreeNode root, int start, HashMap<TreeNode, TreeNode> map) {
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+
+        TreeNode target = null;
+
+        while (!q.isEmpty()) {
+            TreeNode node = q.poll();
+
+            if (node.val == start) {
+                target = node;
+            }
+
+            if (node.left != null) {
+                map.put(node.left, node);
+                q.offer(node.left);
+            }
+
+            if (node.right != null) {
+                map.put(node.right, node);
+                q.offer(node.right);
+            }
+        }
+
+        return target;
+    }
+}
+
 28. Count total nodes in a complete BT
+class Solution {
+    int cnt = 0;
+    public int countNodes(TreeNode root) {
+        if(root == null ){
+            return 0;
+        }
+        cnt++;
+        countNodes(root.left);
+        countNodes(root.right);
+
+        return cnt;
+        
+    }
+}
+
+
+class Solution {
+    public int countNodes(TreeNode root) {
+        if(root == null ){
+            return 0;
+        }
+        int lh = findLeftHeight(root);
+        int rh =  findRightHeight(root);
+
+        if(lh == rh){
+            return (1 << lh)-1;
+        }
+
+        return 1 + countNodes(root.left) + countNodes(root.right);
+        
+    }
+
+    private int findLeftHeight(TreeNode node){
+        int height = 0;
+
+        while(node!=null){
+            height++;
+            node = node.left;
+        }
+        return height;
+    }
+
+    private int findRightHeight(TreeNode node){
+        int height = 0;
+        while(node!=null){
+            height++;
+            node = node.right;
+        }
+        return height;
+    }
+}
 
 29. Requirements needed to construct a unique BT
 
