@@ -96,7 +96,62 @@ public void printFibonacci(int n) {
     }
 }
 // Time: O(n)  Space: O(1)
+
+  class Solution {
+    public static int[] fibonacciNumbers(int n) {
+        if (n == 0) return new int[0];
+
+        int[] res = new int[n];
+        res[0] = 0;
+
+        if (n > 1) res[1] = 1;
+
+        for (int i = 2; i < n; i++) {
+            res[i] = res[i - 1] + res[i - 2];
+        }
+
+        return res;
+    }
+}
+
+class Solution {
+    public static int[] fibonacciNumbers(int n) {
+        int[] res = new int[n];
+        for (int i = 0; i < n; i++) {
+            res[i] = fib(i);
+        }
+        return res;
+    }
+
+    private static int fib(int n) {
+        if (n <= 1) return n;
+        return fib(n - 1) + fib(n - 2);
+    }
+}
+
+class Solution {
+    public static int[] fibonacciNumbers(int n) {
+        int[] res = new int[n];
+        int[] dp = new int[n];
+        Arrays.fill(dp, -1);
+
+        for (int i = 0; i < n; i++) {
+            res[i] = fib(i, dp);
+        }
+
+        return res;
+    }
+
+    private static int fib(int n, int[] dp) {
+        if (n <= 1) return n;
+
+        if (dp[n] != -1) return dp[n];
+
+        return dp[n] = fib(n - 1, dp) + fib(n - 2, dp);
+    }
+}
 ```
+
 
 ---
 
@@ -130,6 +185,22 @@ public void areas(double l, double w, double base, double height, double r) {
     double circle = Math.PI * r * r;
     System.out.printf("Rect=%.2f  Triangle=%.2f  Circle=%.2f%n", rect, tri, circle);
 }
+
+    static int[] getAreas(int L, int W, int B, int H, int R) {
+        // code here
+        int ans[] = new int[3];
+ 
+        //area of rectangle
+        ans[0] = L * W;
+        
+        //area of right angled triangle
+        ans[1] = (int) (0.5 * B * H) ;
+        
+        //area of circle
+        ans[2] = (int) (3.14 * R * R);
+        
+        return ans;
+    }
 // Time: O(1)  Space: O(1)
 ```
 
@@ -146,6 +217,18 @@ public boolean areIdentical(int[][] A, int[][] B) {
             if (A[i][j] != B[i][j]) return false;
     return true;
 }
+
+    int areMatricesIdentical(int N, int[][] Grid1, int[][] Grid2) {
+        // code here
+        for(int i=0;i<N;i++){
+            for(int j=0;j<N;j++){
+                if(Grid1[i][j] != Grid2[i][j]){
+                    return 0;
+                }
+            }
+        }
+        return 1;
+    }
 // Time: O(m×n)  Space: O(1)
 ```
 
@@ -164,6 +247,14 @@ public int[][] addMatrices(int[][] A, int[][] B) {
     return C;
 }
 // Time: O(m×n)  Space: O(m×n)
+
+public void Addition(int[][] matrixA, int[][] matrixB) {
+        for(int i=0;i<matrixA.length; i++){
+            for(int j=0;j<matrixA[i].length;j++){
+                matrixA[i][j] += matrixB[i][j];
+            }
+        }
+    }
 ```
 
 ---
@@ -172,6 +263,42 @@ public int[][] addMatrices(int[][] A, int[][] B) {
 **Pattern:** Math | **Key Idea:** Multiply each digit by base^position (right to left).
 
 ```java
+ static int decimalEquivalent(String N, int b) {
+        long res = 0;   // use long to avoid overflow
+        long power = 1;
+
+        for (int i = N.length() - 1; i >= 0; i--) {
+            char ch = N.charAt(i);
+            int digit;
+
+            if (Character.isDigit(ch)) {
+                digit = ch - '0';
+            } else if (Character.isUpperCase(ch)) {
+                digit = ch - 'A' + 10;
+            } else {
+                digit = ch - 'a' + 10;  // handle lowercase
+            }
+
+            // ❗ invalid digit check
+            if (digit >= b) return -1;
+
+            res += digit * power;
+            power *= b;
+        }
+
+        return (int) res;
+    }
+
+  class Solution {
+    static int decimalEquivalent(String N, int b) {
+        try {
+            return Integer.parseInt(N, b);
+        } catch (NumberFormatException e) {
+            return -1; // invalid case
+        }
+    }
+}    
+    
 public int toDecimal(String num, int base) {
     int result = 0, power = 1;
     for (int i = num.length() - 1; i >= 0; i--) {
@@ -184,6 +311,42 @@ public int toDecimal(String num, int base) {
     return result;
 }
 // Time: O(d)  Space: O(1)
+```
+
+---
+
+### P1-7.2. Convert from Decimal to Any Base 
+**Pattern:** Math | **Key Idea:** Multiply each digit by base^position (right to left).
+
+```java
+ class Solution {
+    static String convertToBase(int N, int base) {
+        if (N == 0) return "0";
+
+        StringBuilder sb = new StringBuilder();
+
+        while (N > 0) {
+            int rem = N % base;
+
+            if (rem < 10) {
+                sb.append(rem);
+            } else {
+                sb.append((char) ('A' + rem - 10));
+            }
+
+            N /= base;
+        }
+
+        return sb.reverse().toString();
+    }
+}
+
+class Solution {
+    static String convertToBase(int N, int base) {
+        return Integer.toString(N, base).toUpperCase();
+    }
+}
+// Time: O(log₍b₎ N)  Space: O(log₍b₎ N)
 ```
 
 ---
