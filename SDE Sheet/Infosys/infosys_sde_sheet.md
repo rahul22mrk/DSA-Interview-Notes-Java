@@ -525,6 +525,65 @@ public boolean doOverlap(int x1, int y1, int x2, int y2,
 **Pattern:** Sieve of Eratosthenes | **Key Idea:** Mark all composites, then sum remaining primes.
 
 ```java
+class Solution {
+    public int prime_Sum(int n) {
+        
+        boolean[] isPrime = new boolean[n + 1];
+        
+        // Step 1: sabko prime maan lo
+        for(int i = 2; i <= n; i++){
+            isPrime[i] = true;
+        }
+        
+        // Step 2: multiples hatao
+        for(int i = 2; i * i <= n; i++){
+            if(isPrime[i]){
+                for(int j = i * i; j <= n; j += i){
+                    isPrime[j] = false;
+                }
+            }
+        }
+        
+        // Step 3: sum nikaalo
+        int sum = 0;
+        for(int i = 2; i <= n; i++){
+            if(isPrime[i]){
+                sum += i;
+            }
+        }
+        
+        return sum;
+    }
+}
+
+class Solution {
+    // Method to calculate the sum of prime numbers up to a given value
+    public int prime_Sum(int n) {
+        int sum = 0;
+        // Loop through numbers up to n
+        for (int i = 1; i <= n; i++) {
+            // Check if the number is prime
+            boolean flag = isPrime(i);
+            if (flag == true) sum = sum + i;
+        }
+        return sum;
+    }
+
+    // Method to check if a number is prime
+    static boolean isPrime(int n) {
+        // Corner case: 1 and negative numbers are not prime
+        if (n <= 1) return false;
+
+        // Check from 2 to square root of n
+        for (int i = 2; i <= Math.sqrt(n); i++)
+
+            // If n is divisible by any number other than 1 and itself, it's not prime
+            if (n % i == 0) return false;
+
+        return true;
+    }
+}
+
 public long sumPrimes(int n) {
     boolean[] isComposite = new boolean[n + 1];
     long sum = 0;
@@ -546,6 +605,42 @@ public long sumPrimes(int n) {
 **Pattern:** Math | **Key Idea:** Multiply base repeatedly. If result == n at any point → yes.
 
 ```java
+class Solution {
+    public boolean isPower(int x, int y) {
+        
+        // Edge case: y = 1 → always true (x^0 = 1)
+        if (y == 1) return true;
+        
+        // Edge case: x = 1
+        if (x == 1) return y == 1;
+        
+        // Divide y repeatedly
+        while (y % x == 0) {
+            y /= x;
+        }
+        
+        return y == 1;
+    }
+}
+
+class Solution {
+    public boolean isPower(int x, int y) {
+        
+        // Edge case: 1^k = 1 only
+        if (x == 1) return y == 1;
+
+        // Edge case: x^0 = 1
+        if (y == 1) return true;
+
+        // Compute logarithm
+        double res = Math.log(y) / Math.log(x);
+
+        // Compare with rounded value using a small
+        // tolerance to avoid floating point errors
+        return Math.abs(res - Math.round(res)) < 1e-10;
+    }
+}
+
 public boolean isPower(int n, int base) {
     if (base == 1) return n == 1;
     long curr = base;
@@ -561,6 +656,38 @@ public boolean isPower(int n, int base) {
 **Pattern:** Math / GCD | **Key Idea:** GCD(a,b) contains all common divisors. Find all divisors of GCD.
 
 ```java
+👉 Common divisors of a and b =
+👉 Divisors of GCD(a, b)
+class Solution {
+    public int commDiv(int a, int b) {
+        
+        int g = gcd(a, b);
+        int count = 0;
+        
+        for(int i = 1; i * i <= g; i++){
+            if(g % i == 0){
+                
+                if(i * i == g){
+                    count += 1; // perfect square case
+                } else {
+                    count += 2; // pair (i, g/i)
+                }
+            }
+        }
+        
+        return count;
+    }
+    
+    private int gcd(int a, int b){
+        while(b != 0){
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+}
+
 public List<Integer> commonDivisors(int a, int b) {
     int g = gcd(a, b);
     List<Integer> result = new ArrayList<>();
