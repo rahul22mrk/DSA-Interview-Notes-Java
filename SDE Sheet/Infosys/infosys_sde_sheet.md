@@ -405,6 +405,7 @@ public int greatest(int a, int b, int c) {
 
 ### P1-12. Number of Open Doors
 **Pattern:** Math / Pattern Recognition | **Key Idea:** Door i is toggled by every divisor. Odd number of divisors → open. Only perfect squares have odd divisors.
+Each door is toggled as many times as its number of divisors. Only perfect squares have an odd number of divisors, so the number of open doors is equal to the count of perfect squares up to n, i.e., floor(√n).
 
 ```java
 public int openDoors(int n) {
@@ -437,6 +438,34 @@ public long maxSumProducts(int[] a, int[] b) {
 **Pattern:** Geometry | **Key Idea:** Compute all 6 pairwise distances². A square has 4 equal sides + 2 equal (longer) diagonals, no zero distance.
 
 ```java
+class Solution {
+    int fourPointSquare(int points[][]) {
+        // code here
+        int p1[] = points[0];
+        int p2[] = points[1];
+        int p3[] = points[2];
+        int p4[] = points[3];
+        
+        int [] d = {
+            dist(p1,p2), dist(p1,p3), dist(p1,p4),
+            dist(p2,p3), dist(p2,p4), dist(p3,p4)
+        };
+        
+        Arrays.sort(d);
+        
+        int res = ( d[0] > 0
+            && d[0] == d[1] && d[1] == d[2] && d[2] == d[3]
+            && d[4] == d[5]) ? 1 : 0;
+            
+        return res;
+        
+    }
+    
+    private int dist(int a[], int b[]){
+        return (a[0]-b[0]) * (a[0] - b[0]) + (a[1] -b[1]) * (a[1] - b[1]);
+    }
+};
+
 public boolean isSquare(int[] p1, int[] p2, int[] p3, int[] p4) {
     int[] d = {
         dist(p1,p2), dist(p1,p3), dist(p1,p4),
@@ -460,6 +489,26 @@ private int dist(int[] a, int[] b) {
 **Pattern:** Geometry | **Key Idea:** They DON'T overlap if one is completely left/right/above/below the other.
 
 ```java
+1. Ek rectangle completely left me ho
+R1.x < L2.x   OR   R2.x < L1.x
+2. Ek rectangle completely upar ho
+R1.y > L2.y   OR   R2.y > L1.y
+class Solution {
+    int doOverlap(int L1[], int R1[], int L2[], int R2[]) {
+        
+        // Check horizontal separation
+        if (R1[0] < L2[0] || R2[0] < L1[0]) {
+            return 0;
+        }
+        
+        // Check vertical separation
+        if (R1[1] > L2[1] || R2[1] > L1[1]) {
+            return 0;
+        }
+        
+        return 1; // Overlap
+    }
+}
 // Rectangle: (x1,y1) = bottom-left, (x2,y2) = top-right
 public boolean doOverlap(int x1, int y1, int x2, int y2,
                          int x3, int y3, int x4, int y4) {
@@ -708,6 +757,26 @@ public boolean isRotatedBy2(String s1, String s2) {
 **Pattern:** Bit Manipulation | **Key Idea:** Extract LSB with n & 1, prepend to result, right-shift n.
 
 ```java
+class Solution {
+    static String getBinary(int n) {
+        return String.format("%32s", Integer.toBinaryString(n))
+                     .replace(' ', '0');
+    }
+}
+
+class Solution {
+    public String getBinaryRep(int n) {
+        StringBuilder ans = new StringBuilder();
+
+        for (int i = 31; i >= 0; i--) {
+            int bit = (n >> i) & 1;
+            ans.append(bit);
+        }
+
+        return ans.toString();
+    }
+}
+
 public String toBinaryString(int n) {
     if (n == 0) return "0";
     StringBuilder sb = new StringBuilder();
