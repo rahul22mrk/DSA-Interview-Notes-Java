@@ -706,8 +706,34 @@ private int gcd(int a, int b) {
 ```
 
 ---
-
 ### P1-19. Perfect Number
+**Pattern:** Math | **Key Idea:** sum of factorial of its digit is equal to the given number.
+
+```java
+// Back-end complete function Template for Java
+
+class Solution {
+    int isPerfect(int N) {
+        // Array to store factorials.
+        int fact[] = new int[10];
+        fact[0] = 1;
+        for (int i = 1; i < 10; i++) fact[i] = fact[i - 1] * i;
+        // storing the factorial of all digits
+        // makes sure we don't calculate factorial
+        // for digits multiple times.
+        int store = N; // storing original number
+        int sum = 0;
+        while (N > 0) {
+            sum += fact[N % 10]; // adding factorials of digits
+            N /= 10;
+        }
+        return (store == sum ? 1 : 0);
+    }
+}
+```
+
+---
+### P1-19-2. Perfect Number
 **Pattern:** Math | **Key Idea:** Sum of all proper divisors (1 to n-1) == n. Use √n loop.
 
 ```java
@@ -731,6 +757,41 @@ public boolean isPerfect(int n) {
 **Pattern:** Math | **Key Idea:** n + reverse(n) should itself be a palindrome.
 
 ```java
+// User function Template for Java
+class Solution {
+     // Function to find palindrome by adding reverse of the number to itself.
+
+    static int isSumPalindrome(int n) {
+        // code here
+        int itr = 0;
+        
+        while(!isPalindrome(n) && itr<5 ){
+            int rev = reverse(n);
+            n += rev;
+            itr++;
+        }
+        
+         if(isPalindrome(n)){
+            return n;
+         }
+        return -1;
+    }
+    
+    // Function to reverse the digits of a number.
+    private static int reverse(int n){
+        int sum = 0;
+        while(n!=0){
+            sum = sum *10 + n%10;
+            n/=10;
+        }
+        return sum;
+    }
+    
+     /* Function to check whether the number is palindrome or not */
+    private static boolean isPalindrome(int n){
+       return reverse(n) == n;
+    }
+}
 public boolean isSumPalindrome(int n) {
     int reversed = reverse(n);
     int sum = n + reversed;
@@ -750,6 +811,31 @@ private int reverse(int n) {
 **Pattern:** Math / Conditionals | **Key Idea:** Validate month, then day based on days-in-month array. Handle leap year for Feb.
 
 ```java
+class Solution {
+    
+    static int isValidDate(int d, int m, int y) {
+        
+        // Check valid year range
+        if (y < 1800 || y > 9999) return 0;
+        
+        // Check valid month and day
+        if (m < 1 || m > 12 || d < 1) return 0;
+        
+        int[] days = {31,28,31,30,31,30,31,31,30,31,30,31};
+        
+        // Leap year check for February
+        if (m == 2 && isLeapYear(y)) {
+            return d <= 29 ? 1 : 0;
+        }
+        
+        return d <= days[m - 1] ? 1 : 0;
+    }
+    
+    private static boolean isLeapYear(int y) {
+        return (y % 4 == 0 && y % 100 != 0) || (y % 400 == 0);
+    }
+}
+
 public boolean isValidDate(int d, int m, int y) {
     if (y < 1 || m < 1 || m > 12 || d < 1) return false;
     int[] days = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
@@ -868,6 +954,27 @@ public double mean(int[] arr) {
 **Pattern:** String | **Key Idea:** Two cases — left rotate by 2, or right rotate by 2. Compare both.
 
 ```java
+class Solution {
+    // Function to check if a string can be obtained by rotating another string by
+    // exactly 2 places
+    static boolean isRotated(String s1, String s2) {
+        if (s1.length() != s2.length()) return false;
+
+        if (s1.length() <= 2 || s2.length() <= 2) return s1.equals(s2);
+
+        int len = s2.length();
+
+        // Storing anti-clockwise rotation of string
+        String anticlockRot = s2.substring(len - 2) + s2.substring(0, len - 2);
+
+        // Storing clockwise rotation of string
+        String clockRot = s2.substring(2) + s2.substring(0, 2);
+
+        // Checking if any of them is equal to s1
+        return s1.equals(clockRot) || s1.equals(anticlockRot);
+    }
+}
+
 public boolean isRotatedBy2(String s1, String s2) {
     if (s1.length() != s2.length()) return false;
     int n = s1.length();
