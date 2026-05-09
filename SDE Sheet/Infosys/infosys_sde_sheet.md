@@ -866,6 +866,30 @@ public int lazyCaterer(int n) {
 **Pattern:** Simulation | **Key Idea:** Each new row = sum of adjacent elements of previous row. Build bottom-up.
 
 ```java
+import java.util.*;
+import java.util.stream.Collectors;
+
+class Solution {
+    static final int MOD = 1000000007;
+    public ArrayList<Integer> getTriangle(int[] arr) {
+        ArrayList<Integer> ans = new ArrayList<>();
+        List<Integer> curr = Arrays.stream(arr).boxed().collect(Collectors.toList());
+        ans.addAll(curr);
+
+        while(curr.size()>1){
+            List<Integer> temp = new ArrayList<>();
+            for(int i=1;i<curr.size();i++){
+                int sum = (curr.get(i) + curr.get(i-1)) % MOD;
+                temp.add(sum);
+            }
+            curr = temp;
+            ans.addAll(0,curr);
+        }
+
+        return ans;
+    }
+}
+
 public void printSumTriangle(int[] arr) {
     List<int[]> triangle = new ArrayList<>();
     triangle.add(arr.clone());
@@ -888,6 +912,112 @@ public void printSumTriangle(int[] arr) {
 **Pattern:** Greedy | **Key Idea:** Sort digits in descending order, concatenate.
 
 ```java
+class Solution {
+    // Function to find the maximum number by sorting the array in descending order
+    public String MaxNumber(int arr[]) {
+        StringBuilder s = new StringBuilder();
+        int n = arr.length;
+        // Array to store the count of each digit in the input array
+        int[] h = new int[10]; // Range is 0-9, so array size is 10
+
+        // Counting the occurrence of each digit
+        for (int i = 0; i < n; i++) {
+            // Incrementing the count of digit a[i] in array h
+            h[arr[i]]++;
+        }
+
+        // Building the maximum number by looping through the digits in descending order
+        for (int i = 9; i >= 0; i--) {
+            while (h[i]-- > 0) {
+                s.append(i);
+            }
+        }
+        // Returning the maximum number as a string
+        return s.toString();
+    }
+}
+
+
+class Solution {
+    public String largestNumber(int[] arr) {
+        int n = arr.length;
+        String nums[] = new String[n];
+
+        for(int i = 0; i<n; i++){
+            nums[i] = String.valueOf(arr[i]);
+        }
+
+        Arrays.sort(nums, (a,b)-> (b+a).compareTo(a+b));
+        // handle all zeros case
+        if(nums[0].equals("0")) {
+            return "0";
+        }
+        StringBuilder sb = new StringBuilder();
+        for(String str: nums){
+            sb.append(str);
+        }
+
+        return sb.toString();
+    }
+}
+class Solution {
+
+    public String MaxNumber(int arr[]) {
+        // code here.
+        Arrays.sort(arr);
+        StringBuilder sb = new StringBuilder();
+        
+        for(int i=arr.length-1; i>=0; i--){
+            sb.append(arr[i]);
+        }
+        
+        return sb.toString();
+    }
+}
+
+class Solution {
+    public int triangularSum(int[] nums) {
+        int n = nums.length;
+
+        while(n>1){
+            for(int i=0;i<n-1;i++){
+                nums[i] = (nums[i] + nums[i+1]) % 10;
+            }
+            n--;
+        }
+        return nums[0];
+    }
+}
+
+class Solution {
+    public ArrayList<Integer> getTriangle(int[] arr) {
+        int n = arr.length;
+        // Initialize a 2D array to store the triangle
+        int[][] tri = new int[n][n];
+
+        // Initialize the last row of the triangle
+        for (int i = 0; i < n; i++) {
+            tri[n - 1][i] = arr[i];
+        }
+
+        // Fill other rows
+        for (int i = n - 2; i >= 0; i--) {
+            for (int j = 0; j <= i; j++) {
+                tri[i][j] = (tri[i + 1][j] + tri[i + 1][j + 1]) % 1000000007;
+            }
+        }
+
+        // Storing the triangle in an ArrayList
+        ArrayList<Integer> Triangle = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j <= i; j++) {
+                Triangle.add((int)tri[i][j]);
+            }
+        }
+
+        return Triangle;
+    }
+}
 public String formLargest(int[] digits) {
     Integer[] arr = new Integer[digits.length];
     for (int i = 0; i < digits.length; i++) arr[i] = digits[i];
@@ -905,6 +1035,23 @@ public String formLargest(int[] digits) {
 **Pattern:** Sorting + Simulation | **Key Idea:** Sort. Alternate remove min (advance lo) then max (reduce hi). Last standing is answer.
 
 ```java
+class Solution {
+    public static int leftElement(int[] arr) {
+        // code here
+        
+        Arrays.sort(arr);
+        int n = arr.length;
+        if(n%2==0){
+            n = n/2 - 1;
+        }else{
+            n = n /2;
+        }
+        
+        return arr[n];
+        
+    }
+}
+
 public int printLeft(int[] arr) {
     Arrays.sort(arr);
     int lo = 0, hi = arr.length - 1;
@@ -925,6 +1072,26 @@ public int printLeft(int[] arr) {
 **Pattern:** Math | **Key Idea:** Digits must be non-decreasing left to right. Check each pair.
 
 ```java
+class Solution {
+    int isTidy(int N) {
+        // To store previous digit (Assigning
+        // initial value which is more than any
+        // digit)
+        int prev = 10;
+
+        // Traverse all digits from right to
+        // left and check if any digit is
+        // smaller than previous.
+        while (N > 0) {
+            int rem = N % 10;
+            N /= 10;
+            if (rem > prev) return 0;
+            prev = rem;
+        }
+        return 1;
+    }
+}
+
 public boolean isTidy(int n) {
     String s = String.valueOf(n);
     for (int i = 1; i < s.length(); i++)
@@ -940,6 +1107,19 @@ public boolean isTidy(int n) {
 **Pattern:** Math | **Key Idea:** Sum all elements, divide by count.
 
 ```java
+class Solution {
+    public static int findMean(int[] arr) {
+        int sum = 0;
+        int n = arr.length;
+        for (int i = 0; i < n; i++)
+            sum += arr[i]; // First, the Sum of the Array is Calculated
+
+        int ans = sum / n; // The Sum is divided with N to get it's Mean.
+
+        return ans;
+    }
+};
+
 public double mean(int[] arr) {
     long sum = 0;
     for (int x : arr) sum += x;
