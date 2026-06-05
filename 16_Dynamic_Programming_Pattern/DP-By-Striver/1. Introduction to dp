@@ -1,0 +1,258 @@
+# Introduction to Dynamic Programming
+
+---
+
+## What is Dynamic Programming?
+
+Dynamic Programming (DP) is a method to solve complex problems by breaking them down into **simpler overlapping sub-problems**, solving each sub-problem only once, and storing the result to avoid recomputation.
+
+**Two key properties a problem must have for DP to apply:**
+
+| Property | Meaning |
+|---|---|
+| **Overlapping Subproblems** | The same subproblem appears multiple times during recursion |
+| **Optimal Substructure** | The solution to the main problem can be built from solutions to sub-problems |
+
+> 🚨 **How to identify a DP problem:**
+> If a plain recursion is solving the same subproblem more than once → it's a candidate for DP.
+
+---
+
+## Two Approaches
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  MEMOIZATION  (Top-Down)                                        │
+│  Start from the main problem → break down → reach base cases    │
+│  Recursive in nature. Cache results as you go.                  │
+│                                                                 │
+│  TABULATION   (Bottom-Up)                                       │
+│  Start from base cases → build up → reach the main problem      │
+│  Iterative in nature. Fill a table from small to large.         │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Striver's 3-Step Framework to Write Any DP Recursion
+
+> This is the core thinking process. Master this and every DP problem becomes structured.
+
+```
+┌────────────────────────────────────────────────────────────────────┐
+│  STEP 1 → Express the problem in terms of an INDEX                 │
+│           What parameter uniquely identifies a subproblem?         │
+│                                                                    │
+│  STEP 2 → Do ALL possible things at that index                     │
+│           Try every valid choice available at this position.       │
+│                                                                    │
+│  STEP 3 → Based on the problem type, combine results:              │
+│           • Count all ways    →  SUM  the choices                  │
+│           • Min / Max value   →  MIN or MAX the choices            │
+│           • Any possibility   →  OR   the choices                  │
+└────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## The 4-Step Coding Ladder
+
+Every DP solution evolves through these 4 stages:
+
+```
+① Plain Recursion
+      ↓  add dp[] array + cache check
+② Memoization        (Top-Down)
+      ↓  flip direction: base case first, fill iteratively
+③ Tabulation         (Bottom-Up)
+      ↓  replace dp[i-1], dp[i-2] with two variables
+④ Space Optimization
+```
+
+| Step | Time | Space |
+|---|---|---|
+| Recursion | Exponential | O(N) stack |
+| Memoization | O(N) | O(N) dp + O(N) stack |
+| Tabulation | O(N) | O(N) dp array |
+| Space Opt. | O(N) | **O(1)** |
+
+---
+
+## Example — Fibonacci Numbers
+
+### Problem Statement
+
+The Fibonacci series: `0, 1, 1, 2, 3, 5, 8, 13, 21, ...`
+
+Find the **nth Fibonacci number** (0-indexed), where:
+```
+f(i) = f(i-1) + f(i-2)
+f(0) = 0,  f(1) = 1
+```
+
+---
+
+### Applying Striver's 3 Steps
+
+```
+STEP 1: Express in terms of index
+        → f(n) = nth Fibonacci number
+
+STEP 2: All possible things at index n
+        → it came from f(n-1)  and  f(n-2)
+
+STEP 3: Problem asks for the VALUE (sum of previous two) → SUM
+        → f(n) = f(n-1) + f(n-2)
+```
+
+---
+
+### ① Plain Recursion
+
+```java
+public static int f(int n) {
+    if (n <= 1) return n;           // base case
+    return f(n - 1) + f(n - 2);    // try all choices, sum them
+}
+```
+
+**The problem:** `f(5)` calls `f(4)` and `f(3)`. `f(4)` also calls `f(3)`.
+`f(3)` is computed **twice** — this is wasted work. This blows up to O(2^N).
+
+```
+                     f(5)
+                   /      \
+               f(4)         f(3)
+              /    \        /   \
+           f(3)   f(2)   f(2)  f(1)       ← f(3), f(2) recomputed!
+           / \    / \
+        f(2) f(1) f(1) f(0)
+```
+
+⏱ O(2^N) | 💾 O(N) stack
+
+---
+
+### ② Memoization (Top-Down)
+
+**Fix:** Store the result the first time you compute it. Return from cache on repeat calls.
+
+**Steps to memoize any recursion:**
+1. Create `dp[n+1]` array, fill with `-1`
+2. Before computing, check `if (dp[n] != -1) return dp[n]`
+3. After computing, store: `dp[n] = result` before returning
+
+```java
+public static int f(int n, int[] dp) {
+    // Base case
+    if (n <= 1) return n;
+
+    // Step 2: cache hit — already solved
+    if (dp[n] != -1) return dp[n];
+
+    // Step 3: solve and store before returning
+    dp[n] = f(n - 1, dp) + f(n - 2, dp);
+    return dp[n];
+}
+
+// Caller
+int n = 5;
+int[] dp = new int[n + 1];
+Arrays.fill(dp, -1);
+System.out.println(f(n, dp));
+```
+
+⏱ **O(N)** — each subproblem solved exactly once
+💾 **O(N) + O(N)** — dp array + recursion stack
+
+---
+
+### ③ Tabulation (Bottom-Up)
+
+**Idea:** Instead of going top-down and caching, start from the base cases and build up.
+No recursion stack needed.
+
+**Steps to convert memoization to tabulation:**
+1. Declare `dp[]` array of size `n+1`
+2. Set base cases: `dp[0] = 0`, `dp[1] = 1`
+3. Fill iteratively from index `2` to `n`
+
+```java
+int n = 5;
+int[] dp = new int[n + 1];
+
+// Base cases
+dp[0] = 0;
+dp[1] = 1;
+
+// Fill bottom-up
+for (int i = 2; i <= n; i++) {
+    dp[i] = dp[i - 1] + dp[i - 2];
+}
+
+System.out.println(dp[n]);  // Answer: dp[5] = 5
+```
+
+⏱ **O(N)** — single loop
+💾 **O(N)** — dp array of size n+1
+
+---
+
+### ④ Space Optimization ✅
+
+**Observation:** `dp[i]` only ever needs `dp[i-1]` and `dp[i-2]`.
+We don't need the entire array — just **two variables**.
+
+```java
+int n = 5;
+
+if (n == 0) { System.out.println(0); return; }
+if (n == 1) { System.out.println(1); return; }
+
+int prev2 = 0;  // dp[i-2]
+int prev  = 1;  // dp[i-1]
+
+for (int i = 2; i <= n; i++) {
+    int cur = prev2 + prev;   // dp[i] = dp[i-2] + dp[i-1]
+    prev2 = prev;              // slide window forward
+    prev  = cur;
+}
+
+System.out.println(prev);     // Answer: 5
+```
+
+**Trace for n=5:**
+```
+i=2: cur = 0+1 = 1,  prev2=1, prev=1
+i=3: cur = 1+1 = 2,  prev2=1, prev=2
+i=4: cur = 1+2 = 3,  prev2=2, prev=3
+i=5: cur = 2+3 = 5,  prev2=3, prev=5  ← answer
+```
+
+⏱ **O(N)** — single loop
+💾 **O(1)** — only two variables
+
+---
+
+## Summary
+
+| Approach | Core Idea | Time | Space |
+|---|---|---|---|
+| Recursion | Try all choices, recompute everything | O(2^N) | O(N) |
+| Memoization | Recursion + cache results | O(N) | O(N)+O(N) |
+| Tabulation | Fill dp table bottom-up, no recursion | O(N) | O(N) |
+| Space Opt. | Only keep the last 2 values | O(N) | O(1) |
+
+---
+
+## Key Takeaways
+
+1. **DP = Recursion + Caching** — if you can write the recursion, you can write the DP
+2. **Memoization** is the easiest to derive — just add a cache to your recursion
+3. **Tabulation** is usually preferred in interviews — no stack overflow risk
+4. **Space optimization** is possible when `dp[i]` depends only on a fixed number of previous states
+5. **Fibonacci** is the "Hello World" of DP — every concept scales from here to harder problems
+
+---
+
+*Next → 1D DP Problems (Climbing Stairs, Frog Jump, House Robber...) 🚀*
