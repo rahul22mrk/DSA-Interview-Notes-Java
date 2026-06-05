@@ -3,3 +3,446 @@ Recusrion to generate all the subsequences:
 2. explore posiiblities of that index.
  a[ind] part of the subsequence / a[ind] ->not the part of the sub sequence
 3. return T/F.
+
+problems:
+1. Subset sum equals to target
+2. partition equal subset sum
+3. Partition a set into two subsets with minimum absoultute sum difference
+4. count subsets with sum
+5. count partitions with given difference
+6. 0 and 1 knapsack
+7. minimum coins
+8. target sum
+9. Coin change II
+10. Unbounded knapsack
+11. Road Cutting Problem
+
+
+
+1. Subset sum equals to target
+
+Problem Statement:
+
+
+
+Recusrion:
+
+
+
+
+
+
+
+
+Memoization:
+
+
+
+
+
+
+Tabulation:
+
+
+
+
+
+
+
+Space Optimization:
+
+
+
+
+
+
+
+2. partition equal subset sum
+
+
+Problem Statement:
+
+
+
+Recusrion:
+
+
+
+
+
+
+
+
+Memoization:
+
+
+
+
+
+
+Tabulation:
+
+
+
+
+
+
+
+Space Optimization:
+
+
+
+
+
+
+
+3. Partition a set into two subsets with minimum absoultute sum difference
+
+
+Problem Statement:
+
+
+
+Recusrion:
+
+
+
+
+
+
+
+
+Memoization:
+
+
+
+
+
+
+Tabulation:
+
+
+
+
+
+
+
+Space Optimization:
+
+
+
+
+
+
+
+4. count subsets with sum
+
+
+Problem Statement:
+
+
+
+Recusrion:
+
+
+
+
+
+
+
+
+Memoization:
+
+
+
+
+
+
+Tabulation:
+
+
+
+
+
+
+
+Space Optimization:
+
+
+
+
+
+
+
+5. count partitions with given difference
+
+
+Problem Statement:
+
+
+
+Recusrion:
+
+
+
+
+
+
+
+
+Memoization:
+
+
+
+
+
+
+Tabulation:
+
+
+
+
+
+
+
+Space Optimization:
+
+
+
+
+
+
+
+6. 0 and 1 knapsack
+
+
+Problem Statement:
+
+
+
+Recusrion:
+
+
+
+
+
+
+
+
+Memoization:
+
+
+
+
+
+
+Tabulation:
+
+
+
+
+
+
+
+Space Optimization:
+
+
+
+
+
+
+
+7. minimum coins
+
+
+Problem Statement:
+
+
+
+Recusrion:
+
+
+
+
+
+
+
+
+Memoization:
+
+
+
+
+
+
+Tabulation:
+
+
+
+
+
+
+
+Space Optimization:
+
+
+
+
+
+
+
+8. target sum
+
+
+Problem Statement:
+
+
+
+Recusrion:
+
+
+
+
+
+
+
+
+Memoization:
+
+
+
+
+
+
+Tabulation:
+
+
+
+
+
+
+
+Space Optimization:
+
+
+
+
+
+
+
+9. Coin change II
+
+
+Problem Statement:
+
+
+
+Recusrion:
+
+
+
+
+
+
+
+
+Memoization:
+
+
+
+
+
+
+Tabulation:
+
+
+
+
+
+
+
+Space Optimization:
+
+
+
+
+
+
+
+10. Unbounded knapsack
+
+
+Problem Statement:
+
+
+
+Recusrion:
+
+
+
+
+
+
+
+
+Memoization:
+
+
+
+
+
+
+Tabulation:
+
+
+
+
+
+
+
+Space Optimization:
+
+
+
+
+
+
+
+11. Road Cutting Problem
+
+
+Problem Statement:
+
+
+
+Recusrion:
+
+
+
+
+
+
+
+
+Memoization:
+
+
+
+
+
+
+Tabulation:
+
+
+
+
+
+
+
+Space Optimization:
+
+
+
+
+
+
