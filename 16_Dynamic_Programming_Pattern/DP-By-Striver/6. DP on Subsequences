@@ -1,1 +1,5 @@
-
+Recusrion to generate all the subsequences:
+1. express (index, target)
+2. explore posiiblities of that index.
+ a[ind] part of the subsequence / a[ind] ->not the part of the sub sequence
+3. return T/F.
