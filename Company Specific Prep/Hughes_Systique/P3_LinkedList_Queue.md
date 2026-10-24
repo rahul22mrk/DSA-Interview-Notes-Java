@@ -429,7 +429,25 @@ public static void printList(Node head) {
 ```
 5. Merge Two Sorted Lists
 ```
+https://takeuforward.org/practice/dsa/merge-sorted-lists-
+https://leetcode.com/problems/merge-two-sorted-lists/description/
+```
 
+```java
+
+```
+
+```java
+
+```
+
+```java
+
+```
+
+5.2. Merge K Sorted Linked Lists
+```
+https://takeuforward.org/blogs/data-structure-and-algorithm/merge-k-sorted-linked-lists
 ```
 
 ```java
