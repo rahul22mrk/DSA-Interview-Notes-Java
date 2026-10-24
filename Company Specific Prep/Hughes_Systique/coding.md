@@ -122,6 +122,63 @@ class Solution {
 }
 Time Complexity: O(n) (where n is the length of the input string)
 Space Complexity: O(n)
+```
+
+```java
+class Solution {
+    public String reverseWords(String s) {
+        int n = s.length();
+
+        StringBuilder sb = new StringBuilder(s);
+        reverseString(sb, 0, n-1);
+
+        int i=0, j=0, start=0, end=0;
+        while(j<n){
+            //skip spaces
+
+            while(j<n && sb.charAt(j) == ' ')j++;
+
+            if(j==n) break;
+
+            start = i;
+
+            //copy the word characters forward
+            while( j < n && sb.charAt(j)!=' '){
+                sb.setCharAt(i++, sb.charAt(j++));
+            }
+
+            end = i - 1;
+
+            //reverse the current word using start and end
+            reverseString(sb, start, end);
+
+            //add a space after the word if its not the last word
+            if(j<n){
+                //if(i<sb.length()){
+                    sb.setCharAt(i++, ' ');
+                //}
+            }
+        }
+
+        //remove trailing whitespace if present
+        if(i > 0 && sb.charAt(i-1) == ' ')i--;
+
+        return sb.substring(0,i);
+    }
+
+    private void reverseString(StringBuilder s, int start, int end){
+        while(start < end){
+            char temp = s.charAt(start);
+            s.setCharAt(start, s.charAt(end));
+            s.setCharAt(end, temp);
+            start++;
+            end--;
+        }
+    }
+}
+```
+
+```java
 
 class Solution {
     // Function to reverse every word in the given string
@@ -170,7 +227,8 @@ class Solution {
 }
 Time Complexity: O(n) (where n is the length of the input string)
 Space Complexity: O(n)
-
+```
+```java
 class Solution {
     private void reverseString(StringBuilder s, int start, int end) {
         while (start < end) {
@@ -307,7 +365,8 @@ class Solution {
         s[right] = ch;
     }
 }
-
+```
+```java
 2. Approach 2: Swap Without a Separate Method
 class Solution {
     public void reverseString(char[] s) {
@@ -322,7 +381,8 @@ class Solution {
         
     }
 }
-
+```
+```java
 3. Approach 3: Recursion
 class Solution {
     public void reverseString(char[] s) {
@@ -388,7 +448,8 @@ class Solution {
 Complexity Analysis
 Time Complexity: O(n × m log m), where n is the number of strings and m is the maximum length of a string (due to sorting each string).
 Space Complexity: O(n × m), for storing the grouped strings in the map.
-
+```
+```java
 class Solution {
  
     // Method to group anagrams
