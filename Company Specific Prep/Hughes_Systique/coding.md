@@ -407,14 +407,72 @@ class Solution {
 
 5.	Longest Substring Without Repeating Characters
 ```
+https://takeuforward.org/practice/dsa/longest-substring-without-repeating-characters
+https://leetcode.com/problems/longest-substring-without-repeating-characters/
+```
+
+```java
+class Solution {
+    public int longestNonRepeatingSubstring(String s) {
+        int n = s.length();
+        int maxLen = 0;
+
+        for(int i=0;i<n;i++){
+            int[] freq = new int[256];
+            for(int j = i;j<n;j++){
+                if(freq[s.charAt(j)] == 1) break;
+
+                freq[s.charAt(j)] = 1;
+
+                maxLen = Math.max(maxLen, j-i+1);
+            }
+        }
+        return maxLen;
+    }
+}
 
 ```
 
 ```java
+class Solution {
+    public int longestNonRepeatingSubstring(String s) {
+        int n = s.length();
+        int hash[] = new int[256];
+        Arrays.fill(hash,-1);
 
+        int left = 0, right = 0, maxLen = 0;
+        while(right < n){
+            if(hash[s.charAt(right)] !=-1){
+                left = Math.max(left, hash[s.charAt(right)]+1);
+            }
+            maxLen = Math.max(maxLen,right - left +1);
+            hash[s.charAt(right)] = right;
+            right++;
+        }
+
+        return maxLen;
+    }
+}
 
 ```
 
+```java
+public int lengthOfLongestSubstring(String s) {
+    Map<Character, Integer> lastSeen = new HashMap<>();
+    int left = 0, maxLen = 0;
+
+    for (int right = 0; right < s.length(); right++) {
+        char c = s.charAt(right);
+        if (lastSeen.containsKey(c)) {
+            left = Math.max(left, lastSeen.get(c) + 1);   // jump left past duplicate
+        }
+        lastSeen.put(c, right);
+        maxLen = Math.max(maxLen, right - left + 1);
+    }
+    return maxLen;
+}
+
+```
 6.	Group Anagrams
 ```
 https://leetcode.com/problems/group-anagrams/description/
