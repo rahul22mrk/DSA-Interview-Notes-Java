@@ -156,21 +156,90 @@ Space Complexity: As no additional space is used, so the Space Complexity is O(1
 
 2. Sliding Window Maximum
 ```
-
+https://leetcode.com/problems/sliding-window-maximum/description/
+https://takeuforward.org/practice/dsa/sliding-window-maximum
 ```
 
 ```java
+//Brute:
+ // Function to get the maximum sliding window
+    public List<Integer> maxSlidingWindow(int[] arr, int k) {
+        
+        int n = arr.length; // Size of array
+        
+        // To store the answer
+        List<Integer> ans = new ArrayList<>();
+        
+        /* Traverse on the arrary 
+        for valid window */
+        for(int i = 0; i <= n - k; i++) {
+            
+            // To store the maximum of the window
+            int maxi = arr[i];
+            
+            // Traverse the window
+            for(int j = i; j < i + k; j++) {
+                // Update the maximum
+                maxi = Math.max(maxi, arr[j]);
+            }
+            
+            // Add the maximum to the result
+            ans.add(maxi);
+        }
+        
+        // Return the stored result
+        return ans;
+    }
+Time Complexity: O((N-K)*K) (where N is the size of given array)
+Using two nested loops.
 
+Space Complexity: O(N-K)
+Due to the size taken to return the answer.
 ```
 
 ```java
-
+//Optimal
+public int[] maxSlidingWindow(int[] arr, int k) {
+        
+        int n = arr.length; // Size of array
+        
+        // To store the answer
+        int[] ans = new int[n - k + 1];
+        int ansIndex = 0;
+        
+        // Deque data structure
+        Deque<Integer> dq = new LinkedList<>();
+        
+        // Traverse the array
+        for (int i = 0; i < n; i++) {
+            
+            // Update deque to maintain current window
+            if (!dq.isEmpty() && dq.peekFirst() <= (i - k)) {
+                dq.pollFirst();
+            }
+            
+            /* Maintain the monotonic (decreasing) 
+            order of elements in deque */
+            while (!dq.isEmpty() && arr[dq.peekLast()] <= arr[i]) {
+                dq.pollLast();
+            }
+            
+            // Add current element's index to the deque
+            dq.offerLast(i);
+            
+            /* Store the maximum element from 
+            the first window possible */
+            if (i >= (k - 1)) {
+                ans[ansIndex++] = arr[dq.peekFirst()];
+            }
+        }
+        
+        // Return the stored result
+        return ans;
+    }
+Time Complexity: O(N) (where N is the size of given array)
+Space Complexity: O(N-K) + O(K)
 ```
-
-```java
-
-```
-
 
 3. Two Sum
 ```
@@ -311,22 +380,192 @@ Space Complexity: O(N),
 
 4. Maximum Subarray
 ```
-
+https://takeuforward.org/practice/dsa/kadane's-algorithm
 ```
 
 ```java
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int currSum = 0;
+        int maxSum = Integer.MIN_VALUE;
 
+        for(int i=0 ;i<nums.length; i++){
+            currSum = Math.max(currSum+nums[i], nums[i]);
+            maxSum = Math.max(maxSum, currSum);
+        }
+        return maxSum;
+        
+    }
+}
 ```
 
 ```java
+//Brute:
+public int maxSubArray(int[] nums) {
+        
+        /* Initialize maximum sum with 
+        the smallest possible integer*/
+        int maxi = Integer.MIN_VALUE; 
+ 
+        // Iterate over each starting index of subarrays
+        for (int i = 0; i < nums.length; i++) {
+            
+            /* Iterate over each ending index
+            of subarrays starting from i*/
+            for (int j = i; j < nums.length; j++) {
+                
+                // Variable to store the sum of the current subarray
+                int sum = 0; 
+ 
+                // Calculate the sum of subarray nums[i...j]
+                for (int k = i; k <= j; k++) {
+                    sum += nums[k];
+                }
+ 
+                /* Update maxi with the maximum of its current 
+                value and the sum of the current subarray*/
+                maxi = Math.max(maxi, sum);
+                
+            }
+        }
+        
+        // Return the maximum subarray sum found
+        return maxi; 
+    }
+Time Complexity: O(N3), where N is the size of the array. Using three nested loops, each running approximately N times.
 
+Space Complexity: O(1) no extra space used.
 ```
 
 ```java
+//Better:
+// Function to find maximum sum of subarrays
+    public int maxSubArray(int[] nums) {
+        
+        /* Initialize maximum sum with
+        the smallest possible integer*/
+        int maxi = Integer.MIN_VALUE;
+ 
+        // Iterate over each starting index of subarrays
+        for (int i = 0; i < nums.length; i++) {
+            
+            /* Variable to store the sum
+            of the current subarray*/
+            int sum = 0; 
+            
+            /* Iterate over each ending index
+            of subarrays starting from i*/
+            for (int j = i; j < nums.length; j++) {
+                
+                /* Add the current element nums[j] to
+                the sum i.e. sum of nums[i...j-1]*/
+                sum += nums[j];
+ 
+                /* Update maxi with the maximum of its current
+                value and the sum of the current subarray*/
+                maxi = Math.max(maxi, sum);
+            }
+        }
+ 
+        // Return the maximum subarray sum found
+        return maxi;
+    }
+Time Complexity:O(N2), for using two nested loops, each running approximately N times, here N is the size of the array.
 
+Space Complexity: O(1) for not using any extra space.
 ```
 
+```java
+public int maxSubArray(int[] nums) {
+        
+        // maximum sum
+        long maxi = Long.MIN_VALUE; 
+        
+        //current sum of subarray 
+        long sum = 0; 
+        
+        // Iterate through the array
+        for (int i = 0; i < nums.length; i++) {
+            
+            // Add current element to the sum
+            sum += nums[i]; 
+            
+            // Update maxi if current sum is greater
+            if (sum > maxi) {
+                maxi = sum; 
+            }
+            
+            // Reset sum to 0 if it becomes negative
+            if (sum < 0) {
+                sum = 0; 
+            }
+        }
+        
+        // Return the maximum subarray sum found
+        return (int) maxi;
+    }
 
+Complexity Analysis 
+Time Complexity: O(N) for single traversal, here N is the size of the array.
+
+Space Complexity: O(1), for not using any extra space.
+```
+
+```java
+// Function to find maximum sum of subarrays and print the subarray having maximum sum
+    public int maxSubArray(int[] nums) {
+        
+        // maximum sum
+        long maxi = Long.MIN_VALUE; 
+        
+        // current sum of subarray
+        long sum = 0; 
+        
+        // starting index of current subarray
+        int start = 0; 
+        
+        // indices of the maximum sum subarray
+        int ansStart = -1, ansEnd = -1; 
+        
+        // Iterate through the array
+        for (int i = 0; i < nums.length; i++) {
+            
+            // update starting index if sum is reset
+            if (sum == 0) {
+                start = i;
+            }
+            
+            // add current element to the sum
+            sum += nums[i]; 
+            
+            /* Update maxi and subarray indices
+            if current sum is greater */
+            if (sum > maxi) {
+                maxi = sum;
+                ansStart = start;
+                ansEnd = i;
+            }
+            
+            // Reset sum to 0 if it becomes negative
+            if (sum < 0) {
+                sum = 0;
+            }
+        }
+        
+        // Printing the subarray
+        System.out.print("The subarray is: [");
+        for (int i = ansStart; i <= ansEnd; i++) {
+            System.out.print(nums[i] + " ");
+        }
+        System.out.println("]");
+ 
+        // Return the maximum subarray sum found
+        return (int) maxi;
+    }
+Time Complexity: O(N), for using a single loop running N times, where N is the size of the array.
+
+Space Complexity: O(1), for not using any extra space.    
+```
 5. Move Zeroes
 ```
 https://leetcode.com/problems/move-zeroes/
@@ -419,18 +658,25 @@ Space Complexity: O(1) , as no use of any extra space is done to solve this prob
 
 6. Best Time to Buy and Sell Stock
 ```
-
+https://takeuforward.org/practice/dsa/best-time-to-buy-and-sell-stock
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
 ```
 
 ```java
+class Solution {
+    public int maxProfit(int[] prices) {
+        int buyPrice = prices[0], maxPro = 0;
 
+        for(int price: prices){
+            buyPrice = Math.min(buyPrice, price);
+
+            maxPro = Math.max(maxPro, price - buyPrice);
+        }
+
+        return maxPro;
+    }
+}
+Time Complexity:O(N), As the whole array is being traversed only once.
+
+Space Complexity:O(1), As no extra space is being used.
 ```
-
-```java
-
-```
-
-```java
-
-```
-
