@@ -1,13 +1,14 @@
 # Priority 1: Strings + Hashing + Stack
 
 ## Questions:
+```
 1. Valid Parentheses
 2. Reverse Words in a String
 3. Valid Anagram
 4. Reverse String
 5. Longest Substring Without Repeating Characters
 6. Group Anagrams
-
+```
 ```   
 Resources:
 - LeetCode — Stack problems
