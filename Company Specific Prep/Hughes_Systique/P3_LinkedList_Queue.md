@@ -171,21 +171,262 @@ Space Complexity: O(1)
 
 4. Circular Linked List
 ```
+https://www.geeksforgeeks.org/dsa/circular-linked-list/
+https://www.geeksforgeeks.org/dsa/insertion-at-the-beginning-in-circular-linked-list/
+https://www.geeksforgeeks.org/dsa/insertion-at-the-end-in-circular-linked-list/
+https://www.geeksforgeeks.org/dsa/insertion-at-specific-position-in-circular-linked-list-1/
+https://www.geeksforgeeks.org/dsa/deletion-circular-linked-list/
+https://www.geeksforgeeks.org/problems/circular-linked-list-traversal/1
 
 ```
 
 ```java
+//Insertion at the beginning in circular linked list
+static Node insertAtBeginning(Node last, int key) {
+        Node newNode = new Node(key);
+
+        if (last == null) {
+            newNode.next = newNode;
+            return newNode;
+        }
+
+        newNode.next = last.next;
+        last.next = newNode;
+
+        return last;
+    }
+Time Complexity: O(1)
+Auxiliary Space: O(1)
+```
+
+```java
+//Insertion at the End in Circular Linked List - O(n) Time and O(1) Space
+public static Node insertAtEnd(Node head, int key) {
+
+        // Create a new node with the given key.
+        Node newNode = new Node(key);
+
+        // If the circular linked list is empty,
+        // make the new node point to itself.
+        if (head == null) {
+            newNode.next = newNode;
+            return newNode;
+        }
+
+        // Find the tail of the circular linked list.
+        Node tail = head;
+        while (tail.next != head) {
+            tail = tail.next;
+        }
+
+        // Insert the new node after the tail
+        // and before the head.
+        newNode.next = head;
+        tail.next = newNode;
+
+        // Head remains unchanged.
+        return head;
+    }
+```
+
+```java
+//Insertion at specific position in circular linked list
+// Function to insert a node at a specific position in a circular linked list
+    public static Node insertAtPosition(Node last, int data, int pos) {
+        if (last == null) {
+            // If the list is empty
+            if (pos != 1) {
+                System.out.println("Invalid position!");
+                return last;
+            }
+            // Create a new node and make it point to itself
+            Node newNode = new Node(data);
+            last = newNode;
+            last.next = last;
+            return last;
+        }
+
+        // Create a new node with the given data
+        Node newNode = new Node(data);
+
+        // curr will point to head initially
+        Node curr = last.next;
+
+        if (pos == 1) {
+            // Insert at the beginning
+            newNode.next = curr;
+            last.next = newNode;
+            return last;
+        }
+
+        // Traverse the list to find the insertion point
+        for (int i = 1; i < pos - 1; ++i) {
+            curr = curr.next;
+            // If position is out of bounds (beyond the circular linked list)
+            if (curr == last) {
+                System.out.println("Invalid position!");
+                return last;
+            }
+        }
+        // Insert the new node at the desired position
+        newNode.next = curr.next;
+        curr.next = newNode;
+
+        // Update last if the new node is inserted at the end
+        if (curr == last) {
+            last = newNode;
+        }
+
+        return last;
+    }
+
+Time Complexity: O(n), we have to traverse the list to find the specific position.
+Auxiliary Space: O(1)
+```
+
+```java
+//Deletion from the beginning of the circular linked list - O(1) Time and O(1) Space
+
+public static Node deleteFirstNode(Node last) {
+        if (last == null) {
+            
+            // If the list is empty
+            System.out.println("List is empty");
+            return null;
+        }
+
+        Node head = last.next;
+
+        if (head == last) {
+        
+            // If there is only one node in the list
+            last = null;
+        } else {
+        
+            // More than one node in the list
+            last.next = head.next;
+        }
+
+        return last;
+    }
+```
+
+```java
+//Deletion at specific position in circular linked list - O(n) Time and O(1) Space
+public static Node deleteSpecificNode(Node last,
+                                          int key){
+        if (last == null) {
+            return null;
+        }
+        Node curr = last.next;
+        Node prev = last;
+
+        // If the node to be deleted is the only node in the
+        // list
+        if (curr == last && curr.data == key) {
+            last = null;
+            return last;
+        }
+
+        // If the node to be deleted is the first node
+        if (curr.data == key) {
+            last.next = curr.next;
+            return last;
+        }
+
+        // Traverse the list to find the node to be deleted
+        while (curr != last && curr.data != key) {
+            prev = curr;
+            curr = curr.next;
+        }
+
+        // If the node to be deleted is found
+        if (curr.data == key) {
+            prev.next = curr.next;
+            if (curr == last) {
+                last = prev;
+            }
+        }
+      
+        return last;
+    }
+
 
 ```
 
 ```java
+//Deletion at the end of Circular linked list - O(n) Time and O(1) Space
+public static Node deleteLastNode(Node last){
+        if (last == null) {
+            return null;
+        }
+        Node head = last.next;
+
+        // If there is only one node in the list
+        if (head == last) {
+            last = null;
+            return last;
+        }
+        // Traverse the list to find the second last node
+        Node curr = head;
+        while (curr.next != last) {
+            curr = curr.next;
+        }
+        // Update the second last node's next pointer to
+        // point to head
+        curr.next = head;
+        last = curr;
+
+        return last;
+    }
 
 ```
 
 ```java
+//Circular Linked List Traversal Using Iterative Method - O(n) Time and O(1) Space:
+public static void printList(Node head) {
 
+        // return if list is empty
+        if (head == null)
+            return;
+
+        // initialize current node as head
+        Node curr = head;
+
+        // loop through the circular linked list
+        do {
+
+            // print the data of current node
+            System.out.print(curr.data + " ");
+
+            // move to the next node
+            curr = curr.next;
+
+        } while (curr!= head);
+    }
 ```
 
+```java
+//Circular Linked List Traversal Using Recursion - O(n) Time and O(n) Space:
+
+  public static void print(Node curr, Node head) {
+
+      // return if list is empty
+      if (head == null)
+          return;
+
+      System.out.print(curr.data + " ");
+
+      if (curr.next == head)
+          return;
+
+      print(curr.next, head);
+  }
+
+  public static void printList(Node head){
+      print(head, head);
+  }
+```
 5. Merge Two Sorted Lists
 ```
 
