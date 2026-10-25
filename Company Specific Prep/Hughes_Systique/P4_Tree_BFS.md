@@ -361,6 +361,46 @@ public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
 ```
 
 ```java
+    ArrayList<Integer> zigZagTraversal(Node root) {
+                ArrayList<Integer> ans = new ArrayList<>();
+                Queue<Node> queue = new LinkedList<>();
+
+                if(root != null){
+                    queue.offer(root);
+                }
+
+                boolean isLeftToRight = true;
+
+                while(!queue.isEmpty()){
+                    int size = queue.size();
+                    List<Integer> list = new LinkedList<>();
+
+                    for(int i=0; i<size; i++){
+                        Node node = queue.poll();
+
+                        if(isLeftToRight){
+                            list.addLast(node.data);
+                        }else{
+                            list.addFirst(node.data);
+                        }
+
+                        if(node.left != null){
+                            queue.offer(node.left);
+                        }
+
+                        if(node.right != null){
+                            queue.offer(node.right);
+                        }
+                    }
+
+                    isLeftToRight = !isLeftToRight;
+                    ans.addAll(list);
+                }
+
+                return ans;
+    }
+```
+```java
 [Naive Approach] - Using Recursion
 The idea is to first calculate the height of the tree, and then recursively traverse each level to perform a level order traversal according to the current level’s direction.
 static int treeHeight(Node root) {
