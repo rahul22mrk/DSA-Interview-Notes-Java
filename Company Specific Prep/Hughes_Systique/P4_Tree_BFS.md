@@ -316,17 +316,195 @@ Space Complexity: O(H),
 ```
 https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/description/
 https://www.geeksforgeeks.org/problems/zigzag-tree-traversal/1
+https://www.geeksforgeeks.org/dsa/zigzag-tree-traversal/
 ```
 
 ```java
+public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        boolean leftToRight = true;
 
+        if(root!=null) queue.offer(root);
+
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            List<Integer> level = new LinkedList<>();
+
+            for(int i=0;i<size;i++){
+                TreeNode node = queue.poll();
+
+                if(leftToRight){
+                    level.addLast(node.val);
+                }else{
+                    level.addFirst(node.val);
+                }
+
+                if(node.left!=null){
+                    queue.offer(node.left);
+                }
+
+                if(node.right!=null){
+                    queue.offer(node.right);
+                }
+            }
+            ans.add(level);
+            leftToRight = !leftToRight;
+        }
+        return ans;
+        
+    }
 ```
 
 ```java
-
+[Naive Approach] - Using Recursion
+The idea is to first calculate the height of the tree, and then recursively traverse each level to perform a level order traversal according to the current level’s direction.
+static int treeHeight(Node root) {
+        if (root == null) return 0;
+        int lHeight = treeHeight(root.left);
+        int rHeight = treeHeight(root.right);
+        return Math.max(lHeight, rHeight) + 1;
+    }
+    
+    // Function which prints from left to 
+    // right traversal at a certain level
+    static void leftToRightTrav(Node root, int level, ArrayList<Integer> res) {
+        if (root == null) return;
+        
+        if (level == 1) {
+            res.add(root.data);
+        } else {
+            leftToRightTrav(root.left, level - 1, res);
+            leftToRightTrav(root.right, level - 1, res);
+        }
+    }
+    
+    // Function which prints from right to 
+    // left traversal at a certain level
+    static void rightToLeftTrav(Node root, int level, ArrayList<Integer> res) {
+        if (root == null) return;
+        
+        if (level == 1) {
+            res.add(root.data);
+        } else {
+            rightToLeftTrav(root.right, level - 1, res);
+            rightToLeftTrav(root.left, level - 1, res);
+        }
+    }
+    
+    // Finding the zigZagTraversal
+    static ArrayList<Integer> zigZagTraversal(Node root) {
+        ArrayList<Integer> res = new ArrayList<>();
+        boolean leftToRight = true;
+        int height = treeHeight(root);
+        
+        for (int i = 1; i <= height; i++) {
+            if (leftToRight)
+                leftToRightTrav(root, i, res);
+            else
+                rightToLeftTrav(root, i, res);
+                
+            // Flip the value of leftToRight
+            leftToRight = !leftToRight;
+        }
+        
+        return res;
+    }
+Time Complexity: O(n*h)
+Auxiliary Space: O(h)
 ```
 
 ```java
+[Expected Approach - 1] - Using Two Stacks - O(n) Time and O(n) Space
+static ArrayList<Integer> zigZagTraversal(Node root) {
+        ArrayList<Integer> res = new ArrayList<>();
+        if (root == null)
+            return res;
+        
+        // Current level
+        Stack<Node> s1 = new Stack<>(); 
+        
+        // Next level
+        Stack<Node> s2 = new Stack<>(); 
+
+        s1.push(root);
+
+        while (!s1.empty() || !s2.empty()) {
+
+            // Print nodes of current level from s1
+            // and push nodes of next level to s2
+            while (!s1.empty()) {
+                Node curr = s1.pop();
+                res.add(curr.data);
+                
+                if (curr.left != null)
+                    s2.push(curr.left);
+                if (curr.right != null)
+                    s2.push(curr.right);
+            }
+
+            // Print nodes of current level from s2
+            // and push nodes of next level to s1
+            while (!s2.empty()) {
+                Node curr = s2.pop();
+                res.add(curr.data);
+                
+                if (curr.right != null)
+                    s1.push(curr.right);
+                if (curr.left != null)
+                    s1.push(curr.left);
+            }
+        }
+        return res;
+    }
+```
+
+```java
+[Expected Approach - 2] - Using Deque - O(n) Time and O(n) Space
+The idea is to use a deque to store nodes level by level and alternate the direction of traversal at each level.
+
+For a level traversed left to right, nodes are popped from the front, and their children are added to the back in left → right order.
+For a level traversed right to left, nodes are popped from the back, and their children are added to the front in right → left order.
+
+static ArrayList<Integer> zigZagTraversal(Node root) {
+        ArrayList<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+
+        Deque<Node> dq = new LinkedList<>();
+        dq.addLast(root);
+
+        boolean reverse = false;
+
+        while (!dq.isEmpty()) {
+            int n = dq.size();
+
+            while (n-- > 0) {
+                
+                // Push right to the front 
+                // first if reverse is true
+                if (reverse) {
+                    Node curr = dq.removeLast();
+                    res.add(curr.data);
+
+                    if (curr.right != null) dq.addFirst(curr.right);
+                    if (curr.left != null)  dq.addFirst(curr.left);
+                }
+                
+                // Else push left to the back first
+                else {
+                    Node curr = dq.removeFirst();
+                    res.add(curr.data);
+
+                    if (curr.left != null)  dq.addLast(curr.left);
+                    if (curr.right != null) dq.addLast(curr.right);
+                }
+            }
+
+            reverse = !reverse;
+        }
+
+        return res;
+    }
 
 ```
 
