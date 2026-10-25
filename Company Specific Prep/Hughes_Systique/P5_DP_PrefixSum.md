@@ -54,7 +54,8 @@ Resources:
 
 3. 0/1 Knapsack
 ```
-
+https://takeuforward.org/practice/dsa/0-and-1-knapsack
+https://www.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1
 ```
 
 ```java
@@ -71,34 +72,349 @@ Resources:
 
 4. Climbing Stairs
 ```
-
+https://leetcode.com/problems/climbing-stairs/description/
+https://takeuforward.org/practice/dsa/climbing-stairs
 ```
 
 ```java
-
+// Memoization approach:
+private int func(int n, int dp[]){
+        //Base condition
+        if (n <= 1) {
+            return 1;
+        }
+        
+        //Check if the subproblem is already solved
+        if (dp[n] != -1) {
+            return dp[n];
+        }
+        
+        //Return the calculated value
+        return dp[n] = func(n-1, dp) + func(n-2, dp);
+    }
+    // Function to count total ways to reach nth stair
+    public int climbStairs(int n) {
+        int[] dp = new int[n+1];
+        
+        // Initialize dp array with -1
+        Arrays.fill(dp, -1);
+        
+        // Return the calculated value
+        return dp[n] = func(n, dp);
+    }
+Time Complexity: O(N)
+Space Complexity:O(N)+O(N)
 ```
 
 ```java
-
+// Tabulation approach:
+public int climbStairs(int n) {
+        // Declare dp array of size n+1
+        int[] dp = new int[n + 1];
+ 
+        // Insert the values of base conditions
+        dp[0] = 1;
+        dp[1] = 1;
+ 
+        // Iterate and update every index of dp array
+        for (int i = 2; i <= n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+ 
+        // Return the answer
+        return dp[n];
+    }
+Time Complexity: O(N)
+Space Complexity:O(N)
 ```
 
 ```java
-
+//Space Optimization:
+public int climbStairs(int n) {
+        /*Initialize two variables to 
+        store previous results*/
+        int prev2 = 1;
+        int prev = 1;
+        
+        //Iterate and update the variables
+        for (int i = 2; i <= n; i++) {
+            int cur_i = prev2 + prev;
+            prev2 = prev;
+            prev = cur_i;
+        }
+        //Return the answer as prev
+        return prev;
+    }
+Time Complexity: O(N)
+Space Complexity:O(1)
 ```
 
 5. House Robber
 ```
-
+https://leetcode.com/problems/house-robber/description/
+https://takeuforward.org/practice/dsa/house-robber
+```
+```
+Leetcode style
 ```
 
 ```java
+class Solution {
+    int dp[]=new int[101];
+    public int rob(int[] nums) {
+        Arrays.fill(dp,-1);
+        return solve(nums,0,nums.length);
+        
+    }
 
+    private int solve(int[] nums,int i,int n){
+        if(i>=n){
+            return 0;
+        }
+
+        if(dp[i]!=-1){
+            return dp[i];
+        }
+
+        int steal = nums[i]+solve(nums,i+2,n);
+        int skip = solve(nums,i+1,n);
+        return dp[i]=Math.max(steal,skip);
+    }
+}
+```
+```java
+class Solution {
+    public int rob(int[] nums) {
+        int prev = nums[0];
+        int prev2 = 0;
+
+        for(int i=1; i<nums.length; i++){
+            int pick = nums[i];
+            if(i>1){
+                pick += prev2;
+            }
+
+            int notPick = prev;
+
+            int curr = Math.max(pick, notPick);
+            prev2 = prev;
+            prev = curr;
+        }
+        return prev;
+        
+    }
+
+}
+```
+```
+circular condition
+```
+```java
+class Solution {
+    public int houseRobber(int[] money) {
+        int n = money.length;
+
+        if (n == 1) {
+            return money[0];
+        }
+
+        int[] dp1 = new int[n];
+        Arrays.fill(dp1, -1);
+
+        int[] dp2 = new int[n];
+        Arrays.fill(dp2, -1);
+
+        return Math.max(
+            solve(money, 0, n - 2, dp1),
+            solve(money, 1, n - 1, dp2)
+        );
+    }
+
+    private int solve(int[] money, int start, int end, int[] dp) {
+        if (start > end) {
+            return 0;
+        }
+
+        if (dp[start] != -1) {
+            return dp[start];
+        }
+
+        int taken = money[start] + solve(money, start + 2, end, dp);
+        int notTaken = solve(money, start + 1, end, dp);
+
+        return dp[start] = Math.max(taken, notTaken);
+    }
+}
 ```
 
 ```java
-
+private int func(int ind, int[] arr, int[] dp) {
+        // Base cases
+        if (ind == 0)
+            return arr[ind];
+        if (ind < 0)
+            return 0;
+ 
+        // If dp[ind] already has a value, return it
+        if (dp[ind] != -1) {
+            return dp[ind];
+        }
+ 
+        // Choosing the current element
+        int pick = arr[ind] + func(ind - 2, arr, dp);
+ 
+        // Skipping the current element
+        int nonPick = func(ind - 1, arr, dp);
+ 
+        /* Store the result in dp 
+        array and return the maximum*/
+        return dp[ind] = Math.max(pick, nonPick);
+    }
+ 
+    // Function to find the maximum money robber can rob
+    public int houseRobber(int[] money) {
+        int n = money.length;
+        if (n == 0)
+            return 0;
+        if (n == 1)
+            return money[0];
+ 
+        int[] arr1 = new int[n - 1];
+        int[] arr2 = new int[n - 1];
+ 
+        // Populate arr1 and arr2
+        for (int i = 0; i < n; i++) {
+            if (i != n - 1)
+                arr1[i] = money[i];
+            if (i != 0)
+                arr2[i - 1] = money[i];
+        }
+ 
+        // Initialize the dp arrays with -1
+        int[] dp1 = new int[n];
+        Arrays.fill(dp1, -1);
+        int ans1 = func(arr1.length - 1, arr1, dp1);
+ 
+        int[] dp2 = new int[n];
+        Arrays.fill(dp2, -1);
+        int ans2 = func(arr2.length - 1, arr2, dp2);
+ 
+        // Return the maximum of ans1 and ans2
+        return Math.max(ans1, ans2);
+    }
+Time Complexity: O(N) + O(N), 
+Space Complexity:O(N) + O(N) + O(N) + O(N) + O(N) + O(N)
 ```
 
 ```java
+  private int func(int[] nums) {
+        int n = nums.length;
+        int[] dp = new int[n];
+        
+        // Base case
+        dp[0] = nums[0];
+ 
+        // Iterate through the elements of the array
+        for (int i = 1; i < n; i++) {
+            
+            /* Calculate maximum value by either picking
+            the current element or not picking it */
+            int pick = nums[i];
+            if (i > 1)
+                pick += dp[i - 2];
+            int nonPick = dp[i - 1];
+ 
+            // Store the maximum value in dp array
+            dp[i] = Math.max(pick, nonPick);
+        }
+ 
+        /* The last element of the dp array
+        will contain the maximum sum */
+        return dp[n - 1];
+    }
+ 
+    // Function to find the maximum money robber can rob
+    public int houseRobber(int[] money) {
+        int n = money.length;
+        if (n == 0)
+            return 0;
+        if (n == 1)
+            return money[0];
+ 
+        int[] arr1 = new int[n - 1];
+        int[] arr2 = new int[n - 1];
+ 
+        // Populate arr1 and arr2
+        for (int i = 0; i < n; i++) {
+            if (i != n - 1)
+                arr1[i] = money[i];
+            if (i != 0)
+                arr2[i - 1] = money[i];
+        }
+        int ans1 = func(arr1);
+ 
+        int ans2 = func(arr2);
+ 
+        // Return the maximum of ans1 and ans2
+        return Math.max(ans1, ans2);
+    }
+Time Complexity: O(N)+O(N)
+Space Complexity:O(N)+O(N)+O(N)+O(N),
+```
 
+```java
+ // Function to solve the problem using memoization
+    private int func(int[] nums) {
+        int n = nums.length;
+        int prev = nums[0];
+        int prev2 = 0;
+ 
+        for (int i = 1; i < n; i++) {
+            // Maximum sum if we pick current element
+            int pick = nums[i];
+            
+            if (i > 1) {
+                // Add the maximum sum two elements ago
+                pick += prev2;
+            }
+            // Maximum sum if we don't pick current element
+            int nonPick = 0 + prev;
+ 
+            // Maximum at the current element
+            int cur_i = Math.max(pick, nonPick);
+ 
+            prev2 = prev;
+            prev = cur_i;
+        }
+        // Return the maximum sum
+        return prev;
+    }
+ 
+    // Function to find the maximum money robber can rob
+    public int houseRobber(int[] money) {
+        int n = money.length;
+        if (n == 0)
+            return 0;
+        if (n == 1)
+            return money[0];
+ 
+        int[] arr1 = new int[n - 1];
+        int[] arr2 = new int[n - 1];
+ 
+        // Populate arr1 and arr2
+        for (int i = 0; i < n; i++) {
+            if (i != n - 1)
+                arr1[i] = money[i];
+            if (i != 0)
+                arr2[i - 1] = money[i];
+        }
+        int ans1 = func(arr1);
+ 
+        int ans2 = func(arr2);
+ 
+        // Return the maximum of ans1 and ans2
+        return Math.max(ans1, ans2);
+    }
+Time Complexity: O(N)+O(N)
+Space Complexity:O(N)+O(N),
 ```
