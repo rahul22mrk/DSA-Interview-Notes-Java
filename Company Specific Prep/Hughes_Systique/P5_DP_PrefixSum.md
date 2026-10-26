@@ -20,20 +20,68 @@ Resources:
 
 1. Longest Subarray with Zero Sum
 ```
-
+https://takeuforward.org/practice/dsa/largest-subarray-with-sum-0
 ```
 
 ```java
-
+ // Method to find the maximum length subarray with sum zero
+    public int maxLen(int[] arr) {
+        int n = arr.length;
+        int maxLength = 0;
+ 
+        // Loop over all subarrays
+        for (int start = 0; start < n; ++start) {
+            int sum = 0;
+            for (int end = start; end < n; ++end) {
+                sum += arr[end];  // Compute the sum of the subarray
+ 
+                // Check if the sum is zero
+                if (sum == 0) {
+                    maxLength = Math.max(maxLength, end - start + 1);  // Update max length if needed
+                }
+            }
+        }
+ 
+        return maxLength;  // Return the maximum length of subarray with sum zero
+    }
+Time Complexity: O(n²)
+We use two nested loops to go through all subarrays and compute each subarray sum.
+Space Complexity: O(1)
+Only a few variables are used for tracking the sum and maximum length.
 ```
 
 ```java
+public int maxLen(int[] arr) {
+        Map<Integer, Integer> sumMap = new HashMap<>();  // Map to store first occurrence of cumulative sum
+        int maxLength = 0;
+        int sum = 0;
+ 
+        // Traverse the array
+        for (int i = 0; i < arr.length; ++i) {
+            sum += arr[i];  // Compute the running sum
+ 
+            // If sum is zero, the subarray from index 0 to i has sum 0
+            if (sum == 0) {
+                maxLength = i + 1;
+            }
+            // If the sum has been seen before, update maxLength
+            else if (sumMap.containsKey(sum)) {
+                maxLength = Math.max(maxLength, i - sumMap.get(sum));
+            } else {
+                // Store the first occurrence of the cumulative sum
+                sumMap.put(sum, i);
+            }
+        }
+ 
+        return maxLength;  // Return the maximum length of subarray with sum zero
+    }
 
+Time Complexity: O(n)
+We only traverse the array once, and each operation with the hash map (insert and lookup) is O(1).
+Space Complexity: O(n)
+For storing the cumulative sums and their first occurrences in the hash map.
 ```
 
-```java
-
-```
 
 2. Subarray Sum Equals K
 ```
