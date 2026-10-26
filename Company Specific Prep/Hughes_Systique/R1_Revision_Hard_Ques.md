@@ -7,4 +7,6 @@
 7. Reverse Linked List
 8. Binary Tree Right Side View
 9. Binary Tree Zigzag Level Order Traversal
-10. 
+10. Longest Subarray with Zero Sum
+11. 0/1 Knapsack
+12. House Robber
