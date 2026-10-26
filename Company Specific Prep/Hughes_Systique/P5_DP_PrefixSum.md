@@ -59,15 +59,124 @@ https://www.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1
 ```
 
 ```java
-
+// Function to solve the 0/1 Knapsack problem with arrays
+    private int func(int[] wt, int[] val, int ind, int W, int[][] dp) {
+        /* Base case: If there are no items left
+        or the knapsack has no capacity, return 0 */
+        if (ind < 0 || W == 0) {
+            return 0;
+        }
+ 
+        /* If the result for this state is
+        already calculated, return it */
+        if (dp[ind][W] != -1) {
+            return dp[ind][W];
+        }
+ 
+        /* Calculate the maximum value by either
+        excluding the current item or including it */
+        int notTaken = func(wt, val, ind - 1, W, dp);
+        int taken = 0;
+ 
+        /* Check if the current item can be included
+        without exceeding the knapsack's capacity */
+        if (wt[ind] <= W) {
+            taken = val[ind] + func(wt, val, ind - 1, W - wt[ind], dp);
+        }
+ 
+        // Store the result in the DP table and return
+        dp[ind][W] = Math.max(notTaken, taken);
+        return dp[ind][W];
+    }
+ 
+    public int knapsack01(int[] wt, int[] val, int n, int W) { 
+        // Initialize DP table with -1
+        int[][] dp = new int[n][W + 1];
+        for (int[] row : dp) {
+            Arrays.fill(row, -1);
+        }
+        return func(wt, val, n - 1, W, dp);
+    }
+Time Complexity: O(N*W),
+Space Complexity:O(N*W) + O(N),
 ```
 
 ```java
-
+public int knapsack01(int[] wt, int[] val, int n, int W) {
+        /* Declare a 2D DP table with dimensions
+        n x W+1 and initialize it with zeros*/
+        int[][] dp = new int[n][W + 1];
+ 
+        /* Base condition: Fill in the first 
+        row for the weight of the first item*/
+        for (int i = wt[0]; i <= W; i++) {
+            dp[0][i] = val[0];
+        }
+ 
+        // Fill in DP table using a bottom-up approach
+        for (int ind = 1; ind < n; ind++) {
+            for (int cap = 0; cap <= W; cap++) {
+                /* Calculate the maximum value by either
+                excluding the current item or including it*/
+                int notTaken = dp[ind - 1][cap];
+                int taken = Integer.MIN_VALUE;
+ 
+                /* Check if the current item can be included
+                without exceeding the knapsack's capacity*/
+                if (wt[ind] <= cap) {
+                    taken = val[ind] + dp[ind - 1][cap - wt[ind]];
+                }
+ 
+                // Update the DP table
+                dp[ind][cap] = Math.max(notTaken, taken);
+            }
+        }
+ 
+        // The final result is in the last cell
+        return dp[n - 1][W];
+    }
+Time Complexity: O(N*W), where N is the size of the array. As two nested loops are used for the calculations.
+Space Complexity:O(N*W), As a 2D array of size N*W is used.
 ```
 
 ```java
+ public int knapsack01(int[] wt, int[] val, int n, int W) {
+        /* Initialize a vector 'prev' to represent 
+        the previous row of the DP table*/
+        int[] prev = new int[W + 1];
+ 
+        /* Base condition: Fill in 'prev' 
+        for the weight of the first item*/
+        for (int i = wt[0]; i <= W; i++) {
+            prev[i] = val[0];
+        }
+ 
+        // Fill in the table using a bottom-up approach
+        for (int ind = 1; ind < n; ind++) {
+            for (int cap = W; cap >= 0; cap--) {
+                /* Calculate the maximum value by either 
+                excluding the current item or including it*/
+                int notTaken = prev[cap];
+                int taken = Integer.MIN_VALUE;
+ 
+                /* Check if the current item can be included 
+                without exceeding the knapsack's capacity*/
+                if (wt[ind] <= cap) {
+                    taken = val[ind] + prev[cap - wt[ind]];
+                }
+ 
+                // Update 'prev' for the current capacity
+                prev[cap] = Math.max(notTaken, taken);
+            }
+        }
+ 
+        /* The final result is in the
+        last cell of the 'prev' vector*/
+        return prev[W];
+    }
+ Time Complexity: O(N*W), where N is the size of the array. As two nested loops are used for the calculations.
 
+Space Complexity:O(W), We are using an external array of size ‘W+1’ to store only one row.
 ```
 
 4. Climbing Stairs
